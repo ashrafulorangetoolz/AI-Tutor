@@ -1,0 +1,300 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Tailwind CSS v4 — CSS-first theme.
+   Refreshed "bright EdTech" direction inspired by modern course
+   templates: bold display type, near-black ink, a vivid emerald
+   primary + violet secondary, a pastel category-accent system,
+   large rounded cards and pill buttons on a soft cream canvas.
+   Font families reference the next/font variables in app/layout.tsx.
+   ============================================================ */
+@theme {
+  /* Fonts */
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-outfit), var(--font-noto), ui-sans-serif, system-ui, sans-serif;
+  --font-bangla: var(--font-noto), ui-sans-serif, system-ui, sans-serif;
+
+  /* ---- Brand palette (design-system core) ----
+     Primary #7034EA · Tertiary #9762FD · Secondary #09FF9B
+     Accent  #FDFD35 · CTA #FF5714 · plus #FFFFFF / #000000 */
+
+  /* Brand — Primary (violet). brand-400 == Tertiary #9762FD. */
+  --color-brand-50: #f2ecfd;
+  --color-brand-100: #e6d9fb;
+  --color-brand-200: #ccb3f8;
+  --color-brand-300: #b28cf5;
+  --color-brand-400: #9762fd;
+  --color-brand-500: #7034ea;
+  --color-brand-600: #5b26c4;
+  --color-brand-700: #461d97;
+  --color-brand-800: #33166e;
+  --color-brand-900: #221049;
+
+  /* Violet — aliased to the Tertiary purple (btn-violet, highlights) */
+  --color-violet-50: #f2ecfd;
+  --color-violet-100: #e6d9fb;
+  --color-violet-500: #9762fd;
+  --color-violet-600: #7034ea;
+
+  /* Secondary — vivid mint green */
+  --color-secondary-50: #e6fff5;
+  --color-secondary-100: #c4ffe8;
+  --color-secondary-200: #8affd2;
+  --color-secondary-300: #4dffbb;
+  --color-secondary-400: #1fffa8;
+  --color-secondary-500: #09ff9b;
+  --color-secondary-600: #00d97f;
+  --color-secondary-700: #00a862;
+
+  /* Accent — electric yellow */
+  --color-accent-100: #fefec2;
+  --color-accent-300: #fdfd6b;
+  --color-accent-400: #fdfd4d;
+  --color-accent-500: #fdfd35;
+  --color-accent-600: #e6e600;
+  --color-accent-700: #b3b300;
+
+  /* CTA — hot orange (coral aliased to CTA) */
+  --color-coral-50: #fff0ea;
+  --color-coral-100: #ffe0d2;
+  --color-coral-200: #ffbfa3;
+  --color-coral-300: #ff9670;
+  --color-coral-400: #ff7440;
+  --color-coral-500: #ff5714;
+  --color-coral-600: #e04405;
+  --color-coral-700: #b33500;
+
+  /* Sky / blue */
+  --color-sky-50: #eaf3fe;
+  --color-sky-100: #d8e9fd;
+  --color-sky-400: #4aa3f5;
+  --color-sky-500: #2e90fa;
+  --color-sky-600: #1f74d6;
+
+  /* Pastel category accents (subjects, badges, section tints) */
+  --color-rose-500: #ea4c89;
+  --color-rose-100: #fde3ee;
+  --color-sun-500: #f5a524;
+  --color-sun-100: #fdecc8;
+
+  /* Semantic role tokens (map to the brand palette above) */
+  --color-primary: #7034ea;
+  --color-tertiary: #9762fd;
+  --color-secondary: #09ff9b;
+  --color-accent: #fdfd35;
+  --color-cta: #ff5714;
+
+  /* Semantic tokens */
+  --color-canvas: #fafafc;
+  --color-surface: #ffffff;
+  --color-ink: #0f1020;
+  --color-muted: #5c5b6b;
+  --color-line: #eae7f0;
+  --color-success: #0fa06e;
+  --color-warning: #f5a524;
+  --color-danger: #f04438;
+  --color-info: #2e90fa;
+
+  /* Radius — larger, friendlier */
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.375rem;
+  --radius-3xl: 1.75rem;
+
+  /* Shadows — soft, diffuse */
+  --shadow-card: 0 1px 2px rgba(15, 27, 21, 0.04), 0 10px 30px rgba(15, 27, 21, 0.06);
+  --shadow-pop: 0 16px 48px rgba(15, 27, 21, 0.12);
+  --shadow-brand: 0 10px 24px rgba(112, 52, 234, 0.30);
+  --shadow-cta: 0 10px 24px rgba(255, 87, 20, 0.30);
+
+  /* Animations */
+  --animate-fadeUp: fadeUp 0.4s ease both;
+  --animate-blink: blink 1.2s infinite;
+  --animate-float: float 6s ease-in-out infinite;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes blink {
+  0%,
+  80%,
+  100% {
+    opacity: 0.25;
+  }
+  40% {
+    opacity: 1;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* ============================================================
+   Base
+   ============================================================ */
+@layer base {
+  * {
+    @apply border-line;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-canvas text-ink font-sans antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: #e6d9fb;
+  }
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    outline: 2px solid #7034ea;
+    outline-offset: 1px;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display tracking-tight;
+    letter-spacing: -0.02em;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+/* ============================================================
+   Reusable component utilities
+   ============================================================ */
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-all;
+  @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500;
+  @apply disabled:cursor-not-allowed disabled:opacity-60;
+}
+
+@utility badge {
+  @apply inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold;
+}
+
+@layer components {
+  /* Layout */
+  .section {
+    @apply mx-auto w-full max-w-[1200px] px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Cards */
+  .card {
+    @apply rounded-3xl border border-line bg-surface shadow-card;
+  }
+  .card-pad {
+    @apply p-5 sm:p-6;
+  }
+
+  /* Buttons */
+  .btn-primary {
+    @apply btn bg-brand-500 text-white shadow-brand hover:bg-brand-600 hover:-translate-y-0.5;
+  }
+  .btn-secondary {
+    @apply btn border border-line bg-surface text-ink hover:border-brand-300 hover:bg-brand-50;
+  }
+  .btn-ghost {
+    @apply btn text-ink hover:bg-brand-50;
+  }
+  .btn-violet {
+    @apply btn bg-violet-500 text-white hover:bg-violet-600 hover:-translate-y-0.5;
+  }
+  .btn-cta {
+    @apply btn bg-coral-500 text-white shadow-cta hover:bg-coral-600 hover:-translate-y-0.5;
+  }
+  .btn-secondary-fill {
+    @apply btn bg-secondary-500 text-ink hover:bg-secondary-600 hover:-translate-y-0.5;
+  }
+  .btn-danger {
+    @apply btn bg-danger text-white hover:opacity-90;
+  }
+
+  /* Badges */
+  .badge-green {
+    @apply badge bg-brand-100 text-brand-700;
+  }
+  .badge-amber {
+    @apply badge bg-sun-100 text-amber-700;
+  }
+  .badge-blue {
+    @apply badge bg-sky-100 text-sky-600;
+  }
+  .badge-violet {
+    @apply badge bg-violet-100 text-violet-600;
+  }
+  .badge-mint {
+    @apply badge bg-secondary-100 text-secondary-700;
+  }
+  .badge-yellow {
+    @apply badge bg-accent-100 text-ink;
+  }
+  .badge-cta {
+    @apply badge bg-coral-100 text-coral-700;
+  }
+  .badge-gray {
+    @apply badge bg-black/5 text-muted;
+  }
+
+  /* Inputs */
+  .input {
+    @apply w-full rounded-2xl border border-line bg-surface px-4 py-2.5 text-sm text-ink placeholder:text-muted/70 focus:border-brand-400;
+  }
+  .label {
+    @apply mb-1.5 block text-sm font-medium text-ink;
+  }
+
+  /* Skeleton loader */
+  .skeleton {
+    @apply relative overflow-hidden rounded-lg bg-black/5;
+  }
+  .skeleton::after {
+    content: "";
+    @apply absolute inset-0 -translate-x-full;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+    animation: shimmer 1.5s infinite;
+  }
+}
+
+/* Bangla text should always use the Bengali font */
+.bn,
+[lang="bn"] {
+  font-family: var(--font-bangla), var(--font-sans);
+}
+
+/* Thin scrollbar for chat / sidebars */
+.scroll-thin::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.scroll-thin::-webkit-scrollbar-thumb {
+  background: #d7d5cb;
+  border-radius: 8px;
+}

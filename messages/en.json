@@ -1,0 +1,67 @@
+{
+  "nav": {
+    "ssc": "SSC",
+    "ielts": "IELTS",
+    "schools": "Schools",
+    "pricing": "Pricing",
+    "contact": "Contact",
+    "login": "Log in",
+    "signup": "Get started",
+    "dashboard": "Dashboard"
+  },
+  "common": {
+    "getStarted": "Get started free",
+    "learnMore": "Learn more",
+    "tryFree": "Try it free",
+    "seePlans": "See plans",
+    "loading": "Loading…",
+    "save": "Save",
+    "cancel": "Cancel",
+    "search": "Search",
+    "language": "Language",
+    "english": "English",
+    "bangla": "বাংলা",
+    "logout": "Log out",
+    "upgrade": "Upgrade",
+    "viewAll": "View all",
+    "continue": "Continue",
+    "back": "Back",
+    "regenerate": "Regenerate",
+    "explainSimply": "Explain more simply",
+    "savedAnswer": "Save answer",
+    "practice": "Practice"
+  },
+  "home": {
+    "heroTitle": "Smart AI Learning for SSC & IELTS students in Bangladesh",
+    "heroSubtitle": "A bilingual AI tutor that teaches step by step in English and Bangla — with mock exams, photo doubt-solving, and adaptive study plans.",
+    "trustedBy": "Trusted by students across Bangladesh"
+  },
+  "dashboard": {
+    "welcome": "Welcome back",
+    "overview": "Overview",
+    "aiTutor": "AI Tutor",
+    "doubtSolver": "Doubt Solver",
+    "conceptCards": "Concept Cards",
+    "mockExams": "Mock Exams",
+    "studyPlan": "Study Plan",
+    "progress": "Progress",
+    "settings": "Settings",
+    "streak": "Study streak",
+    "examCountdown": "Exam countdown",
+    "weakTopics": "Weak topics",
+    "recentActivity": "Recent activity",
+    "recommended": "Recommended for you"
+  },
+  "ai": {
+    "askAnything": "Ask anything about your subjects…",
+    "subject": "Subject",
+    "topic": "Topic",
+    "thinking": "Thinking…",
+    "steps": "Step-by-step",
+    "example": "Example",
+    "practiceQuestions": "Practice questions",
+    "conceptCards": "Recommended concept cards",
+    "uploadImage": "Upload a question photo",
+    "ocrPreview": "Extracted text"
+  }
+}

@@ -1,0 +1,503 @@
+// AI Tutor Platform — Prisma schema
+// PostgreSQL. Run: `npx prisma db push` then `npm run db:seed`.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ============================================================
+// Enums
+// ============================================================
+
+enum UserRole {
+  STUDENT
+  PARENT
+  SCHOOL_ADMIN
+  SUPER_ADMIN
+}
+
+enum TrackType {
+  SSC
+  IELTS
+  BOTH
+}
+
+enum Language {
+  EN
+  BN
+}
+
+enum SscGroup {
+  SCIENCE
+  BUSINESS
+  HUMANITIES
+}
+
+enum SubscriptionPlan {
+  FREE
+  SSC_PRO
+  IELTS_PRO
+  BUNDLE
+  SCHOOL
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  CANCELLED
+  EXPIRED
+  TRIALING
+}
+
+enum PaymentProvider {
+  BKASH
+  NAGAD
+  STRIPE
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+}
+
+enum QuestionType {
+  MCQ
+  SHORT
+  BROAD
+  TRUE_FALSE
+  FILL_BLANK
+}
+
+enum DifficultyLevel {
+  EASY
+  MEDIUM
+  HARD
+}
+
+enum ExamStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
+  GRADED
+}
+
+enum ExamKind {
+  SSC_BOARD
+  SSC_CUSTOM
+  IELTS_FULL
+  IELTS_SECTION
+}
+
+enum NotificationType {
+  STUDY_REMINDER
+  STREAK_ALERT
+  EXAM_COUNTDOWN
+  REPORT_READY
+  ACHIEVEMENT
+  SYSTEM
+}
+
+// ============================================================
+// Users & profiles
+// ============================================================
+
+model User {
+  id            String    @id @default(cuid())
+  name          String
+  email         String    @unique
+  phone         String?   @unique
+  passwordHash  String?
+  role          UserRole  @default(STUDENT)
+  language      Language  @default(EN)
+  avatarColor   String    @default("#1B7A4B")
+  emailVerified DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  studentProfile StudentProfile?
+  parentProfile  ParentProfile?
+  subscription   Subscription?
+  payments       Payment[]
+  conversations  AiConversation[]
+  doubts         DoubtSolve[]
+  ocrUploads     OcrUpload[]
+  writingSubs    IeltsWritingSubmission[]
+  speakingSubs   IeltsSpeakingSubmission[]
+  studyPlans     StudyPlan[]
+  progress       ProgressRecord[]
+  weakTopics     WeakTopic[]
+  examAttempts   MockExamAttempt[]
+  notifications  Notification[]
+  achievements   Achievement[]
+  schoolAdminOf  School[]          @relation("SchoolAdmin")
+  enrollments    SchoolEnrollment[]
+}
+
+model StudentProfile {
+  id             String    @id @default(cuid())
+  userId         String    @unique
+  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  track          TrackType @default(SSC)
+  grade          String? // e.g. "Class 9", "Class 10"
+  sscGroup       SscGroup?
+  targetBand     Float? // IELTS target
+  dailyGoalMin   Int       @default(60)
+  studyStreak    Int       @default(0)
+  totalStudyMin  Int       @default(0)
+  examDate       DateTime?
+  parentId       String?
+  parent         ParentProfile? @relation(fields: [parentId], references: [id])
+  createdAt      DateTime  @default(now())
+}
+
+model ParentProfile {
+  id        String           @id @default(cuid())
+  userId    String           @unique
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  children  StudentProfile[]
+  createdAt DateTime         @default(now())
+}
+
+// ============================================================
+// Schools & licensing
+// ============================================================
+
+model School {
+  id           String             @id @default(cuid())
+  name         String
+  address      String?
+  adminId      String
+  admin        User               @relation("SchoolAdmin", fields: [adminId], references: [id])
+  licenseSeats Int                @default(0)
+  usedSeats    Int                @default(0)
+  plan         SubscriptionPlan   @default(SCHOOL)
+  createdAt    DateTime           @default(now())
+  enrollments  SchoolEnrollment[]
+}
+
+model SchoolEnrollment {
+  id        String   @id @default(cuid())
+  schoolId  String
+  school    School   @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  studentId String
+  student   User     @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  className String?
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  @@unique([schoolId, studentId])
+}
+
+// ============================================================
+// Subscriptions & payments
+// ============================================================
+
+model Subscription {
+  id        String             @id @default(cuid())
+  userId    String             @unique
+  user      User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  plan      SubscriptionPlan   @default(FREE)
+  status    SubscriptionStatus @default(ACTIVE)
+  startedAt DateTime           @default(now())
+  expiresAt DateTime?
+  payments  Payment[]
+}
+
+model Payment {
+  id             String          @id @default(cuid())
+  userId         String
+  user           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subscriptionId String?
+  subscription   Subscription?   @relation(fields: [subscriptionId], references: [id])
+  provider       PaymentProvider
+  plan           SubscriptionPlan
+  amount         Int // minor unit / whole BDT
+  currency       String          @default("BDT")
+  status         PaymentStatus   @default(PENDING)
+  reference      String?
+  createdAt      DateTime        @default(now())
+}
+
+// ============================================================
+// Content: subjects, chapters, concept cards, questions
+// ============================================================
+
+model Subject {
+  id        String    @id @default(cuid())
+  slug      String    @unique
+  name      String
+  nameBn    String
+  track     TrackType
+  group     SscGroup?
+  icon      String    @default("📘")
+  color     String    @default("#1B7A4B")
+  chapters  Chapter[]
+  questions Question[]
+}
+
+model Chapter {
+  id           String        @id @default(cuid())
+  subjectId    String
+  subject      Subject       @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  title        String
+  titleBn      String?
+  order        Int           @default(0)
+  conceptCards ConceptCard[]
+  questions    Question[]
+}
+
+model ConceptCard {
+  id             String          @id @default(cuid())
+  chapterId      String
+  chapter        Chapter         @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  title          String
+  subjectSlug    String
+  track          TrackType
+  language       Language        @default(EN)
+  explanation    String
+  example        String
+  commonMistakes String[]
+  practice       String[]
+  difficulty     DifficultyLevel @default(MEDIUM)
+  premium        Boolean         @default(false)
+  createdAt      DateTime        @default(now())
+}
+
+model Question {
+  id            String          @id @default(cuid())
+  subjectId     String
+  subject       Subject         @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  chapterId     String?
+  chapter       Chapter?        @relation(fields: [chapterId], references: [id])
+  type          QuestionType
+  difficulty    DifficultyLevel @default(MEDIUM)
+  prompt        String
+  options       String[]
+  correctAnswer String?
+  explanation   String?
+  marks         Int             @default(1)
+  isPreviousYr  Boolean         @default(false)
+  year          Int?
+  examQuestions MockExamQuestion[]
+  answers       MockExamAnswer[]
+}
+
+// ============================================================
+// Mock exams
+// ============================================================
+
+model MockExam {
+  id          String             @id @default(cuid())
+  title       String
+  kind        ExamKind
+  track       TrackType
+  subjectSlug String?
+  durationMin Int                @default(60)
+  totalMarks  Int                @default(100)
+  premium     Boolean            @default(false)
+  createdAt   DateTime           @default(now())
+  questions   MockExamQuestion[]
+  attempts    MockExamAttempt[]
+}
+
+model MockExamQuestion {
+  id         String   @id @default(cuid())
+  examId     String
+  exam       MockExam @relation(fields: [examId], references: [id], onDelete: Cascade)
+  questionId String
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  order      Int      @default(0)
+
+  @@unique([examId, questionId])
+}
+
+model MockExamAttempt {
+  id          String           @id @default(cuid())
+  examId      String
+  exam        MockExam         @relation(fields: [examId], references: [id], onDelete: Cascade)
+  userId      String
+  user        User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  status      ExamStatus       @default(NOT_STARTED)
+  score       Float?
+  totalMarks  Int?
+  bandScore   Float? // for IELTS attempts
+  startedAt   DateTime         @default(now())
+  submittedAt DateTime?
+  answers     MockExamAnswer[]
+}
+
+model MockExamAnswer {
+  id         String          @id @default(cuid())
+  attemptId  String
+  attempt    MockExamAttempt @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  questionId String
+  question   Question        @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  answer     String?
+  isCorrect  Boolean?
+  marks      Float?
+}
+
+// ============================================================
+// Study plans, progress, weak topics
+// ============================================================
+
+model StudyPlan {
+  id        String          @id @default(cuid())
+  userId    String
+  user      User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  weekOf    DateTime        @default(now())
+  active    Boolean         @default(true)
+  tasks     StudyPlanTask[]
+  createdAt DateTime        @default(now())
+}
+
+model StudyPlanTask {
+  id          String    @id @default(cuid())
+  planId      String
+  plan        StudyPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+  title       String
+  subjectSlug String?
+  day         String // Mon..Sun
+  estMinutes  Int       @default(30)
+  priority    DifficultyLevel @default(MEDIUM)
+  completed   Boolean   @default(false)
+}
+
+model ProgressRecord {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subjectSlug String
+  topic       String?
+  mastery     Float    @default(0) // 0..100
+  studyMin    Int      @default(0)
+  date        DateTime @default(now())
+}
+
+model WeakTopic {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subjectSlug String
+  topic       String
+  mastery     Float    @default(0)
+  priority    DifficultyLevel @default(HARD)
+  detectedAt  DateTime @default(now())
+}
+
+// ============================================================
+// AI: conversations, doubts, OCR, IELTS submissions
+// ============================================================
+
+model AiConversation {
+  id        String      @id @default(cuid())
+  userId    String
+  user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  track     TrackType   @default(SSC)
+  subject   String?
+  topic     String?
+  language  Language    @default(EN)
+  title     String?
+  createdAt DateTime    @default(now())
+  messages  AiMessage[]
+}
+
+model AiMessage {
+  id             String         @id @default(cuid())
+  conversationId String
+  conversation   AiConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  role           String // "user" | "assistant"
+  content        String
+  saved          Boolean        @default(false)
+  createdAt      DateTime       @default(now())
+}
+
+model DoubtSolve {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subjectSlug String?
+  question    String
+  ocrUploadId String?
+  ocrUpload   OcrUpload? @relation(fields: [ocrUploadId], references: [id])
+  solution    String
+  language    Language @default(EN)
+  saved       Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
+
+model OcrUpload {
+  id           String       @id @default(cuid())
+  userId       String
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fileUrl      String?
+  extractedText String
+  confidence   Float        @default(0)
+  provider     String       @default("mock")
+  createdAt    DateTime     @default(now())
+  doubts       DoubtSolve[]
+}
+
+model IeltsWritingSubmission {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  taskType      String // TASK1 | TASK2
+  prompt        String?
+  essay         String
+  targetBand    Float
+  estimatedBand Float
+  taskScore     Float
+  coherence     Float
+  lexical       Float
+  grammar       Float
+  suggestions   String[]
+  createdAt     DateTime @default(now())
+}
+
+model IeltsSpeakingSubmission {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  question      String
+  transcript    String?
+  audioUrl      String?
+  targetBand    Float
+  fluency       Float
+  pronunciation Float
+  grammar       Float
+  vocabulary    Float
+  estimatedBand Float
+  tips          String[]
+  createdAt     DateTime @default(now())
+}
+
+// ============================================================
+// Notifications & achievements
+// ============================================================
+
+model Notification {
+  id        String           @id @default(cuid())
+  userId    String
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      NotificationType @default(SYSTEM)
+  title     String
+  body      String?
+  read      Boolean          @default(false)
+  createdAt DateTime         @default(now())
+}
+
+model Achievement {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  icon      String   @default("🏆")
+  earnedAt  DateTime @default(now())
+}
