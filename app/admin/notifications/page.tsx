@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { Bell } from "lucide-react";
@@ -68,7 +68,7 @@ export default function AdminNotificationsPage() {
 
       <Card className="mb-6">
         <CardBody>
-          <h2 className="mb-4 text-base font-semibold text-ink">Compose notification</h2>
+          <h2 className="mb-4 text-xl font-semibold text-ink">Compose notification</h2>
           <div className="space-y-4">
             <div>
               <label className="label" htmlFor="notif-title">
@@ -119,7 +119,7 @@ export default function AdminNotificationsPage() {
         </CardBody>
       </Card>
 
-      <h2 className="mb-3 text-base font-semibold text-ink">Sent notifications</h2>
+      <h2 className="mb-3 text-xl font-semibold text-ink">Sent notifications</h2>
       <div className="space-y-3">
         {notifications.map((n) => (
           <Card key={n.id}>

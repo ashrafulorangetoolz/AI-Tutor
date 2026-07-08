@@ -8,15 +8,27 @@ function StatusBadge({ status }: { status: string }) {
       ? "green"
       : s === "PENDING" || s === "TRIALING"
         ? "amber"
-        : s === "FAILED" || s === "SUSPENDED" || s === "CANCELLED" || s === "INACTIVE" || s === "EXPIRED"
+        : s === "FAILED" ||
+            s === "SUSPENDED" ||
+            s === "CANCELLED" ||
+            s === "INACTIVE" ||
+            s === "EXPIRED"
           ? "gray"
           : "blue";
-  return <Badge tone={tone as "green" | "amber" | "gray" | "blue"}>{status}</Badge>;
+  return (
+    <Badge tone={tone as "green" | "amber" | "gray" | "blue"}>{status}</Badge>
+  );
 }
 
-function Table({ head, children }: { head: string[]; children: React.ReactNode }) {
+function Table({
+  head,
+  children,
+}: {
+  head: string[];
+  children: React.ReactNode;
+}) {
   return (
-    <div className="overflow-x-auto rounded-2xl border border-line bg-surface">
+    <div className="overflow-x-auto rounded-md border border-line bg-surface">
       <table className="w-full min-w-[560px] text-left text-sm">
         <thead>
           <tr className="border-b border-line text-xs uppercase tracking-wide text-muted">
@@ -37,7 +49,15 @@ function Table({ head, children }: { head: string[]; children: React.ReactNode }
 export function UserTable({
   rows,
 }: {
-  rows: { id: string; name: string; email: string; role: string; plan: string; status: string; joined: string }[];
+  rows: {
+    id: string;
+    name: string;
+    email: string;
+    role: string;
+    plan: string;
+    status: string;
+    joined: string;
+  }[];
 }) {
   return (
     <Table head={["User", "Role", "Plan", "Status", "Joined"]}>
@@ -70,7 +90,15 @@ export function UserTable({
 export function PaymentTable({
   rows,
 }: {
-  rows: { id: string; user: string; provider: string; plan: string; amount: number; status: string; date: string }[];
+  rows: {
+    id: string;
+    user: string;
+    provider: string;
+    plan: string;
+    amount: number;
+    status: string;
+    date: string;
+  }[];
 }) {
   return (
     <Table head={["User", "Provider", "Plan", "Amount", "Status", "Date"]}>
@@ -94,7 +122,14 @@ export function PaymentTable({
 export function SubscriptionTable({
   rows,
 }: {
-  rows: { id: string; user: string; plan: string; status: string; started: string; renews: string }[];
+  rows: {
+    id: string;
+    user: string;
+    plan: string;
+    status: string;
+    started: string;
+    renews: string;
+  }[];
 }) {
   return (
     <Table head={["User", "Plan", "Status", "Started", "Renews"]}>
@@ -119,7 +154,13 @@ export function SubscriptionTable({
 export function ContentManagerTable({
   rows,
 }: {
-  rows: { id: string; title: string; type: string; subject: string; status: string }[];
+  rows: {
+    id: string;
+    title: string;
+    type: string;
+    subject: string;
+    status: string;
+  }[];
 }) {
   return (
     <Table head={["Title", "Type", "Subject", "Status"]}>

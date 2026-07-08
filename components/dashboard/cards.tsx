@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import type { ReactNode } from "react";
 import { Card, CardBody, Badge, ProgressBar } from "@/components/ui/primitives";
 import { cn } from "@/lib/utils/cn";
@@ -29,7 +29,7 @@ export function StatCard({
         {icon && (
           <div
             className={cn(
-              "flex h-11 w-11 items-center justify-center rounded-md text-xl",
+              "flex h-16 w-16 items-center justify-center rounded-md text-3xl",
               bg,
             )}
           >
@@ -156,9 +156,9 @@ export function ActivityFeed({
       {items.map((it, i) => (
         <li
           key={i}
-          className="flex items-start gap-3 rounded-xl px-2 py-2.5 hover:bg-brand-50"
+          className="flex items-start gap-3 rounded-md px-2 py-2.5 hover:bg-brand-50"
         >
-          <span className="mt-0.5 text-lg">{it.icon}</span>
+          <span className="mt-0.5 text-xl">{it.icon}</span>
           <div className="min-w-0 flex-1">
             <p className="text-sm text-ink">{it.text}</p>
             <p className="text-xs text-muted">{it.time}</p>
@@ -310,7 +310,7 @@ export function MockExamCard({
           <Badge tone={track === "IELTS" ? "blue" : "green"}>{track}</Badge>
           {premium && <Badge tone="amber">★ Premium</Badge>}
         </div>
-        <h3 className="text-base font-semibold text-ink">{title}</h3>
+        <h3 className="text-xl font-semibold text-ink">{title}</h3>
         {subject && <p className="text-xs text-muted">{subject}</p>}
         <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted">
           <span>⏱ {durationMin} min</span>

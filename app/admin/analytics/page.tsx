@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { PageHeader, StatCard } from "@/components/dashboard/cards";
 import { LineChart, BarChart, Donut } from "@/components/dashboard/charts";
 import { Card, CardBody } from "@/components/ui/primitives";
@@ -31,19 +31,19 @@ export default function AdminAnalyticsPage() {
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <Card>
           <CardBody>
-            <h2 className="mb-4 text-base font-semibold text-ink">Revenue (BDT)</h2>
+            <h2 className="mb-4 text-xl font-semibold text-ink">Revenue (BDT)</h2>
             <LineChart data={REVENUE_TREND.map((r) => ({ label: r.month, value: r.bdt }))} />
           </CardBody>
         </Card>
         <Card>
           <CardBody>
-            <h2 className="mb-4 text-base font-semibold text-ink">Signups</h2>
+            <h2 className="mb-4 text-xl font-semibold text-ink">Signups</h2>
             <BarChart data={SIGNUPS_TREND.map((s) => ({ label: s.month, value: s.count }))} />
           </CardBody>
         </Card>
         <Card>
           <CardBody>
-            <h2 className="mb-4 text-base font-semibold text-ink">Plan distribution</h2>
+            <h2 className="mb-4 text-xl font-semibold text-ink">Plan distribution</h2>
             <Donut
               segments={PLAN_DISTRIBUTION.map((p) => ({
                 label: p.plan,
@@ -55,7 +55,7 @@ export default function AdminAnalyticsPage() {
         </Card>
         <Card>
           <CardBody>
-            <h2 className="mb-4 text-base font-semibold text-ink">AI usage (calls this week)</h2>
+            <h2 className="mb-4 text-xl font-semibold text-ink">AI usage (calls this week)</h2>
             <BarChart data={AI_USAGE} color="#6B4FA0" />
           </CardBody>
         </Card>

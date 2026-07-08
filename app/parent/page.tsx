@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { AlertTriangle } from "lucide-react";
 import { PageHeader, StatCard } from "@/components/dashboard/cards";
 import { BarChart } from "@/components/dashboard/charts";
@@ -30,7 +30,7 @@ export default function ParentPage() {
       <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-3">
         <Card className="lg:col-span-2">
           <CardBody>
-            <h2 className="mb-4 text-base font-semibold text-ink">Weekly study time</h2>
+            <h2 className="mb-4 text-xl font-semibold text-ink">Weekly study time</h2>
             <BarChart
               data={c.weeklyStudy.map((d) => ({ label: d.day, value: d.min }))}
               suffix="m"
@@ -40,7 +40,7 @@ export default function ParentPage() {
 
         <Card>
           <CardBody>
-            <h2 className="mb-4 text-base font-semibold text-ink">Goals &amp; achievements</h2>
+            <h2 className="mb-4 text-xl font-semibold text-ink">Goals &amp; achievements</h2>
             <div className="space-y-4">
               {c.goals.map((g) => (
                 <div key={g.title}>
@@ -66,7 +66,7 @@ export default function ParentPage() {
       <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-2">
         <Card>
           <CardBody>
-            <h2 className="mb-4 text-base font-semibold text-ink">Weak areas</h2>
+            <h2 className="mb-4 text-xl font-semibold text-ink">Weak areas</h2>
             <ul className="space-y-2">
               {c.weakAreas.map((w) => (
                 <li
@@ -84,7 +84,7 @@ export default function ParentPage() {
 
         <Card>
           <CardBody>
-            <h2 className="mb-4 text-base font-semibold text-ink">Early alerts</h2>
+            <h2 className="mb-4 text-xl font-semibold text-ink">Early alerts</h2>
             <ul className="space-y-2">
               {c.alerts.map((a, i) => {
                 const warning = a.level === "warning";

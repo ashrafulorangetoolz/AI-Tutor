@@ -1,4 +1,4 @@
-import { PageHeader, StatCard } from "@/components/dashboard/cards";
+﻿import { PageHeader, StatCard } from "@/components/dashboard/cards";
 import { BarChart, LineChart } from "@/components/dashboard/charts";
 import { Card, CardBody, ProgressBar } from "@/components/ui/primitives";
 import {
@@ -50,7 +50,7 @@ export default function ProgressPage() {
       <div className="mt-5 grid gap-5 lg:grid-cols-2">
         <Card>
           <CardBody>
-            <h2 className="mb-4 text-base font-semibold text-ink">
+            <h2 className="mb-4 text-xl font-semibold text-ink">
               Study time (this week)
             </h2>
             <BarChart
@@ -62,7 +62,7 @@ export default function ProgressPage() {
 
         <Card>
           <CardBody>
-            <h2 className="mb-4 text-base font-semibold text-ink">Mock exam scores</h2>
+            <h2 className="mb-4 text-xl font-semibold text-ink">Mock exam scores</h2>
             <LineChart
               data={MOCK_SCORES.map((m) => ({ label: m.label, value: m.score }))}
             />
@@ -71,7 +71,7 @@ export default function ProgressPage() {
 
         <Card>
           <CardBody>
-            <h2 className="mb-4 text-base font-semibold text-ink">Topic mastery</h2>
+            <h2 className="mb-4 text-xl font-semibold text-ink">Topic mastery</h2>
             <div className="space-y-3.5">
               {SUBJECT_MASTERY.map((s) => (
                 <div key={s.subject}>
@@ -88,7 +88,7 @@ export default function ProgressPage() {
 
         <Card>
           <CardBody>
-            <h2 className="mb-4 text-base font-semibold text-ink">
+            <h2 className="mb-4 text-xl font-semibold text-ink">
               IELTS band progress
             </h2>
             <div className="space-y-3.5">
@@ -111,7 +111,7 @@ export default function ProgressPage() {
       <div className="mt-5">
         <Card>
           <CardBody>
-            <h2 className="mb-4 text-base font-semibold text-ink">Achievements</h2>
+            <h2 className="mb-4 text-xl font-semibold text-ink">Achievements</h2>
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
               {ACHIEVEMENTS.map((a) => (
                 <div

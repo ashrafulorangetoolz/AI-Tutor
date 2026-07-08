@@ -1,4 +1,4 @@
-import {
+﻿import {
   SectionHeading,
   Card,
   CardBody,
@@ -158,7 +158,7 @@ export default function SchoolsPage() {
                       {i + 1}
                     </span>
                     <div>
-                      <h4 className="text-base font-semibold text-ink">
+                      <h4 className="text-xl font-semibold text-ink">
                         {step.title}
                       </h4>
                       <p className="mt-1 text-sm text-muted">

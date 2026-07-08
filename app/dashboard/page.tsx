@@ -1,4 +1,4 @@
-import {
+﻿import {
   PageHeader,
   StatCard,
   ExamCountdownCard,
@@ -59,7 +59,7 @@ export default function DashboardOverviewPage() {
         <div className="space-y-5 lg:col-span-2">
           <Card>
             <CardBody>
-              <h2 className="mb-4 text-base font-semibold text-ink">
+              <h2 className="mb-4 text-xl font-semibold text-ink">
                 This week's study time
               </h2>
               <BarChart
@@ -72,7 +72,7 @@ export default function DashboardOverviewPage() {
           <Card>
             <CardBody>
               <div className="mb-4 flex items-center justify-between">
-                <h2 className="text-base font-semibold text-ink">
+                <h2 className="text-xl font-semibold text-ink">
                   Recommended for you
                 </h2>
                 <LinkButton
@@ -106,7 +106,7 @@ export default function DashboardOverviewPage() {
 
           <Card>
             <CardBody>
-              <h2 className="mb-4 text-base font-semibold text-ink">Weak topics</h2>
+              <h2 className="mb-4 text-xl font-semibold text-ink">Weak topics</h2>
               <div className="space-y-3">
                 {WEAK_TOPICS.map((t) => (
                   <WeakTopicCard
@@ -123,20 +123,18 @@ export default function DashboardOverviewPage() {
         </div>
       </div>
 
-      <div className="mt-5">
+      <div className="mt-5 grid gap-5 lg:grid-cols-2">
         <Card>
           <CardBody>
-            <h2 className="mb-2 text-base font-semibold text-ink">Recent activity</h2>
+            <h2 className="mb-2 text-xl font-semibold text-ink">Recent activity</h2>
             <ActivityFeed items={RECENT_ACTIVITY} />
           </CardBody>
         </Card>
-      </div>
 
-      <div className="mt-5">
         <Card>
           <CardBody>
             <div className="mb-4 flex items-center justify-between">
-              <h2 className="text-base font-semibold text-ink">Current study plan</h2>
+              <h2 className="text-xl font-semibold text-ink">Current study plan</h2>
               <LinkButton
                 href="/dashboard/study-plan"
                 variant="secondary"

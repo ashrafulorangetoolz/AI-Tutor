@@ -62,7 +62,7 @@ export default async function ConceptCardDetailPage({
       <div className="space-y-5">
         <Card>
           <CardBody>
-            <h2 className="mb-2 text-base font-semibold text-ink">Explanation</h2>
+            <h2 className="mb-2 text-xl font-semibold text-ink">Explanation</h2>
             <p className={cn("text-sm leading-relaxed text-ink/90", bn && "font-bangla")}>
               {card.explanation}
             </p>
@@ -71,7 +71,7 @@ export default async function ConceptCardDetailPage({
 
         <Card>
           <CardBody>
-            <h2 className="mb-2 text-base font-semibold text-ink">Example</h2>
+            <h2 className="mb-2 text-xl font-semibold text-ink">Example</h2>
             <p className={cn("text-sm leading-relaxed text-ink/90", bn && "font-bangla")}>
               {card.example}
             </p>
@@ -80,7 +80,7 @@ export default async function ConceptCardDetailPage({
 
         <Card>
           <CardBody>
-            <h2 className="mb-2 text-base font-semibold text-ink">Common mistakes</h2>
+            <h2 className="mb-2 text-xl font-semibold text-ink">Common mistakes</h2>
             <ul className={cn("list-disc space-y-1.5 pl-5 text-sm text-ink/90", bn && "font-bangla")}>
               {card.commonMistakes.map((m, i) => (
                 <li key={i}>{m}</li>
@@ -91,7 +91,7 @@ export default async function ConceptCardDetailPage({
 
         <Card>
           <CardBody>
-            <h2 className="mb-2 text-base font-semibold text-ink">Practice questions</h2>
+            <h2 className="mb-2 text-xl font-semibold text-ink">Practice questions</h2>
             <ol className={cn("list-decimal space-y-1.5 pl-5 text-sm text-ink/90", bn && "font-bangla")}>
               {card.practice.map((p, i) => (
                 <li key={i}>{p}</li>

@@ -1,4 +1,4 @@
-import {
+﻿import {
   SectionHeading,
   Card,
   CardBody,
@@ -72,7 +72,7 @@ function SubjectCard({ subject }: { subject: SubjectDef }) {
           {subject.icon}
         </div>
         <div className="min-w-0">
-          <h4 className="text-base font-semibold text-ink">{subject.name}</h4>
+          <h4 className="text-xl font-semibold text-ink">{subject.name}</h4>
           <p className="font-bangla text-sm text-muted">{subject.nameBn}</p>
           <p className="mt-1 text-xs text-muted">{subject.chapters} chapters</p>
         </div>

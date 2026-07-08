@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { PageHeader, StatCard } from "@/components/dashboard/cards";
 import { Donut } from "@/components/dashboard/charts";
 import { Card, CardBody } from "@/components/ui/primitives";
@@ -24,7 +24,7 @@ export default function AdminSubscriptionsPage() {
         </div>
         <Card>
           <CardBody>
-            <h2 className="mb-4 text-base font-semibold text-ink">Plan distribution</h2>
+            <h2 className="mb-4 text-xl font-semibold text-ink">Plan distribution</h2>
             <Donut
               segments={PLAN_DISTRIBUTION.map((p) => ({
                 label: p.plan,

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Link from "next/link";
@@ -78,7 +78,7 @@ function PlanCard({ plan, billing }: { plan: PlanDef; billing: Billing }) {
     >
       <CardBody className="flex flex-1 flex-col">
         <div className="flex items-center justify-between">
-          <h3 className="text-base font-semibold text-ink">{plan.name}</h3>
+          <h3 className="text-xl font-semibold text-ink">{plan.name}</h3>
           {plan.featured && (
             <span className="badge-green text-[11px]">Popular</span>
           )}

@@ -80,7 +80,7 @@ export default async function MockExamStartPage({
 
       <Card className="mt-5">
         <CardBody>
-          <h2 className="mb-3 text-base font-semibold text-ink">Instructions</h2>
+          <h2 className="mb-3 text-xl font-semibold text-ink">Instructions</h2>
           <ul className="list-disc space-y-2 pl-5 text-sm text-ink/90">
             {INSTRUCTIONS.map((line, i) => (
               <li key={i}>{line}</li>
@@ -90,7 +90,11 @@ export default async function MockExamStartPage({
       </Card>
 
       <div className="mt-6">
-        <LinkButton href="#" variant="primary" className="w-full !py-3 text-base">
+        <LinkButton
+          href={`/dashboard/mock-exams/${exam.id}/take`}
+          variant="primary"
+          className="w-full !py-3 text-base"
+        >
           Start now
         </LinkButton>
       </div>

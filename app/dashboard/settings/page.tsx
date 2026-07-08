@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { PageHeader } from "@/components/dashboard/cards";
@@ -54,7 +54,7 @@ export default function SettingsPage() {
         {/* Profile */}
         <Card>
           <CardBody>
-            <h2 className="mb-4 text-base font-semibold text-ink">Profile</h2>
+            <h2 className="mb-4 text-xl font-semibold text-ink">Profile</h2>
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
                 <label className="label mb-1.5 block">Name</label>
@@ -96,7 +96,7 @@ export default function SettingsPage() {
         {/* Language preference */}
         <Card>
           <CardBody>
-            <h2 className="mb-1 text-base font-semibold text-ink">
+            <h2 className="mb-1 text-xl font-semibold text-ink">
               Language preference
             </h2>
             <p className="mb-4 text-sm text-muted">
@@ -134,7 +134,7 @@ export default function SettingsPage() {
           <CardBody>
             <div className="mb-4 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <h2 className="text-base font-semibold text-ink">Subscription</h2>
+                <h2 className="text-xl font-semibold text-ink">Subscription</h2>
                 <Badge tone="gray">{freePlan.name}</Badge>
               </div>
               <LinkButton href="/pricing" variant="primary" className="!px-4 !py-2 text-sm">
@@ -184,7 +184,7 @@ export default function SettingsPage() {
         {/* Notifications */}
         <Card>
           <CardBody>
-            <h2 className="mb-4 text-base font-semibold text-ink">Notifications</h2>
+            <h2 className="mb-4 text-xl font-semibold text-ink">Notifications</h2>
             <div className="divide-y divide-line">
               {NOTIF_ROWS.map((row) => {
                 const on = notifs[row.key];

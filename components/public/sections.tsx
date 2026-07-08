@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import type { ReactNode } from "react";
 import { Check, ArrowRight, Star, Clock, BookOpen, BarChart3 } from "lucide-react";
 import { Card, CardBody, Badge } from "@/components/ui/primitives";
@@ -23,7 +23,7 @@ export function FeatureGrid({
             <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-100 text-2xl">
               {f.icon}
             </div>
-            <h3 className="mt-4 text-base font-semibold text-ink">{f.title}</h3>
+            <h3 className="mt-4 text-xl font-semibold text-ink">{f.title}</h3>
             <p className="mt-1.5 text-sm text-muted">{f.description}</p>
           </CardBody>
         </Card>

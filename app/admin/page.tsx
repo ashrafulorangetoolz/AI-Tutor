@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { PageHeader, StatCard } from "@/components/dashboard/cards";
 import { LineChart, Donut, BarChart } from "@/components/dashboard/charts";
 import { Card, CardBody } from "@/components/ui/primitives";
@@ -33,13 +33,13 @@ export default function AdminPage() {
       <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-3">
         <Card className="lg:col-span-2">
           <CardBody>
-            <h2 className="mb-4 text-base font-semibold text-ink">Revenue (BDT)</h2>
+            <h2 className="mb-4 text-xl font-semibold text-ink">Revenue (BDT)</h2>
             <LineChart data={REVENUE_TREND.map((r) => ({ label: r.month, value: r.bdt }))} />
           </CardBody>
         </Card>
         <Card>
           <CardBody>
-            <h2 className="mb-4 text-base font-semibold text-ink">Plan distribution</h2>
+            <h2 className="mb-4 text-xl font-semibold text-ink">Plan distribution</h2>
             <Donut
               segments={PLAN_DISTRIBUTION.map((p) => ({
                 label: p.plan,
@@ -53,13 +53,13 @@ export default function AdminPage() {
 
       <Card className="mt-6">
         <CardBody>
-          <h2 className="mb-4 text-base font-semibold text-ink">New signups</h2>
+          <h2 className="mb-4 text-xl font-semibold text-ink">New signups</h2>
           <BarChart data={SIGNUPS_TREND.map((s) => ({ label: s.month, value: s.count }))} />
         </CardBody>
       </Card>
 
       <div className="mt-6">
-        <h2 className="mb-3 text-base font-semibold text-ink">Recent payments</h2>
+        <h2 className="mb-3 text-xl font-semibold text-ink">Recent payments</h2>
         <PaymentTable rows={ADMIN_PAYMENTS.slice(0, 5)} />
       </div>
     </>
