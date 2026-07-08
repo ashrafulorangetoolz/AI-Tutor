@@ -1,8 +1,18 @@
-import { SectionHeading, Card, CardBody, StatPill } from "@/components/ui/primitives";
+import {
+  SectionHeading,
+  Card,
+  CardBody,
+  StatPill,
+} from "@/components/ui/primitives";
 import { LinkButton } from "@/components/ui/primitives";
-import { FeatureGrid, CTASection, SectionWrap } from "@/components/public/sections";
+import {
+  FeatureGrid,
+  CTASection,
+  SectionWrap,
+} from "@/components/public/sections";
 import { SSC_SUBJECTS, SSC_GROUPS } from "@/lib/constants/subjects";
 import type { SubjectDef } from "@/types";
+import { GradientBackdrop } from "@/components/ui/GradientBackdrop";
 
 export const metadata = { title: "SSC Track" };
 
@@ -77,14 +87,16 @@ export default function SscPage() {
   return (
     <>
       <SectionWrap>
+        <GradientBackdrop />
         <div className="max-w-3xl">
           <h1 className="text-4xl font-bold text-ink sm:text-5xl">
             SSC Grade 9–10 Preparation
           </h1>
           <p className="mt-4 text-lg text-muted">
-            A complete, bilingual study platform built around the Bangladesh National
-            Curriculum — covering every group, subject and chapter with board-style
-            practice and an AI tutor that explains in Bangla and English.
+            A complete, bilingual study platform built around the Bangladesh
+            National Curriculum — covering every group, subject and chapter with
+            board-style practice and an AI tutor that explains in Bangla and
+            English.
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
             <LinkButton href="/signup">Start free</LinkButton>
@@ -109,7 +121,9 @@ export default function SscPage() {
         />
 
         <div className="mt-10">
-          <h3 className="text-lg font-semibold text-ink">Common (all students)</h3>
+          <h3 className="text-lg font-semibold text-ink">
+            Common (all students)
+          </h3>
           <div className="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {COMMON_SUBJECTS.map((s) => (
               <SubjectCard key={s.slug} subject={s} />

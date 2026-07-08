@@ -7,6 +7,7 @@ import { Card, CardBody } from "@/components/ui/primitives";
 import { bdt } from "@/lib/utils/format";
 import { cn } from "@/lib/utils/cn";
 import type { PlanDef } from "@/types";
+import { GradientBackdrop } from "../ui/GradientBackdrop";
 
 type Billing = "monthly" | "yearly";
 
@@ -26,14 +27,17 @@ function PriceBlock({ plan, billing }: { plan: PlanDef; billing: Billing }) {
     return (
       <>
         <div className="flex items-baseline gap-1">
-          <span className="text-4xl font-extrabold tracking-tight text-ink">Free</span>
+          <span className="text-4xl font-extrabold tracking-tight text-ink">
+            Free
+          </span>
         </div>
         <p className="mt-1 text-sm text-muted">Free forever</p>
       </>
     );
   }
 
-  const amount = billing === "yearly" ? plan.price * YEARLY_MULTIPLIER : plan.price;
+  const amount =
+    billing === "yearly" ? plan.price * YEARLY_MULTIPLIER : plan.price;
   const saved = plan.price * 2; // two months free on the yearly plan
 
   return (
@@ -50,7 +54,9 @@ function PriceBlock({ plan, billing }: { plan: PlanDef; billing: Billing }) {
         {billing === "yearly" ? (
           <>
             Billed yearly ·{" "}
-            <span className="font-semibold text-brand-600">save {bdt(saved)}</span>
+            <span className="font-semibold text-brand-600">
+              save {bdt(saved)}
+            </span>
           </>
         ) : (
           "Billed monthly"
@@ -61,8 +67,7 @@ function PriceBlock({ plan, billing }: { plan: PlanDef; billing: Billing }) {
 }
 
 function PlanCard({ plan, billing }: { plan: PlanDef; billing: Billing }) {
-  const ctaLabel =
-    plan.price === 0 ? "Start for free" : `Get ${plan.name}`;
+  const ctaLabel = plan.price === 0 ? "Start for free" : `Get ${plan.name}`;
 
   return (
     <Card
@@ -108,6 +113,7 @@ export function PricingPlans({ plans }: { plans: PlanDef[] }) {
 
   return (
     <div>
+      <GradientBackdrop></GradientBackdrop>
       {/* Billing toggle */}
       <div className="flex flex-col items-center gap-3">
         <div className="inline-flex items-center rounded-full border border-line bg-surface p-1 shadow-card">

@@ -2,18 +2,22 @@ import { Mail, Phone, Building2 } from "lucide-react";
 import { Card, CardBody, Badge } from "@/components/ui/primitives";
 import { SectionWrap } from "@/components/public/sections";
 import { SITE, FUTURE_TRACKS } from "@/lib/constants/site";
+import { GradientBackdrop } from "@/components/ui/GradientBackdrop";
 
 export const metadata = { title: "Contact" };
 
 export default function ContactPage() {
   return (
     <SectionWrap>
+      <GradientBackdrop></GradientBackdrop>
       <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
         <div>
-          <h1 className="text-4xl font-bold text-ink sm:text-5xl">Get in touch</h1>
+          <h1 className="text-4xl font-bold text-ink sm:text-5xl">
+            Get in touch
+          </h1>
           <p className="mt-4 text-lg text-muted">
-            Questions about plans, a school license, or a technical issue? Send us a
-            message and our team will get back to you.
+            Questions about plans, a school license, or a technical issue? Send
+            us a message and our team will get back to you.
           </p>
 
           <div className="mt-8 space-y-4">
@@ -28,7 +32,9 @@ export default function ContactPage() {
                 <span className="block text-xs font-medium uppercase tracking-wide text-muted">
                   Email
                 </span>
-                <span className="text-sm font-semibold text-ink">{SITE.email}</span>
+                <span className="text-sm font-semibold text-ink">
+                  {SITE.email}
+                </span>
               </span>
             </a>
 
@@ -43,7 +49,9 @@ export default function ContactPage() {
                 <span className="block text-xs font-medium uppercase tracking-wide text-muted">
                   Phone
                 </span>
-                <span className="text-sm font-semibold text-ink">{SITE.phone}</span>
+                <span className="text-sm font-semibold text-ink">
+                  {SITE.phone}
+                </span>
               </span>
             </a>
           </div>
@@ -51,11 +59,14 @@ export default function ContactPage() {
           <div className="mt-6 rounded-2xl border border-line bg-brand-50 p-5">
             <div className="flex items-center gap-2 text-ink">
               <Building2 className="h-5 w-5 text-brand-500" />
-              <span className="text-sm font-semibold">Request a school demo</span>
+              <span className="text-sm font-semibold">
+                Request a school demo
+              </span>
             </div>
             <p className="mt-1.5 text-sm text-muted">
-              Bringing {SITE.name} to your institution? Choose “School” in the form and
-              we'll arrange a walkthrough of enrollment, analytics and licensing.
+              Bringing {SITE.name} to your institution? Choose “School” in the
+              form and we'll arrange a walkthrough of enrollment, analytics and
+              licensing.
             </p>
           </div>
 
@@ -104,7 +115,12 @@ export default function ContactPage() {
                 <label className="label" htmlFor="role">
                   I am a
                 </label>
-                <select id="role" name="role" className="input" defaultValue="Student">
+                <select
+                  id="role"
+                  name="role"
+                  className="input"
+                  defaultValue="Student"
+                >
                   <option value="Student">Student</option>
                   <option value="Parent">Parent</option>
                   <option value="School">School</option>

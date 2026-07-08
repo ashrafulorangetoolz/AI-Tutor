@@ -1,5 +1,17 @@
-import { SectionHeading, Card, CardBody, ProgressBar, LinkButton } from "@/components/ui/primitives";
-import { FeatureGrid, TrackCard, CTASection, SectionWrap } from "@/components/public/sections";
+import {
+  SectionHeading,
+  Card,
+  CardBody,
+  ProgressBar,
+  LinkButton,
+} from "@/components/ui/primitives";
+import {
+  FeatureGrid,
+  TrackCard,
+  CTASection,
+  SectionWrap,
+} from "@/components/public/sections";
+import { GradientBackdrop } from "@/components/ui/GradientBackdrop";
 
 export const metadata = { title: "IELTS Track" };
 
@@ -71,14 +83,15 @@ export default function IeltsPage() {
   return (
     <>
       <SectionWrap>
+        <GradientBackdrop/>
         <div className="max-w-3xl">
           <h1 className="text-4xl font-bold text-ink sm:text-5xl">
             Complete IELTS Preparation
           </h1>
           <p className="mt-4 text-lg text-muted">
-            Practice all four skills, get AI-scored writing and speaking against the
-            official band descriptors, and track your progress toward your target band —
-            all in one place.
+            Practice all four skills, get AI-scored writing and speaking against
+            the official band descriptors, and track your progress toward your
+            target band — all in one place.
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
             <LinkButton href="/signup">Start free</LinkButton>
@@ -151,7 +164,9 @@ export default function IeltsPage() {
                   <div className="flex items-center justify-between text-sm">
                     <span className="font-semibold text-ink">{b.skill}</span>
                     <span className="text-muted">
-                      <span className="font-semibold text-ink">{b.current.toFixed(1)}</span>{" "}
+                      <span className="font-semibold text-ink">
+                        {b.current.toFixed(1)}
+                      </span>{" "}
                       / target {b.target.toFixed(1)}
                     </span>
                   </div>

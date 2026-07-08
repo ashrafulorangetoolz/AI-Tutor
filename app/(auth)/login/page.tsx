@@ -7,6 +7,7 @@ import { Mail, Lock, Phone, ArrowRight } from "lucide-react";
 import { useToast } from "@/components/ui/toast";
 import { ROLE_LABEL } from "@/lib/constants";
 import type { UserRole } from "@/types";
+import { GradientBackdrop } from "@/components/ui/GradientBackdrop";
 
 const DEMO_ROLES: UserRole[] = [
   "STUDENT",
@@ -46,7 +47,8 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="w-full bg-transparent max-w-[440px]">
+    <div className="w-full  max-w-[440px]">
+      <GradientBackdrop />
       <div className="card card-pad">
         <div className="mb-6 text-center">
           <h1 className="text-2xl font-bold text-ink">Welcome back</h1>

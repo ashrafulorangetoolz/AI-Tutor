@@ -75,7 +75,7 @@ export function Hero() {
         {/* Multi-colour display heading */}
         <h1
           className={cn(
-            "mt-6 max-w-5xl font-display text-5xl font-semibold leading-[1.02] tracking-tight text-ink sm:text-6xl lg:text-[7rem]",
+            "mt-6 max-w-5xl font-display text-5xl font-semibold leading-[1.02] tracking-tight text-ink sm:text-6xl lg:text-[5.5rem]",
             lang === "bn" && "font-bangla",
           )}
         >

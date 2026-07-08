@@ -1,6 +1,17 @@
-import { SectionHeading, Card, CardBody, Badge, LinkButton } from "@/components/ui/primitives";
-import { FeatureGrid, CTASection, SectionWrap } from "@/components/public/sections";
+import {
+  SectionHeading,
+  Card,
+  CardBody,
+  Badge,
+  LinkButton,
+} from "@/components/ui/primitives";
+import {
+  FeatureGrid,
+  CTASection,
+  SectionWrap,
+} from "@/components/public/sections";
 import { FUTURE_TRACKS } from "@/lib/constants/site";
+import { GradientBackdrop } from "@/components/ui/GradientBackdrop";
 
 export const metadata = { title: "For Schools" };
 
@@ -53,15 +64,18 @@ const DASHBOARD_STATS = [
 const ENROLL_STEPS = [
   {
     title: "Upload CSV",
-    description: "Export your student roster and upload it — names, emails and classes.",
+    description:
+      "Export your student roster and upload it — names, emails and classes.",
   },
   {
     title: "Assign classes",
-    description: "Map students to classes and subjects so reports stay neatly organised.",
+    description:
+      "Map students to classes and subjects so reports stay neatly organised.",
   },
   {
     title: "Students get access",
-    description: "Each student receives their login and starts learning right away.",
+    description:
+      "Each student receives their login and starts learning right away.",
   },
 ];
 
@@ -69,14 +83,15 @@ export default function SchoolsPage() {
   return (
     <>
       <SectionWrap>
+        <GradientBackdrop />
         <div className="max-w-3xl">
           <h1 className="text-4xl font-bold text-ink sm:text-5xl">
             AI learning for your whole school
           </h1>
           <p className="mt-4 text-lg text-muted">
-            A B2B license that brings the bilingual AI tutor, board-style mocks and
-            progress analytics to every student — with the management tools your
-            administrators and teachers need.
+            A B2B license that brings the bilingual AI tutor, board-style mocks
+            and progress analytics to every student — with the management tools
+            your administrators and teachers need.
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
             <LinkButton href="/contact">Request a demo</LinkButton>
@@ -113,8 +128,12 @@ export default function SchoolsPage() {
                     key={s.label}
                     className="rounded-2xl border border-line bg-brand-50 px-5 py-6 text-center"
                   >
-                    <div className="text-3xl font-extrabold text-ink">{s.value}</div>
-                    <div className="mt-1 text-xs font-medium text-muted">{s.label}</div>
+                    <div className="text-3xl font-extrabold text-ink">
+                      {s.value}
+                    </div>
+                    <div className="mt-1 text-xs font-medium text-muted">
+                      {s.label}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -139,8 +158,12 @@ export default function SchoolsPage() {
                       {i + 1}
                     </span>
                     <div>
-                      <h4 className="text-base font-semibold text-ink">{step.title}</h4>
-                      <p className="mt-1 text-sm text-muted">{step.description}</p>
+                      <h4 className="text-base font-semibold text-ink">
+                        {step.title}
+                      </h4>
+                      <p className="mt-1 text-sm text-muted">
+                        {step.description}
+                      </p>
                     </div>
                   </li>
                 ))}
@@ -152,7 +175,9 @@ export default function SchoolsPage() {
 
       <SectionWrap className="!pt-4">
         <div className="rounded-2xl border border-line bg-surface p-6 text-center">
-          <p className="text-sm font-semibold text-ink">More tracks on the way</p>
+          <p className="text-sm font-semibold text-ink">
+            More tracks on the way
+          </p>
           <div className="mt-4 flex flex-wrap justify-center gap-2">
             {FUTURE_TRACKS.map((t) => (
               <Badge key={t.name} tone="amber">
