@@ -102,14 +102,14 @@ export default function SettingsPage() {
             <p className="mb-4 text-sm text-muted">
               Choose the interface language for your dashboard.
             </p>
-            <div className="flex gap-3">
+            <div className="inline-grid grid-cols-2 gap-1 rounded-lg border border-line bg-black/5 p-1">
               <button
                 onClick={() => setLang("en")}
                 className={cn(
-                  "rounded-xl border px-5 py-2.5 text-sm font-semibold transition-colors",
+                  "rounded-md px-5 py-2.5 text-sm font-semibold transition",
                   lang === "en"
-                    ? "border-brand-500 bg-brand-50 text-brand-600"
-                    : "border-line bg-surface text-muted hover:text-ink",
+                    ? "bg-surface text-ink shadow-sm"
+                    : "text-muted hover:text-ink",
                 )}
               >
                 English
@@ -117,10 +117,10 @@ export default function SettingsPage() {
               <button
                 onClick={() => setLang("bn")}
                 className={cn(
-                  "rounded-xl border px-5 py-2.5 font-bangla text-sm font-semibold transition-colors",
+                  "rounded-md px-5 py-2.5 font-bangla text-sm font-semibold transition",
                   lang === "bn"
-                    ? "border-brand-500 bg-brand-50 text-brand-600"
-                    : "border-line bg-surface text-muted hover:text-ink",
+                    ? "bg-surface text-ink shadow-sm"
+                    : "text-muted hover:text-ink",
                 )}
               >
                 বাংলা

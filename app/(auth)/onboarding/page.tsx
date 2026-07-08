@@ -9,7 +9,12 @@ import { SSC_GROUPS } from "@/lib/constants";
 type Track = "SSC" | "IELTS" | "BOTH";
 type Lang = "en" | "bn";
 
-const TRACK_OPTIONS: { id: Track; icon: string; title: string; desc: string }[] = [
+const TRACK_OPTIONS: {
+  id: Track;
+  icon: string;
+  title: string;
+  desc: string;
+}[] = [
   { id: "SSC", icon: "📖", title: "SSC", desc: "Class 9–10 curriculum" },
   { id: "IELTS", icon: "🌍", title: "IELTS", desc: "Band-focused prep" },
   { id: "BOTH", icon: "🎓", title: "Both", desc: "SSC + IELTS together" },
@@ -26,7 +31,7 @@ export default function OnboardingPage() {
   const [step, setStep] = useState(1);
   const [lang, setLang] = useState<Lang>("en");
   const [track, setTrack] = useState<Track | null>(null);
-  const [grade, setGrade] = useState<string | null>(null);
+  const [grade, setGrade] = useState<string | null>(GRADES[0]);
   const [group, setGroup] = useState<string | null>(null);
   const [band, setBand] = useState<string | null>(null);
   const [goal, setGoal] = useState<number | null>(null);
@@ -69,21 +74,25 @@ export default function OnboardingPage() {
         {step === 1 && (
           <div className="space-y-5">
             <div>
-              <h1 className="text-xl font-bold text-ink">Let's personalize your learning</h1>
-              <p className="mt-1 text-sm text-muted">Tell us how you'd like to study.</p>
+              <h1 className="text-xl font-bold text-ink">
+                Let's personalize your learning
+              </h1>
+              <p className="mt-1 text-sm text-muted">
+                Tell us how you'd like to study.
+              </p>
             </div>
 
             <div>
               <span className="label">Preferred language</span>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-2 gap-1 rounded-lg border border-line bg-black/5 p-1">
                 <button
                   type="button"
                   onClick={() => setLang("en")}
                   aria-pressed={lang === "en"}
-                  className={`rounded-xl border px-3 py-2 text-sm font-medium transition ${
+                  className={`rounded-md px-3 py-2 text-sm font-medium transition ${
                     lang === "en"
-                      ? "border-brand-500 bg-brand-500 text-white"
-                      : "border-line bg-surface text-ink hover:bg-brand-50"
+                      ? "bg-surface text-ink shadow-sm"
+                      : "text-muted hover:text-ink"
                   }`}
                 >
                   English
@@ -92,10 +101,10 @@ export default function OnboardingPage() {
                   type="button"
                   onClick={() => setLang("bn")}
                   aria-pressed={lang === "bn"}
-                  className={`font-bangla rounded-xl border px-3 py-2 text-sm font-medium transition ${
+                  className={`font-bangla rounded-md px-3 py-2 text-sm font-medium transition ${
                     lang === "bn"
-                      ? "border-brand-500 bg-brand-500 text-white"
-                      : "border-line bg-surface text-ink hover:bg-brand-50"
+                      ? "bg-surface text-ink shadow-sm"
+                      : "text-muted hover:text-ink"
                   }`}
                 >
                   বাংলা
@@ -114,7 +123,7 @@ export default function OnboardingPage() {
                       type="button"
                       onClick={() => setTrack(opt.id)}
                       aria-pressed={selected}
-                      className={`flex w-full items-center gap-3 rounded-2xl border px-4 py-3 text-left transition ${
+                      className={`flex w-full items-center gap-3 rounded-md border px-4 py-3 text-left transition ${
                         selected
                           ? "border-brand-500 bg-brand-50"
                           : "border-line bg-surface hover:bg-brand-50"
@@ -122,8 +131,12 @@ export default function OnboardingPage() {
                     >
                       <span className="text-2xl">{opt.icon}</span>
                       <span className="flex-1">
-                        <span className="block font-semibold text-ink">{opt.title}</span>
-                        <span className="block text-xs text-muted">{opt.desc}</span>
+                        <span className="block font-semibold text-ink">
+                          {opt.title}
+                        </span>
+                        <span className="block text-xs text-muted">
+                          {opt.desc}
+                        </span>
                       </span>
                       {selected && <Check className="h-5 w-5 text-brand-500" />}
                     </button>
@@ -138,14 +151,16 @@ export default function OnboardingPage() {
           <div className="space-y-5">
             <div>
               <h1 className="text-xl font-bold text-ink">A few details</h1>
-              <p className="mt-1 text-sm text-muted">Help us tailor your content.</p>
+              <p className="mt-1 text-sm text-muted">
+                Help us tailor your content.
+              </p>
             </div>
 
             {hasSSC && (
               <>
                 <div>
                   <span className="label">Class / grade</span>
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-2 gap-1 rounded- border border-line bg-black/5 p-1">
                     {GRADES.map((g) => {
                       const selected = grade === g;
                       return (
@@ -154,10 +169,10 @@ export default function OnboardingPage() {
                           type="button"
                           onClick={() => setGrade(g)}
                           aria-pressed={selected}
-                          className={`rounded-xl border px-3 py-2 text-sm font-medium transition ${
+                          className={`rounded px-3 py-2 text-sm font-medium transition ${
                             selected
-                              ? "border-brand-500 bg-brand-500 text-white"
-                              : "border-line bg-surface text-ink hover:bg-brand-50"
+                              ? "bg-surface text-ink shadow-sm"
+                              : "text-muted hover:text-ink"
                           }`}
                         >
                           {g}
@@ -178,19 +193,23 @@ export default function OnboardingPage() {
                           type="button"
                           onClick={() => setGroup(grp.id)}
                           aria-pressed={selected}
-                          className={`flex w-full items-center justify-between rounded-2xl border px-4 py-3 text-left transition ${
+                          className={`flex w-full items-center justify-between rounded-md border px-4 py-3 text-left transition ${
                             selected
                               ? "border-brand-500 bg-brand-50"
                               : "border-line bg-surface hover:bg-brand-50"
                           }`}
                         >
                           <span>
-                            <span className="block font-semibold text-ink">{grp.name}</span>
+                            <span className="block font-semibold text-ink">
+                              {grp.name}
+                            </span>
                             <span className="font-bangla block text-xs text-muted">
                               {grp.nameBn}
                             </span>
                           </span>
-                          {selected && <Check className="h-5 w-5 text-brand-500" />}
+                          {selected && (
+                            <Check className="h-5 w-5 text-brand-500" />
+                          )}
                         </button>
                       );
                     })}
@@ -230,8 +249,12 @@ export default function OnboardingPage() {
         {step === 3 && (
           <div className="space-y-5">
             <div>
-              <h1 className="text-xl font-bold text-ink">Set your daily goal</h1>
-              <p className="mt-1 text-sm text-muted">Consistency beats intensity.</p>
+              <h1 className="text-xl font-bold text-ink">
+                Set your daily goal
+              </h1>
+              <p className="mt-1 text-sm text-muted">
+                Consistency beats intensity.
+              </p>
             </div>
 
             <div>
@@ -245,21 +268,23 @@ export default function OnboardingPage() {
                       type="button"
                       onClick={() => setGoal(g)}
                       aria-pressed={selected}
-                      className={`rounded-xl border px-2 py-3 text-sm font-semibold transition ${
+                      className={`rounded-md border px-2 py-3 text-sm font-semibold transition ${
                         selected
                           ? "border-brand-500 bg-brand-500 text-white"
                           : "border-line bg-surface text-ink hover:bg-brand-50"
                       }`}
                     >
                       {g}
-                      <span className="block text-[10px] font-normal opacity-80">min</span>
+                      <span className="block text-[10px] font-normal opacity-80">
+                        min
+                      </span>
                     </button>
                   );
                 })}
               </div>
             </div>
 
-            <div className="rounded-2xl border border-line bg-brand-50/60 p-4">
+            <div className="rounded-md border border-line bg-brand-50/60 p-4">
               <p className="mb-2 text-sm font-semibold text-ink">Your setup</p>
               <ul className="space-y-1 text-sm text-muted">
                 <li>Language: {lang === "en" ? "English" : "বাংলা"}</li>
@@ -287,12 +312,20 @@ export default function OnboardingPage() {
             </button>
           )}
           {step < 3 ? (
-            <button type="button" onClick={next} className="btn-primary ml-auto">
+            <button
+              type="button"
+              onClick={next}
+              className="btn-primary ml-auto"
+            >
               Next
               <ArrowRight className="ml-1 h-4 w-4" />
             </button>
           ) : (
-            <button type="button" onClick={finish} className="btn-primary ml-auto">
+            <button
+              type="button"
+              onClick={finish}
+              className="btn-primary ml-auto"
+            >
               Finish &amp; go to dashboard
               <ArrowRight className="ml-1 h-4 w-4" />
             </button>

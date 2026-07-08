@@ -48,7 +48,6 @@ export default function LoginPage() {
 
   return (
     <div className="w-full  max-w-[440px]">
-      <GradientBackdrop />
       <div className="card card-pad">
         <div className="mb-6 text-center">
           <h1 className="text-2xl font-bold text-ink">Welcome back</h1>
@@ -90,7 +89,7 @@ export default function LoginPage() {
 
           <div>
             <span className="label">Log in as (demo):</span>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-4 gap-1 rounded-lg border border-line bg-black/5 p-1">
               {DEMO_ROLES.map((r) => {
                 const selected = r === role;
                 return (
@@ -99,10 +98,10 @@ export default function LoginPage() {
                     type="button"
                     onClick={() => setRole(r)}
                     aria-pressed={selected}
-                    className={`rounded-xl border px-3 py-2 text-sm font-medium transition ${
+                    className={`rounded-md px-3 py-2 text-sm font-medium transition ${
                       selected
-                        ? "border-brand-500 bg-brand-500 text-white"
-                        : "border-line bg-surface text-ink hover:bg-brand-50"
+                        ? "bg-surface text-ink shadow-sm"
+                        : "text-muted hover:text-ink"
                     }`}
                   >
                     {ROLE_LABEL[r].en}

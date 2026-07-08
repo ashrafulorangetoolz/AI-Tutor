@@ -27,7 +27,12 @@ export function StatCard({
     <Card>
       <CardBody className="flex items-center gap-4">
         {icon && (
-          <div className={cn("flex h-11 w-11 items-center justify-center rounded-xl text-xl", bg)}>
+          <div
+            className={cn(
+              "flex h-11 w-11 items-center justify-center rounded-md text-xl",
+              bg,
+            )}
+          >
             {icon}
           </div>
         )}
@@ -35,7 +40,11 @@ export function StatCard({
           <div className="truncate text-2xl font-bold text-ink">{value}</div>
           <div className="truncate text-sm text-muted">{label}</div>
         </div>
-        {delta && <span className="ml-auto text-xs font-semibold text-brand-500">{delta}</span>}
+        {delta && (
+          <span className="ml-auto text-xs font-semibold text-brand-500">
+            {delta}
+          </span>
+        )}
       </CardBody>
     </Card>
   );
@@ -83,13 +92,22 @@ export function WeakTopicCard({
     <div className="flex items-center gap-3 rounded-xl border border-line bg-surface p-3.5">
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-2">
-          <span className="truncate text-sm font-semibold text-ink">{topic}</span>
+          <span className="truncate text-sm font-semibold text-ink">
+            {topic}
+          </span>
           {priority === "HARD" && <Badge tone="amber">Priority</Badge>}
         </div>
         <p className="text-xs text-muted">{subject}</p>
-        <ProgressBar value={mastery} tone={mastery < 50 ? "amber" : "brand"} className="mt-2" />
+        <ProgressBar
+          value={mastery}
+          tone={mastery < 50 ? "amber" : "brand"}
+          className="mt-2"
+        />
       </div>
-      <Link href="/dashboard/ai-tutor" className="btn-secondary shrink-0 !px-3 !py-2 text-xs">
+      <Link
+        href="/dashboard/ai-tutor"
+        className="btn-secondary shrink-0 !px-3 !py-2 text-xs"
+      >
         Practice
       </Link>
     </div>
@@ -116,7 +134,9 @@ export function ExamCountdownCard({
         </div>
       </div>
       <CardBody className="flex items-center justify-between">
-        <span className="text-sm text-muted">Keep going — you're on track!</span>
+        <span className="text-sm text-muted">
+          Keep going — you're on track!
+        </span>
         {typeof streak === "number" && (
           <span className="badge-amber">🔥 {streak}-day streak</span>
         )}
@@ -134,7 +154,10 @@ export function ActivityFeed({
   return (
     <ul className="space-y-1">
       {items.map((it, i) => (
-        <li key={i} className="flex items-start gap-3 rounded-xl px-2 py-2.5 hover:bg-brand-50">
+        <li
+          key={i}
+          className="flex items-start gap-3 rounded-xl px-2 py-2.5 hover:bg-brand-50"
+        >
           <span className="mt-0.5 text-lg">{it.icon}</span>
           <div className="min-w-0 flex-1">
             <p className="text-sm text-ink">{it.text}</p>
@@ -177,7 +200,11 @@ export function SubjectCard({
       </div>
       <div className="min-w-0 flex-1">
         <div className="truncate text-sm font-semibold text-ink">{name}</div>
-        {nameBn && <div className="truncate font-bangla text-xs text-muted">{nameBn}</div>}
+        {nameBn && (
+          <div className="truncate font-bangla text-xs text-muted">
+            {nameBn}
+          </div>
+        )}
       </div>
       <span className="shrink-0 text-xs text-muted">{chapters} ch.</span>
     </Link>
@@ -223,12 +250,15 @@ export function ConceptCardPreview({
   premium?: boolean;
   locked?: boolean;
 }) {
-  const diffTone = difficulty === "HARD" ? "amber" : difficulty === "EASY" ? "green" : "blue";
+  const diffTone =
+    difficulty === "HARD" ? "amber" : difficulty === "EASY" ? "green" : "blue";
   return (
     <Card className="flex h-full flex-col">
       <CardBody className="flex flex-1 flex-col">
         <div className="mb-2 flex items-center justify-between">
-          <Badge tone={diffTone as "amber" | "green" | "blue"}>{difficulty}</Badge>
+          <Badge tone={diffTone as "amber" | "green" | "blue"}>
+            {difficulty}
+          </Badge>
           {premium && <Badge tone="amber">★ Premium</Badge>}
         </div>
         <h3 className="text-base font-semibold text-ink">{title}</h3>
@@ -241,7 +271,10 @@ export function ConceptCardPreview({
             🔒 Upgrade to unlock
           </Link>
         ) : (
-          <Link href={`/dashboard/concept-cards/${id}`} className="btn-primary w-full">
+          <Link
+            href={`/dashboard/concept-cards/${id}`}
+            className="btn-primary w-full"
+          >
             Study card
           </Link>
         )}
@@ -285,7 +318,10 @@ export function MockExamCard({
           <span>💯 {totalMarks} marks</span>
         </div>
         <div className="mt-4 flex-1" />
-        <Link href={`/dashboard/mock-exams/${id}`} className="btn-primary w-full">
+        <Link
+          href={`/dashboard/mock-exams/${id}`}
+          className="btn-primary w-full"
+        >
           Start exam
         </Link>
       </CardBody>

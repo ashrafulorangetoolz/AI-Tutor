@@ -3,12 +3,16 @@ import { Logo } from "@/components/layout/Logo";
 import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
 import { GradientBackdrop } from "@/components/ui/GradientBackdrop";
 
-export default function AuthLayout({ children }: { children: React.ReactNode }) {
+export default function AuthLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <div className="relative flex min-h-screen flex-col overflow-hidden bg-canvas">
+    <div className="relative flex min-h-screen flex-col overflow-hidden">
       {/* Ambient gradient glow (Figma: Shape / Gradients) */}
       <GradientBackdrop />
-      <header className="flex items-center justify-between px-4 py-4 sm:px-8">
+      <header className="flex items-center justify-between px-4 py-4 sm:px-8 bg-canvas">
         <Logo />
         <div className="flex items-center gap-2">
           <LanguageSwitcher compact />
@@ -17,7 +21,9 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
           </Link>
         </div>
       </header>
-      <main className="flex flex-1 items-center justify-center px-4 py-8">{children}</main>
+      <main className="flex flex-1 items-center justify-center px-4 py-8">
+        {children}
+      </main>
     </div>
   );
 }

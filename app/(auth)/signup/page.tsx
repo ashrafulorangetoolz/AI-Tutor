@@ -121,7 +121,7 @@ export default function SignupPage() {
 
           <div>
             <span className="label">I am a</span>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 gap-1 rounded-lg border border-line bg-black/5 p-1">
               {SIGNUP_ROLES.map((r) => {
                 const selected = r === role;
                 return (
@@ -130,10 +130,10 @@ export default function SignupPage() {
                     type="button"
                     onClick={() => setRole(r)}
                     aria-pressed={selected}
-                    className={`rounded-xl border px-3 py-2 text-sm font-medium transition ${
+                    className={`rounded-md px-3 py-2 text-sm font-medium transition ${
                       selected
-                        ? "border-brand-500 bg-brand-500 text-white"
-                        : "border-line bg-surface text-ink hover:bg-brand-50"
+                        ? "bg-surface text-ink shadow-sm"
+                        : "text-muted hover:text-ink"
                     }`}
                   >
                     {ROLE_LABEL[r].en}
