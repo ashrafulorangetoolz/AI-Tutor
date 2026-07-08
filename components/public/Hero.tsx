@@ -1,69 +1,120 @@
 "use client";
 
 import Link from "next/link";
-import { Sparkles, Camera, FileCheck2, TrendingUp, ArrowRight } from "lucide-react";
+import { Star, ArrowRight, ArrowUpRight } from "lucide-react";
+import { Fragment, type ReactNode } from "react";
 import { useI18n } from "@/lib/i18n";
 import { cn } from "@/lib/utils/cn";
-import { InterfaceShowcase } from "./InterfaceShowcase";
+import { HeroShowcase } from "./HeroShowcase";
+import { GradientBackdrop } from "@/components/ui/GradientBackdrop";
 
-const CHIPS = [
-  { icon: <Sparkles className="h-3.5 w-3.5" />, label: "Bilingual AI Tutor" },
-  { icon: <Camera className="h-3.5 w-3.5" />, label: "Photo Doubt Solver" },
-  { icon: <FileCheck2 className="h-3.5 w-3.5" />, label: "Board-style Mocks" },
-  { icon: <TrendingUp className="h-3.5 w-3.5" />, label: "IELTS Band Tracker" },
-];
+/* Keyword → accent-colour rules for the multi-colour display heading.
+   Matched phrases are wrapped in coloured spans; everything else stays ink.
+   Kept per-language so both EN and BN headlines get the same treatment. */
+const HIGHLIGHTS: Record<"en" | "bn", { phrase: string; className: string }[]> =
+  {
+    en: [
+      { phrase: "AI", className: "text-brand-500" },
+      { phrase: "SSC", className: "text-cta" },
+      { phrase: "IELTS", className: "text-secondary-600" },
+    ],
+    bn: [
+      { phrase: "এআই", className: "text-brand-500" },
+      { phrase: "এসএসসি", className: "text-cta" },
+      { phrase: "আইইএলটিএস", className: "text-secondary-600" },
+    ],
+  };
+
+function highlight(
+  text: string,
+  rules: { phrase: string; className: string }[],
+): ReactNode {
+  if (!rules.length) return text;
+  const escaped = rules.map((r) =>
+    r.phrase.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"),
+  );
+  const re = new RegExp(`(${escaped.join("|")})`, "gi");
+  const parts = text.split(re);
+  return parts.map((part, i) => {
+    const rule = rules.find(
+      (r) => r.phrase.toLowerCase() === part.toLowerCase(),
+    );
+    return rule ? (
+      <span key={i} className={rule.className}>
+        {part}
+      </span>
+    ) : (
+      <Fragment key={i}>{part}</Fragment>
+    );
+  });
+}
 
 export function Hero() {
   const { t, lang } = useI18n();
+
   return (
     <section className="relative -mt-[88px] overflow-hidden pt-[88px]">
-      {/* Hero background — blurred gradient arc (Figma: Shape / Gradients) */}
-      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-        <div
-          aria-hidden
-          className="absolute left-1/2 top-1/2 h-[140%] w-[130%] -translate-x-1/2 -translate-y-1/2 animate-float bg-cover bg-center bg-no-repeat opacity-70"
-          style={{ backgroundImage: "url('/hero-glow.svg')" }}
-        />
-        {/* Soft fade so the glow melts into the canvas */}
-        <div className="absolute inset-0 bg-linear-to-b from-canvas/50 via-transparent to-canvas" />
-      </div>
-      <div className="section grid items-center gap-10 py-16 lg:grid-cols-2 lg:py-24">
-        <div>
-          <span className="badge-green">🇧🇩 Made for Bangladeshi students</span>
-          <h1
-            className={cn(
-              "mt-4 text-4xl font-extrabold leading-[1.05] text-ink sm:text-5xl lg:text-6xl",
-              lang === "bn" && "font-bangla",
-            )}
-          >
-            {t("home.heroTitle")}
-          </h1>
-          <p className={cn("mt-4 max-w-lg text-lg text-muted", lang === "bn" && "font-bangla")}>
-            {t("home.heroSubtitle")}
-          </p>
-          <div className="mt-7 flex flex-wrap gap-3">
-            <Link href="/signup" className="btn-primary !px-5 !py-3 text-base">
-              {t("common.getStarted")} <ArrowRight className="h-4 w-4" />
-            </Link>
-            <Link href="/pricing" className="btn-secondary !px-5 !py-3 text-base">
-              {t("common.seePlans")}
-            </Link>
-          </div>
-          <div className="mt-7 flex flex-wrap gap-2">
-            {CHIPS.map((c) => (
-              <span
-                key={c.label}
-                className="inline-flex items-center gap-1.5 rounded-full border border-line bg-surface px-3 py-1.5 text-xs font-medium text-ink"
-              >
-                <span className="text-brand-500">{c.icon}</span>
-                {c.label}
-              </span>
+      {/* Figma gradient shape backdrop */}
+      <GradientBackdrop />
+
+      <div className="section flex flex-col items-center py-20 text-center lg:py-28">
+        {/* Trust badge */}
+        <div className="inline-flex items-center gap-3 rounded-full border border-white/40 bg-white/30 px-5 py-1.5 shadow-card backdrop-blur-md">
+          <span className="font-display text-lg font-semibold text-ink">
+            4.9
+          </span>
+          <span className="h-4 w-px bg-ink/15" />
+          <span className="flex items-center gap-0.5 text-cta">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Star key={i} className="h-3.5 w-3.5 fill-current" />
             ))}
-          </div>
+          </span>
+          <span className="text-xs text-muted">from 12,000+ students</span>
         </div>
 
-        {/* Clean interface showcase */}
-        <InterfaceShowcase />
+        {/* Multi-colour display heading */}
+        <h1
+          className={cn(
+            "mt-6 max-w-5xl font-display text-5xl font-semibold leading-[1.02] tracking-tight text-ink sm:text-6xl lg:text-[7rem]",
+            lang === "bn" && "font-bangla",
+          )}
+        >
+          {highlight(t("home.heroTitle"), HIGHLIGHTS[lang])}
+        </h1>
+
+        {/* Subtitle */}
+        <p
+          className={cn(
+            "mt-6 max-w-2xl text-lg text-muted sm:text-xl",
+            lang === "bn" && "font-bangla",
+          )}
+        >
+          {t("home.heroSubtitle")}
+        </p>
+
+        {/* CTA — black glowing pill + secondary link */}
+        <div className="mt-12 flex flex-col items-center gap-5">
+          <Link href="/signup" className="group relative inline-flex">
+            <span
+              aria-hidden
+              className="absolute -inset-1 rounded-full bg-[linear-gradient(90deg,#7034ea_5%,#ff7837_58%,#5da0b3_96%)] opacity-70 blur-lg transition-opacity duration-300 group-hover:opacity-100"
+            />
+            <span className="relative inline-flex items-center gap-3 rounded-full border border-accent-500 bg-black px-8 py-3.5 font-display text-lg font-medium tracking-wide text-accent-500 transition-transform duration-300 group-hover:-translate-y-0.5">
+              {t("common.getStarted")}
+              <ArrowUpRight className="h-5 w-5" />
+            </span>
+          </Link>
+          <Link
+            href="/pricing"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-muted transition-colors hover:text-ink"
+          >
+            {t("common.seePlans")}
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+
+        {/* Bento showcase */}
+        <HeroShowcase />
       </div>
     </section>
   );

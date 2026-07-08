@@ -54,9 +54,18 @@ export function ProgressBar({
   tone?: "brand" | "amber" | "blue";
 }) {
   const bar =
-    tone === "amber" ? "bg-warning" : tone === "blue" ? "bg-info" : "bg-brand-500";
+    tone === "amber"
+      ? "bg-warning"
+      : tone === "blue"
+        ? "bg-info"
+        : "bg-brand-500";
   return (
-    <div className={cn("h-2 w-full overflow-hidden rounded-full bg-black/5", className)}>
+    <div
+      className={cn(
+        "h-2 w-full overflow-hidden rounded-full bg-black/5",
+        className,
+      )}
+    >
       <div
         className={cn("h-full rounded-full transition-all", bar)}
         style={{ width: `${Math.max(0, Math.min(100, value))}%` }}
@@ -78,13 +87,13 @@ export function SectionHeading({
   center?: boolean;
 }) {
   return (
-    <div className={cn("max-w-2xl", center && "mx-auto text-center")}>
+    <div className={cn("max-w-3xl", center && "mx-auto text-center")}>
       {eyebrow && (
         <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-brand-500">
           {eyebrow}
         </p>
       )}
-      <h2 className="text-3xl font-bold text-ink sm:text-4xl">{title}</h2>
+      <h2 className="text-4xl font-bold text-ink sm:text-6xl">{title}</h2>
       {subtitle && <p className="mt-3 text-base text-muted">{subtitle}</p>}
     </div>
   );
@@ -106,7 +115,9 @@ export function EmptyState({
     <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-line bg-surface/60 px-6 py-14 text-center">
       <div className="mb-3 text-4xl">{icon}</div>
       <h3 className="text-lg font-semibold text-ink">{title}</h3>
-      {description && <p className="mt-1 max-w-sm text-sm text-muted">{description}</p>}
+      {description && (
+        <p className="mt-1 max-w-sm text-sm text-muted">{description}</p>
+      )}
       {action && <div className="mt-5">{action}</div>}
     </div>
   );
@@ -136,7 +147,12 @@ export function Avatar({
   return (
     <div
       className="flex shrink-0 items-center justify-center rounded-full font-semibold text-white"
-      style={{ width: size, height: size, background: color, fontSize: size * 0.4 }}
+      style={{
+        width: size,
+        height: size,
+        background: color,
+        fontSize: size * 0.4,
+      }}
     >
       {initials}
     </div>

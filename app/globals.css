@@ -11,19 +11,20 @@
 @theme {
   /* Fonts */
   --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
-  --font-sans: var(--font-outfit), var(--font-noto), ui-sans-serif, system-ui, sans-serif;
+  --font-sans:
+    var(--font-outfit), var(--font-noto), ui-sans-serif, system-ui, sans-serif;
   --font-bangla: var(--font-noto), ui-sans-serif, system-ui, sans-serif;
 
   /* ---- Brand palette (design-system core) ----
-     Primary #7034EA · Tertiary #9762FD · Secondary #09FF9B
+     Primary #7034EA · Tertiary #AA3FFF · Secondary #09FF9B
      Accent  #FDFD35 · CTA #FF5714 · plus #FFFFFF / #000000 */
 
-  /* Brand — Primary (violet). brand-400 == Tertiary #9762FD. */
+  /* Brand — Primary (violet). brand-400 == Tertiary #AA3FFF. */
   --color-brand-50: #f2ecfd;
   --color-brand-100: #e6d9fb;
   --color-brand-200: #ccb3f8;
   --color-brand-300: #b28cf5;
-  --color-brand-400: #9762fd;
+  --color-brand-400: #aa3fff;
   --color-brand-500: #7034ea;
   --color-brand-600: #5b26c4;
   --color-brand-700: #461d97;
@@ -33,7 +34,7 @@
   /* Violet — aliased to the Tertiary purple (btn-violet, highlights) */
   --color-violet-50: #f2ecfd;
   --color-violet-100: #e6d9fb;
-  --color-violet-500: #9762fd;
+  --color-violet-500: #aa3fff;
   --color-violet-600: #7034ea;
 
   /* Secondary — vivid mint green */
@@ -79,7 +80,7 @@
 
   /* Semantic role tokens (map to the brand palette above) */
   --color-primary: #7034ea;
-  --color-tertiary: #9762fd;
+  --color-tertiary: #aa3fff;
   --color-secondary: #09ff9b;
   --color-accent: #fdfd35;
   --color-cta: #ff5714;
@@ -102,15 +103,17 @@
   --radius-3xl: 1.75rem;
 
   /* Shadows — soft, diffuse */
-  --shadow-card: 0 1px 2px rgba(15, 27, 21, 0.04), 0 10px 30px rgba(15, 27, 21, 0.06);
+  --shadow-card:
+    0 1px 2px rgba(15, 27, 21, 0.04), 0 10px 30px rgba(15, 27, 21, 0.06);
   --shadow-pop: 0 16px 48px rgba(15, 27, 21, 0.12);
-  --shadow-brand: 0 10px 24px rgba(112, 52, 234, 0.30);
-  --shadow-cta: 0 10px 24px rgba(255, 87, 20, 0.30);
+  --shadow-brand: 0 10px 24px rgba(112, 52, 234, 0.3);
+  --shadow-cta: 0 10px 24px rgba(255, 87, 20, 0.3);
 
   /* Animations */
   --animate-fadeUp: fadeUp 0.4s ease both;
   --animate-blink: blink 1.2s infinite;
   --animate-float: float 6s ease-in-out infinite;
+  --animate-marquee: marquee 40s linear infinite;
 }
 
 @keyframes fadeUp {
@@ -148,6 +151,16 @@
 @keyframes shimmer {
   100% {
     transform: translateX(100%);
+  }
+}
+
+/* Infinite horizontal scroll — track holds two copies of the content. */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
   }
 }
 
@@ -208,7 +221,7 @@
 
   /* Cards */
   .card {
-    @apply rounded-3xl border border-line bg-surface shadow-card;
+    @apply rounded-xl border border-line bg-surface shadow-card;
   }
   .card-pad {
     @apply p-5 sm:p-6;
@@ -265,7 +278,7 @@
 
   /* Inputs */
   .input {
-    @apply w-full rounded-2xl border border-line bg-surface px-4 py-2.5 text-sm text-ink placeholder:text-muted/70 focus:border-brand-400;
+    @apply w-full rounded-xl border border-line bg-surface px-4 py-2.5 text-sm text-ink placeholder:text-muted/70 focus:border-brand-400;
   }
   .label {
     @apply mb-1.5 block text-sm font-medium text-ink;
@@ -278,7 +291,12 @@
   .skeleton::after {
     content: "";
     @apply absolute inset-0 -translate-x-full;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.6),
+      transparent
+    );
     animation: shimmer 1.5s infinite;
   }
 }

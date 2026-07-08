@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { Check, ArrowRight, Star, Clock, BookOpen, BarChart3 } from "lucide-react";
 import { Card, CardBody, Badge } from "@/components/ui/primitives";
-import { TESTIMONIALS } from "@/lib/constants/site";
+import { TestimonialShowcase } from "./TestimonialShowcase";
 import type { PlanDef } from "@/types";
 import { cn } from "@/lib/utils/cn";
 
@@ -124,29 +124,7 @@ export function PricingCard({ plan }: { plan: PlanDef }) {
 
 // ---- TestimonialSection ----
 export function TestimonialSection() {
-  return (
-    <div className="grid gap-5 sm:grid-cols-3">
-      {TESTIMONIALS.map((t) => (
-        <Card key={t.name}>
-          <CardBody>
-            <p className="text-sm leading-relaxed text-ink">&ldquo;{t.quote}&rdquo;</p>
-            <div className="mt-4 flex items-center gap-3">
-              <div
-                className="flex h-10 w-10 items-center justify-center rounded-full font-semibold text-white"
-                style={{ background: t.avatarColor }}
-              >
-                {t.name[0]}
-              </div>
-              <div>
-                <div className="text-sm font-semibold text-ink">{t.name}</div>
-                <div className="text-xs text-muted">{t.role}</div>
-              </div>
-            </div>
-          </CardBody>
-        </Card>
-      ))}
-    </div>
-  );
+  return <TestimonialShowcase />;
 }
 
 // ---- CTASection ----

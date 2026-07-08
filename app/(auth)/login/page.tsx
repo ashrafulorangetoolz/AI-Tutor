@@ -8,7 +8,12 @@ import { useToast } from "@/components/ui/toast";
 import { ROLE_LABEL } from "@/lib/constants";
 import type { UserRole } from "@/types";
 
-const DEMO_ROLES: UserRole[] = ["STUDENT", "PARENT", "SCHOOL_ADMIN", "SUPER_ADMIN"];
+const DEMO_ROLES: UserRole[] = [
+  "STUDENT",
+  "PARENT",
+  "SCHOOL_ADMIN",
+  "SUPER_ADMIN",
+];
 
 export default function LoginPage() {
   const router = useRouter();
@@ -41,7 +46,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="w-full max-w-[440px]">
+    <div className="w-full bg-transparent max-w-[440px]">
       <div className="card card-pad">
         <div className="mb-6 text-center">
           <h1 className="text-2xl font-bold text-ink">Welcome back</h1>
@@ -105,7 +110,11 @@ export default function LoginPage() {
             </div>
           </div>
 
-          <button type="submit" disabled={loading} className="btn-primary w-full">
+          <button
+            type="submit"
+            disabled={loading}
+            className="btn-primary w-full"
+          >
             {loading ? "Logging in…" : "Log in"}
             {!loading && <ArrowRight className="ml-1 h-4 w-4" />}
           </button>
@@ -128,7 +137,10 @@ export default function LoginPage() {
 
         <p className="mt-6 text-center text-sm text-muted">
           New here?{" "}
-          <Link href="/signup" className="font-medium text-brand-500 hover:underline">
+          <Link
+            href="/signup"
+            className="font-medium text-brand-500 hover:underline"
+          >
             Create an account
           </Link>
         </p>
