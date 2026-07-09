@@ -55,15 +55,11 @@ export function PublicNavbar() {
             <Link href="/login" className="btn-ghost">
               Log in
             </Link>
-            <Link href="/signup" className="btn bg-ink text-white hover:bg-ink/90">
-              Get started
-            </Link>
             <Link
               href="/signup"
-              aria-label="Get started"
-              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-coral-500 text-white transition-transform hover:-translate-y-0.5"
+              className="btn bg-cta text-white hover:bg-cta/90"
             >
-              <ArrowUpRight className="h-5 w-5" />
+              Get started
             </Link>
           </div>
 
@@ -95,7 +91,9 @@ export function PublicNavbar() {
                     onClick={closeMenu}
                     className={cn(
                       "rounded-2xl px-4 py-3 text-sm font-semibold transition-colors",
-                      active ? "bg-brand-50 text-brand-600" : "text-ink hover:bg-canvas",
+                      active
+                        ? "bg-brand-50 text-brand-600"
+                        : "text-ink hover:bg-canvas",
                       lang === "bn" && "font-bangla",
                     )}
                   >
@@ -105,7 +103,11 @@ export function PublicNavbar() {
               })}
             </div>
             <div className="mt-2 grid grid-cols-2 gap-2 border-t border-line pt-3">
-              <Link href="/login" onClick={closeMenu} className="btn-secondary w-full">
+              <Link
+                href="/login"
+                onClick={closeMenu}
+                className="btn-secondary w-full"
+              >
                 Log in
               </Link>
               <Link

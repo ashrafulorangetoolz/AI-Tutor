@@ -210,11 +210,11 @@ function ProfileMenu({
     setLoggingOut(true);
     try {
       const res = await fetch("/api/auth/logout", { method: "POST" });
-      const data = await res.json().catch(() => ({ redirect: "/" }));
-      router.push(data.redirect ?? "/");
+      const data = await res.json().catch(() => ({ redirect: "/login" }));
+      router.push(data.redirect ?? "/login");
       router.refresh();
     } catch {
-      router.push("/");
+      router.push("/login");
     }
   }
 

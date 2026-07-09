@@ -37,7 +37,7 @@ export function DashboardSidebar({
               href={item.href}
               onClick={onNavigate}
               className={cn(
-                "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition-colors",
+                "flex items-center gap-3 rounded-md px-3 py-2.5 text-sm font-semibold transition-colors",
                 active
                   ? "bg-brand-500 text-white"
                   : "text-muted hover:bg-brand-50 hover:text-ink",
@@ -54,7 +54,7 @@ export function DashboardSidebar({
       <div className="border-t border-line p-3">
         <Link
           href="/"
-          className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium text-muted hover:bg-brand-50 hover:text-ink"
+          className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-muted hover:bg-brand-50 hover:text-ink"
         >
           ← Back to site
         </Link>

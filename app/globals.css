@@ -115,6 +115,7 @@
   --animate-blink: blink 1.2s infinite;
   --animate-float: float 6s ease-in-out infinite;
   --animate-marquee: marquee 40s linear infinite;
+  --animate-border-flow: borderFlow 5s linear infinite;
 }
 
 @keyframes fadeUp {
@@ -162,6 +163,15 @@
   }
   to {
     transform: translateX(-50%);
+  }
+}
+
+/* Continuously flowing Primary → Tertiary gradient border. */
+@keyframes borderFlow {
+  to {
+    background-position:
+      0 0,
+      -200% 0;
   }
 }
 
@@ -283,6 +293,26 @@
   }
   .label {
     @apply mb-1.5 block text-sm font-medium text-ink;
+  }
+
+  /* Animated Primary→Tertiary gradient border (always animating).
+     Two layered backgrounds: a solid surface clipped to padding-box sits
+     inside a violet gradient clipped to border-box; the outer layer scrolls. */
+  .gradient-border {
+    border: 2px solid transparent;
+    background:
+      linear-gradient(var(--color-surface), var(--color-surface)) padding-box,
+      linear-gradient(
+          90deg,
+          var(--color-primary),
+          var(--color-tertiary),
+          var(--color-primary)
+        )
+        border-box;
+    background-size:
+      100% 100%,
+      200% 100%;
+    animation: var(--animate-border-flow);
   }
 
   /* Skeleton loader */
