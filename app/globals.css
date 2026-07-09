@@ -116,6 +116,7 @@
   --animate-float: float 6s ease-in-out infinite;
   --animate-marquee: marquee 40s linear infinite;
   --animate-border-flow: borderFlow 5s linear infinite;
+  --animate-gradient-shift: gradientShift 4s ease-in-out infinite alternate;
 }
 
 @keyframes fadeUp {
@@ -172,6 +173,16 @@
     background-position:
       0 0,
       -200% 0;
+  }
+}
+
+/* Back-and-forth Primary → Tertiary gradient sweep (used on clipped text). */
+@keyframes gradientShift {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: 100% 50%;
   }
 }
 
@@ -313,6 +324,23 @@
       100% 100%,
       200% 100%;
     animation: var(--animate-border-flow);
+  }
+
+  /* Animated Primary→Tertiary gradient text — sweeps back and forth. */
+  .text-gradient-flow {
+    display: inline-block;
+    background: linear-gradient(
+      90deg,
+      #7034ea 0%,
+      #aa3fff 50%,
+      #7034ea 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: var(--animate-gradient-shift);
   }
 
   /* Skeleton loader */

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Star, ArrowRight, ArrowUpRight } from "lucide-react";
+import { Star, ArrowUpRight } from "lucide-react";
 import { Fragment, type ReactNode } from "react";
 import { useI18n } from "@/lib/i18n";
 import { cn } from "@/lib/utils/cn";
@@ -14,12 +14,18 @@ import { GradientBackdrop } from "@/components/ui/GradientBackdrop";
 const HIGHLIGHTS: Record<"en" | "bn", { phrase: string; className: string }[]> =
   {
     en: [
-      { phrase: "AI", className: "text-brand-500" },
+      {
+        phrase: "AI Learning",
+        className: "text-gradient-flow",
+      },
       { phrase: "SSC", className: "text-cta" },
       { phrase: "IELTS", className: "text-secondary-600" },
     ],
     bn: [
-      { phrase: "এআই", className: "text-brand-500" },
+      {
+        phrase: "এআই লার্নিং",
+        className: "text-gradient-flow",
+      },
       { phrase: "এসএসসি", className: "text-cta" },
       { phrase: "আইইএলটিএস", className: "text-secondary-600" },
     ],
@@ -92,24 +98,27 @@ export function Hero() {
           {t("home.heroSubtitle")}
         </p>
 
-        {/* CTA — black glowing pill + secondary link */}
-        <div className="mt-12 flex flex-col items-center gap-5">
+        {/* CTA — glowing yellow-outlined pills (Figma node 16817:37320) */}
+        <div className="mt-12 flex flex-col items-center gap-4 sm:flex-row sm:gap-[30px]">
           <Link href="/signup" className="group relative inline-flex">
             <span
               aria-hidden
-              className="absolute -inset-1 rounded-full bg-[linear-gradient(90deg,#7034ea_5%,#ff7837_58%,#5da0b3_96%)] opacity-70 blur-lg transition-opacity duration-300 group-hover:opacity-100"
+              className="pointer-events-none absolute inset-0 rounded-full bg-[linear-gradient(87deg,#7034ea_5%,#ff7837_58%,#5da0b3_96%)] opacity-60 blur-[60px] transition-opacity duration-300 group-hover:opacity-90"
             />
-            <span className="relative inline-flex items-center gap-3 rounded-full border border-accent-500 bg-black px-8 py-3.5 font-display text-lg font-medium tracking-wide text-accent-500 transition-transform duration-300 group-hover:-translate-y-0.5">
+            <span className="relative inline-flex items-center gap-4 overflow-clip rounded-full border border-accent-500 bg-coral-500 px-8 py-[15px] font-display text-xl font-medium capitalize leading-[30px] tracking-[1.25px] text-white transition-transform duration-300 group-hover:-translate-y-0.5">
               {t("common.getStarted")}
               <ArrowUpRight className="h-5 w-5" />
             </span>
           </Link>
-          <Link
-            href="/pricing"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-muted transition-colors hover:text-ink"
-          >
-            {t("common.seePlans")}
-            <ArrowRight className="h-4 w-4" />
+          <Link href="/pricing" className="group relative inline-flex">
+            <span
+              aria-hidden
+              className="pointer-events-none absolute inset-0 rounded-full bg-[linear-gradient(87deg,#7034ea_5%,#ff7837_58%,#5da0b3_96%)] opacity-60 blur-[60px] transition-opacity duration-300 group-hover:opacity-90"
+            />
+            <span className="relative inline-flex items-center gap-4 overflow-clip rounded-full border border-accent-500 bg-surface px-8 py-[15px] font-display text-xl font-medium capitalize leading-[30px] tracking-[1.25px] text-ink transition-transform duration-300 group-hover:-translate-y-0.5">
+              {t("common.seePlans")}
+              <ArrowUpRight className="h-5 w-5" />
+            </span>
           </Link>
         </div>
 

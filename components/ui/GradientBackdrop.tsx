@@ -17,7 +17,7 @@ export function GradientBackdrop({ className }: { className?: string }) {
     >
       {/* Aurora gradient, horizontally flipped + blurred */}
       <div
-        className="absolute inset-0 -scale-x-100 opacity-25 blur-[90px]"
+        className="absolute inset-0 -scale-x-100 opacity-35 blur-[90px]"
         style={{
           background:
             "linear-gradient(269.3deg, #09FF9B 4.46%, #CAB099 23.59%, #ffffff 80%,  #FDFD35 42.73%, #FF5714 55.98%, #B285FF 95.69%)",
