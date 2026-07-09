@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Upload, Image as ImageIcon, ScanText, Bookmark, Loader2 } from "lucide-react";
+import { Upload, Image as ImageIcon, ScanText, Sparkles, Bookmark, Loader2 } from "lucide-react";
 import { AiResponseSteps } from "./AiResponseSteps";
 import { Card, CardBody } from "@/components/ui/primitives";
 import { useToast } from "@/components/ui/toast";
@@ -139,7 +139,7 @@ export function DoubtSolver() {
               className={cn("input resize-none", lang === "bn" && "font-bangla")}
             />
             <button onClick={solve} disabled={solving || !question.trim()} className="btn-primary mt-3 w-full">
-              {solving ? <Loader2 className="h-4 w-4 animate-spin" /> : <ScanText className="h-4 w-4" />}
+              {solving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
               {solving ? "Solving…" : "Solve with AI"}
             </button>
           </CardBody>
