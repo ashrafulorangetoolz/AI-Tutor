@@ -3,7 +3,16 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Menu, Search, Bell, ChevronDown, User, Settings, LogOut, CheckCheck } from "lucide-react";
+import {
+  Menu,
+  Search,
+  Bell,
+  ChevronDown,
+  User,
+  Settings,
+  LogOut,
+  CheckCheck,
+} from "lucide-react";
 import { Avatar } from "@/components/ui/primitives";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { ROLE_HOME, ROLE_LABEL } from "@/lib/constants/navigation";
@@ -20,7 +29,11 @@ export function DashboardHeader({
   const [q, setQ] = useState("");
   return (
     <header className="sticky top-0 z-30 flex h-16 items-center gap-3 border-b border-line bg-canvas/85 px-4 backdrop-blur sm:px-6">
-      <button className="btn-secondary !px-2.5 lg:hidden" onClick={onMenu} aria-label="Menu">
+      <button
+        className="btn-secondary rounded-lg  lg:hidden"
+        onClick={onMenu}
+        aria-label="Menu"
+      >
         <Menu className="h-5 w-5" />
       </button>
 
@@ -229,7 +242,9 @@ function ProfileMenu({
       >
         <Avatar name={user.name} color={user.avatarColor} size={32} />
         <div className="hidden leading-tight sm:block">
-          <div className="text-left text-sm font-semibold text-ink">{user.name}</div>
+          <div className="text-left text-sm font-semibold text-ink">
+            {user.name}
+          </div>
           <div className="text-left text-[11px] text-muted">
             {ROLE_LABEL[user.role].en}
           </div>
