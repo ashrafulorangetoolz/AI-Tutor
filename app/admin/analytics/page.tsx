@@ -3,6 +3,7 @@ import { PageHeader, StatCard } from "@/components/dashboard/cards";
 import { LineChart, BarChart, Donut } from "@/components/dashboard/charts";
 import { Card, CardBody } from "@/components/ui/primitives";
 import { REVENUE_TREND, SIGNUPS_TREND, PLAN_DISTRIBUTION } from "@/lib/mock/admin";
+import { CHART_COLORS } from "@/lib/constants/chart";
 
 export const metadata: Metadata = { title: "Analytics" };
 
@@ -56,7 +57,7 @@ export default function AdminAnalyticsPage() {
         <Card>
           <CardBody>
             <h2 className="mb-4 text-xl font-semibold text-ink">AI usage (calls this week)</h2>
-            <BarChart data={AI_USAGE} color="#6B4FA0" />
+            <BarChart data={AI_USAGE} color={CHART_COLORS.sky} />
           </CardBody>
         </Card>
       </div>

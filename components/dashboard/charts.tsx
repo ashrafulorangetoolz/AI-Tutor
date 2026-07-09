@@ -1,13 +1,14 @@
 "use client";
 
 import { cn } from "@/lib/utils/cn";
+import { CHART_ACCENT } from "@/lib/constants/chart";
 
 // Lightweight dependency-free SVG charts tuned to the brand palette.
 
 export function BarChart({
   data,
   height = 160,
-  color = "#7034EA",
+  color = CHART_ACCENT,
   suffix = "",
 }: {
   data: { label: string; value: number }[];
@@ -50,7 +51,7 @@ export function BarChart({
 export function LineChart({
   data,
   height = 180,
-  color = "#7034EA",
+  color = CHART_ACCENT,
 }: {
   data: { label: string; value: number }[];
   height?: number;
@@ -153,7 +154,7 @@ export function Donut({
 export function RingStat({
   value,
   label,
-  color = "#7034EA",
+  color = CHART_ACCENT,
   trackColor = "#E6E8EC",
   size = 120,
   legend,

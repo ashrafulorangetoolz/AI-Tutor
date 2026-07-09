@@ -92,10 +92,14 @@ export function WeakTopicCard({
     <div className="flex items-center gap-3 rounded-xl border border-line bg-surface p-3.5">
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-2">
-          <span className="truncate text-sm font-semibold text-ink">
+          <span className="min-w-0 truncate text-sm font-semibold text-ink">
             {topic}
           </span>
-          {priority === "HARD" && <Badge tone="amber">Priority</Badge>}
+          {priority === "HARD" && (
+            <Badge tone="amber" className="shrink-0">
+              Priority
+            </Badge>
+          )}
         </div>
         <p className="text-xs text-muted">{subject}</p>
         <ProgressBar
@@ -190,18 +194,18 @@ export function SubjectCard({
   return (
     <Link
       href={href ?? `/dashboard/concept-cards?subject=${slug}`}
-      className="group flex items-center gap-3 rounded-2xl border border-line bg-surface p-4 transition-all hover:-translate-y-0.5 hover:shadow-card"
+      className="group flex items-center gap-4 rounded-lg border border-line bg-surface p-5 shadow-card transition-all hover:-translate-y-0.5 hover:shadow-lg sm:p-6"
     >
       <div
-        className="flex h-12 w-12 items-center justify-center rounded-xl text-2xl"
+        className="flex h-16 w-16 shrink-0 items-center justify-center rounded-md text-3xl"
         style={{ background: `${color}1A` }}
       >
         {icon}
       </div>
       <div className="min-w-0 flex-1">
-        <div className="truncate text-sm font-semibold text-ink">{name}</div>
+        <div className="truncate text-lg font-bold text-ink">{name}</div>
         {nameBn && (
-          <div className="truncate font-bangla text-xs text-muted">
+          <div className="truncate font-bangla text-sm text-muted">
             {nameBn}
           </div>
         )}

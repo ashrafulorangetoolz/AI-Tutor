@@ -145,14 +145,14 @@ export default function DashboardOverviewPage() {
 
         <Card>
           <CardBody>
-            <div className="mb-4 flex items-center justify-between">
-              <h2 className="text-xl font-semibold text-ink">
+            <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+              <h2 className="min-w-0 text-xl font-semibold text-ink">
                 Current study plan
               </h2>
               <LinkButton
                 href="/dashboard/study-plan"
                 variant="secondary"
-                className="!px-3 !py-1.5 text-xs"
+                className="shrink-0 self-start !px-3 !py-1.5 text-xs sm:self-auto"
               >
                 View full plan
               </LinkButton>
@@ -161,7 +161,7 @@ export default function DashboardOverviewPage() {
               {STUDY_PLAN_TASKS.slice(0, 3).map((task, i) => (
                 <div
                   key={i}
-                  className="flex items-center gap-3 rounded-xl border border-line bg-surface p-3.5"
+                  className="flex items-center gap-x-3 gap-y-1.5 rounded-xl border border-line bg-surface p-3.5"
                 >
                   <div
                     className={
@@ -175,7 +175,9 @@ export default function DashboardOverviewPage() {
                   <span className="min-w-0 flex-1 truncate text-sm font-medium text-ink">
                     {task.title}
                   </span>
-                  <Badge tone="gray">{task.subject}</Badge>
+                  <Badge tone="gray" className="shrink-0">
+                    {task.subject}
+                  </Badge>
                   <span className="shrink-0 text-xs text-muted">
                     {task.estMinutes}m
                   </span>

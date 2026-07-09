@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { PageHeader, StatCard } from "@/components/dashboard/cards";
-import { ContentManagerTable } from "@/components/admin/tables";
+import { ContentExplorer } from "./ContentExplorer";
 
 export const metadata: Metadata = { title: "Content" };
 
@@ -16,20 +15,5 @@ const CONTENT_ROWS = [
 ];
 
 export default function AdminContentPage() {
-  return (
-    <>
-      <PageHeader
-        title="Content Management"
-        action={<button className="btn-primary">＋ New concept card</button>}
-      />
-
-      <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <StatCard label="Concept cards" value={(1240).toLocaleString()} icon={<span>📚</span>} tone="brand" />
-        <StatCard label="Mock exams" value={(86).toLocaleString()} icon={<span>📝</span>} tone="blue" />
-        <StatCard label="Questions" value={(5400).toLocaleString()} icon={<span>❓</span>} tone="amber" />
-      </div>
-
-      <ContentManagerTable rows={CONTENT_ROWS} />
-    </>
-  );
+  return <ContentExplorer initialRows={CONTENT_ROWS} />;
 }

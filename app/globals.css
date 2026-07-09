@@ -105,11 +105,10 @@
   --radius-3xl: 1.75rem;
 
   /* Shadows — soft, diffuse */
-  --shadow-card:
-    0 1px 2px rgba(15, 27, 21, 0.04), 0 10px 30px rgba(15, 27, 21, 0.06);
+  --shadow-card: 0 0px 2px rgba(15, 27, 21, 0.06);
   --shadow-pop: 0 16px 48px rgba(15, 27, 21, 0.12);
   --shadow-brand: 0 10px 24px rgba(112, 52, 234, 0.3);
-  --shadow-cta: 0 10px 24px rgba(255, 87, 20, 0.3);
+  --shadow-cta: 0 0px 4px rgba(255, 87, 20, 0.3);
 
   /* Animations */
   --animate-fadeUp: fadeUp 0.4s ease both;
@@ -231,7 +230,7 @@
 
   /* Buttons */
   .btn-primary {
-    @apply btn bg-brand-500 text-white shadow-brand hover:bg-brand-600 hover:-translate-y-0.5;
+    @apply btn bg-brand-500 text-white hover:bg-brand-600 hover:-translate-y-0.5;
   }
   .btn-secondary {
     @apply btn border border-line bg-surface text-ink hover:border-brand-300 hover:bg-brand-50;
@@ -243,7 +242,7 @@
     @apply btn bg-violet-500 text-white hover:bg-violet-600 hover:-translate-y-0.5;
   }
   .btn-cta {
-    @apply btn bg-coral-500 text-white shadow-cta hover:bg-coral-600 hover:-translate-y-0.5;
+    @apply btn bg-coral-500 text-white hover:bg-coral-600 hover:-translate-y-0.5;
   }
   .btn-secondary-fill {
     @apply btn bg-secondary-500 text-ink hover:bg-secondary-600 hover:-translate-y-0.5;

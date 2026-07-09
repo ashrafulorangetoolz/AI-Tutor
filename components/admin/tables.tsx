@@ -1,5 +1,6 @@
 import { Avatar, Badge } from "@/components/ui/primitives";
 import { bdt } from "@/lib/utils/format";
+import { RowMenu } from "./RowMenu";
 
 function StatusBadge({ status }: { status: string }) {
   const s = status.toUpperCase();
@@ -33,7 +34,12 @@ function Table({
         <thead>
           <tr className="border-b border-line text-xs uppercase tracking-wide text-muted">
             {head.map((h) => (
-              <th key={h} className="px-4 py-3 font-semibold">
+              <th
+                key={h}
+                className={`px-4 py-3 font-semibold ${
+                  h === "Action" ? "text-right" : ""
+                }`}
+              >
                 {h}
               </th>
             ))}
@@ -46,21 +52,33 @@ function Table({
 }
 
 // ---- UserTable ----
+type UserRow = {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+  plan: string;
+  status: string;
+  joined: string;
+};
+
 export function UserTable({
   rows,
+  onEdit,
+  onToggleStatus,
+  onDelete,
 }: {
-  rows: {
-    id: string;
-    name: string;
-    email: string;
-    role: string;
-    plan: string;
-    status: string;
-    joined: string;
-  }[];
+  rows: UserRow[];
+  onEdit?: (user: UserRow) => void;
+  onToggleStatus?: (user: UserRow) => void;
+  onDelete?: (user: UserRow) => void;
 }) {
+  const withActions = Boolean(onEdit || onToggleStatus || onDelete);
+  const head = ["User", "Role", "Plan", "Status", "Joined"];
+  if (withActions) head.push("Action");
+
   return (
-    <Table head={["User", "Role", "Plan", "Status", "Joined"]}>
+    <Table head={head}>
       {rows.map((u) => (
         <tr key={u.id} className="hover:bg-brand-50/40">
           <td className="px-4 py-3">
@@ -80,6 +98,35 @@ export function UserTable({
             <StatusBadge status={u.status} />
           </td>
           <td className="px-4 py-3 text-muted">{u.joined}</td>
+          {withActions && (
+            <td className="px-4 py-3">
+              <RowMenu
+                items={[
+                  ...(onEdit
+                    ? [{ label: "Edit", onSelect: () => onEdit(u) }]
+                    : []),
+                  ...(onToggleStatus
+                    ? [
+                        {
+                          label:
+                            u.status === "suspended" ? "Activate" : "Suspend",
+                          onSelect: () => onToggleStatus(u),
+                        },
+                      ]
+                    : []),
+                  ...(onDelete
+                    ? [
+                        {
+                          label: "Delete",
+                          danger: true,
+                          onSelect: () => onDelete(u),
+                        },
+                      ]
+                    : []),
+                ]}
+              />
+            </td>
+          )}
         </tr>
       ))}
     </Table>
@@ -151,19 +198,31 @@ export function SubscriptionTable({
 }
 
 // ---- ContentManagerTable ----
+type ContentRow = {
+  id: string;
+  title: string;
+  type: string;
+  subject: string;
+  status: string;
+};
+
 export function ContentManagerTable({
   rows,
+  onEdit,
+  onToggleStatus,
+  onDelete,
 }: {
-  rows: {
-    id: string;
-    title: string;
-    type: string;
-    subject: string;
-    status: string;
-  }[];
+  rows: ContentRow[];
+  onEdit?: (row: ContentRow) => void;
+  onToggleStatus?: (row: ContentRow) => void;
+  onDelete?: (row: ContentRow) => void;
 }) {
+  const withActions = Boolean(onEdit || onToggleStatus || onDelete);
+  const head = ["Title", "Type", "Subject", "Status"];
+  if (withActions) head.push("Action");
+
   return (
-    <Table head={["Title", "Type", "Subject", "Status"]}>
+    <Table head={head}>
       {rows.map((c) => (
         <tr key={c.id} className="hover:bg-brand-50/40">
           <td className="px-4 py-3 font-medium text-ink">{c.title}</td>
@@ -172,6 +231,34 @@ export function ContentManagerTable({
           <td className="px-4 py-3">
             <StatusBadge status={c.status} />
           </td>
+          {withActions && (
+            <td className="px-4 py-3">
+              <RowMenu
+                items={[
+                  ...(onEdit
+                    ? [{ label: "Edit", onSelect: () => onEdit(c) }]
+                    : []),
+                  ...(onToggleStatus
+                    ? [
+                        {
+                          label: c.status === "active" ? "Unpublish" : "Publish",
+                          onSelect: () => onToggleStatus(c),
+                        },
+                      ]
+                    : []),
+                  ...(onDelete
+                    ? [
+                        {
+                          label: "Delete",
+                          danger: true,
+                          onSelect: () => onDelete(c),
+                        },
+                      ]
+                    : []),
+                ]}
+              />
+            </td>
+          )}
         </tr>
       ))}
     </Table>

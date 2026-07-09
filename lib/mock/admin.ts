@@ -1,5 +1,7 @@
 // Mock data for admin, school and parent dashboards.
 
+import { CHART_COLORS } from "@/lib/constants/chart";
+
 export const ADMIN_STATS = {
   totalUsers: 12840,
   activeToday: 3120,
@@ -28,11 +30,11 @@ export const SIGNUPS_TREND = [
 ];
 
 export const PLAN_DISTRIBUTION = [
-  { plan: "Free", count: 9860, color: "#6B7A70" },
-  { plan: "SSC Pro", count: 1420, color: "#0FA06E" },
-  { plan: "IELTS Pro", count: 980, color: "#2E90FA" },
-  { plan: "Bundle", count: 420, color: "#F5A524" },
-  { plan: "School", count: 160, color: "#7D69EF" },
+  { plan: "Free", count: 9860, color: CHART_COLORS.violet },
+  { plan: "SSC Pro", count: 1420, color: CHART_COLORS.mint },
+  { plan: "IELTS Pro", count: 980, color: CHART_COLORS.sky },
+  { plan: "Bundle", count: 420, color: CHART_COLORS.sun },
+  { plan: "School", count: 160, color: CHART_COLORS.coral },
 ];
 
 export const ADMIN_USERS = [

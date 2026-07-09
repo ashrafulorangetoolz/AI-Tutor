@@ -26,10 +26,12 @@ const PLAN_OPTIONS = ["FREE", "SSC_PRO", "IELTS_PRO", "BUNDLE", "SCHOOL"];
 type User = (typeof ADMIN_USERS)[number];
 
 export function UsersExplorer() {
+  const { toast } = useToast();
   const [active, setActive] = useState<(typeof FILTERS)[number]>("All");
   const [query, setQuery] = useState("");
   const [users, setUsers] = useState<User[]>(ADMIN_USERS);
   const [addOpen, setAddOpen] = useState(false);
+  const [editing, setEditing] = useState<User | null>(null);
 
   const rows = useMemo(() => {
     const role = ROLE_BY_FILTER[active];
@@ -79,27 +81,61 @@ export function UsersExplorer() {
         </div>
       </div>
 
-      <UserTable rows={rows} />
+      <UserTable
+        rows={rows}
+        onEdit={(u) => setEditing(u)}
+        onToggleStatus={(u) => {
+          setUsers((prev) =>
+            prev.map((x) =>
+              x.id === u.id
+                ? {
+                    ...x,
+                    status: x.status === "suspended" ? "active" : "suspended",
+                  }
+                : x,
+            ),
+          );
+          toast(
+            u.status === "suspended" ? "User activated." : "User suspended.",
+          );
+        }}
+        onDelete={(u) => {
+          setUsers((prev) => prev.filter((x) => x.id !== u.id));
+          toast("User deleted.");
+        }}
+      />
 
-      <AddUserDialog
-        open={addOpen}
-        onClose={() => setAddOpen(false)}
+      <UserDialog
+        open={addOpen || editing !== null}
+        user={editing}
+        onClose={() => {
+          setAddOpen(false);
+          setEditing(null);
+        }}
         onCreate={(u) => setUsers((prev) => [u, ...prev])}
+        onUpdate={(u) =>
+          setUsers((prev) => prev.map((x) => (x.id === u.id ? u : x)))
+        }
       />
     </>
   );
 }
 
-function AddUserDialog({
+function UserDialog({
   open,
+  user,
   onClose,
   onCreate,
+  onUpdate,
 }: {
   open: boolean;
+  user: User | null;
   onClose: () => void;
   onCreate: (user: User) => void;
+  onUpdate: (user: User) => void;
 }) {
   const { toast } = useToast();
+  const isEdit = user !== null;
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("STUDENT");
@@ -119,13 +155,12 @@ function AddUserDialog({
   }, [open, onClose]);
 
   useEffect(() => {
-    if (!open) {
-      setName("");
-      setEmail("");
-      setRole("STUDENT");
-      setPlan("FREE");
-    }
-  }, [open]);
+    if (!open) return;
+    setName(user?.name ?? "");
+    setEmail(user?.email ?? "");
+    setRole(user?.role ?? "STUDENT");
+    setPlan(user?.plan ?? "FREE");
+  }, [open, user]);
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -133,16 +168,27 @@ function AddUserDialog({
       toast("Name and email are required.", "error");
       return;
     }
-    onCreate({
-      id: `u${Math.floor(Date.now() % 1_000_000)}`,
-      name: name.trim(),
-      email: email.trim(),
-      role,
-      plan,
-      status: "active",
-      joined: new Date().toISOString().slice(0, 10),
-    });
-    toast("User added.");
+    if (isEdit) {
+      onUpdate({
+        ...user,
+        name: name.trim(),
+        email: email.trim(),
+        role,
+        plan,
+      });
+      toast("User updated.");
+    } else {
+      onCreate({
+        id: `u${Math.floor(Date.now() % 1_000_000)}`,
+        name: name.trim(),
+        email: email.trim(),
+        role,
+        plan,
+        status: "active",
+        joined: new Date().toISOString().slice(0, 10),
+      });
+      toast("User added.");
+    }
     onClose();
   };
 
@@ -162,7 +208,7 @@ function AddUserDialog({
         <form
           role="dialog"
           aria-modal="true"
-          aria-label="Add user"
+          aria-label={isEdit ? "Edit user" : "Add user"}
           onSubmit={submit}
           className={`w-full max-w-md rounded-2xl bg-surface shadow-xl transition-all duration-200 ${
             open ? "scale-100 opacity-100" : "scale-95 opacity-0"
@@ -170,9 +216,13 @@ function AddUserDialog({
         >
           <div className="flex items-start justify-between border-b border-line px-5 py-4">
             <div>
-              <h2 className="text-xl font-semibold text-ink">Add user</h2>
+              <h2 className="text-xl font-semibold text-ink">
+                {isEdit ? "Edit user" : "Add user"}
+              </h2>
               <p className="mt-0.5 text-sm text-muted">
-                Create a new account manually.
+                {isEdit
+                  ? "Update this account's details."
+                  : "Create a new account manually."}
               </p>
             </div>
             <button
@@ -251,7 +301,7 @@ function AddUserDialog({
               Cancel
             </button>
             <button type="submit" className="btn-primary">
-              Add user
+              {isEdit ? "Save changes" : "Add user"}
             </button>
           </div>
         </form>
