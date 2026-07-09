@@ -34,7 +34,12 @@ export default function DashboardOverviewPage() {
       />
 
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        <StatCard label="Study streak" value="7 days" icon={<span>🔥</span>} tone="amber" />
+        <StatCard
+          label="Study streak"
+          value="7 days"
+          icon={<span>🔥</span>}
+          tone="amber"
+        />
         <StatCard
           label="Study time this week"
           value={formatMinutes(weekMinutes)}
@@ -63,7 +68,10 @@ export default function DashboardOverviewPage() {
                 This week's study time
               </h2>
               <BarChart
-                data={STUDY_TIME_WEEK.map((d) => ({ label: d.day, value: d.min }))}
+                data={STUDY_TIME_WEEK.map((d) => ({
+                  label: d.day,
+                  value: d.min,
+                }))}
                 suffix="m"
               />
             </CardBody>
@@ -106,7 +114,9 @@ export default function DashboardOverviewPage() {
 
           <Card>
             <CardBody>
-              <h2 className="mb-4 text-xl font-semibold text-ink">Weak topics</h2>
+              <h2 className="mb-4 text-xl font-semibold text-ink">
+                Weak topics
+              </h2>
               <div className="space-y-3">
                 {WEAK_TOPICS.map((t) => (
                   <WeakTopicCard
@@ -126,7 +136,9 @@ export default function DashboardOverviewPage() {
       <div className="mt-5 grid gap-5 lg:grid-cols-2">
         <Card>
           <CardBody>
-            <h2 className="mb-2 text-xl font-semibold text-ink">Recent activity</h2>
+            <h2 className="mb-2 text-xl font-semibold text-ink">
+              Recent activity
+            </h2>
             <ActivityFeed items={RECENT_ACTIVITY} />
           </CardBody>
         </Card>
@@ -134,7 +146,9 @@ export default function DashboardOverviewPage() {
         <Card>
           <CardBody>
             <div className="mb-4 flex items-center justify-between">
-              <h2 className="text-xl font-semibold text-ink">Current study plan</h2>
+              <h2 className="text-xl font-semibold text-ink">
+                Current study plan
+              </h2>
               <LinkButton
                 href="/dashboard/study-plan"
                 variant="secondary"

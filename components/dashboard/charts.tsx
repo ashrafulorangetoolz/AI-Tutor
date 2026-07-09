@@ -154,38 +154,64 @@ export function RingStat({
   value,
   label,
   color = "#7034EA",
-  size = 96,
+  trackColor = "#E6E8EC",
+  size = 120,
+  legend,
 }: {
   value: number;
   label?: string;
   color?: string;
+  trackColor?: string;
   size?: number;
+  legend?: { filled: string; empty: string };
 }) {
-  const thickness = 9;
+  const thickness = 14;
   const r = (size - thickness) / 2;
   const c = 2 * Math.PI * r;
   const dash = (value / 100) * c;
+  const ring = (
+    <div className="relative" style={{ width: size, height: size }}>
+      <svg width={size} height={size} className="-rotate-90">
+        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke={trackColor} strokeWidth={thickness} />
+        <circle
+          cx={size / 2}
+          cy={size / 2}
+          r={r}
+          fill="none"
+          stroke={color}
+          strokeWidth={thickness}
+          strokeLinecap="round"
+          strokeDasharray={`${dash} ${c - dash}`}
+        />
+      </svg>
+      <div className="absolute inset-0 flex items-center justify-center text-2xl font-bold text-ink">
+        {Math.round(value)}%
+      </div>
+    </div>
+  );
+
+  if (legend) {
+    return (
+      <div className="flex items-center gap-6">
+        {ring}
+        <ul className="space-y-2 text-sm text-ink">
+          <li className="flex items-center gap-2">
+            <span className="h-3 w-3 rounded-full" style={{ background: color }} />
+            {legend.filled}
+          </li>
+          <li className="flex items-center gap-2">
+            <span className="h-3 w-3 rounded-full" style={{ background: trackColor }} />
+            {legend.empty}
+          </li>
+        </ul>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col items-center">
-      <div className="relative" style={{ width: size, height: size }}>
-        <svg width={size} height={size} className="-rotate-90">
-          <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="#00000010" strokeWidth={thickness} />
-          <circle
-            cx={size / 2}
-            cy={size / 2}
-            r={r}
-            fill="none"
-            stroke={color}
-            strokeWidth={thickness}
-            strokeLinecap="round"
-            strokeDasharray={`${dash} ${c - dash}`}
-          />
-        </svg>
-        <div className="absolute inset-0 flex items-center justify-center text-lg font-bold text-ink">
-          {Math.round(value)}%
-        </div>
-      </div>
-      {label && <span className={cn("mt-1 text-xs text-muted")}>{label}</span>}
+      {ring}
+      {label && <span className={cn("mt-1 text-sm text-muted")}>{label}</span>}
     </div>
   );
 }

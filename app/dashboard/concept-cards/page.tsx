@@ -1,5 +1,4 @@
 import { PageHeader, SubjectCard, ConceptCardPreview } from "@/components/dashboard/cards";
-import { SectionHeading } from "@/components/ui/primitives";
 import { CONCEPT_CARDS } from "@/lib/mock/data";
 import { SSC_SUBJECTS } from "@/lib/constants";
 
@@ -28,7 +27,7 @@ export default function ConceptCardsPage() {
       </div>
 
       <div className="mt-10">
-        <SectionHeading title="All concept cards" />
+        <h2 className="text-2xl font-bold text-ink">All concept cards</h2>
         <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {CONCEPT_CARDS.map((card) => (
             <ConceptCardPreview

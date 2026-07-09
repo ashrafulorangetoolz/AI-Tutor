@@ -20,7 +20,7 @@ export default function SchoolPage() {
 
   return (
     <>
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mb-6 flex flex-col gap-3 sm:mb-4 sm:flex-row sm:items-center sm:justify-between">
         <PageHeader title={s.name} subtitle="School overview" />
         <div className=" flex flex-wrap gap-3">
           <LinkButton href="/school/reports" variant="secondary">
@@ -80,7 +80,8 @@ export default function SchoolPage() {
             </h2>
             <RingStat
               value={(s.usedSeats / s.licenseSeats) * 100}
-              label="Seats used"
+              trackColor="#e6d9fb"
+              legend={{ filled: "Seats used", empty: "Seats free" }}
             />
             <p className="text-sm text-muted">
               {s.usedSeats} of {s.licenseSeats}

@@ -1,5 +1,5 @@
 import { PageHeader, StatCard, WeakTopicCard } from "@/components/dashboard/cards";
-import { Card, CardBody, Badge, SectionHeading } from "@/components/ui/primitives";
+import { Card, CardBody, Badge } from "@/components/ui/primitives";
 import { STUDY_PLAN_TASKS, STUDY_TIME_WEEK, WEAK_TOPICS } from "@/lib/mock/data";
 import { formatMinutes } from "@/lib/utils/format";
 
@@ -36,7 +36,7 @@ export default function StudyPlanPage() {
 
       <div className="mt-8 grid gap-8 lg:grid-cols-3">
         <div className="space-y-4 lg:col-span-2">
-          <SectionHeading title="Weekly plan" />
+          <h2 className="text-2xl font-bold text-ink">Weekly plan</h2>
           <div className="space-y-4">
             {DAYS.map((day) => {
               const tasks = STUDY_PLAN_TASKS.filter((t) => t.day === day);
@@ -88,7 +88,7 @@ export default function StudyPlanPage() {
         </div>
 
         <div className="space-y-4">
-          <SectionHeading title="Priority weak topics" />
+          <h2 className="text-2xl font-bold text-ink">Priority weak topics</h2>
           <div className="space-y-3">
             {WEAK_TOPICS.map((t) => (
               <WeakTopicCard
