@@ -8,7 +8,7 @@ Built with **Next.js 16 (App Router)**, **React 19**, **TypeScript 6**, **Tailwi
 
 ## ✨ Features
 
-- **Bilingual AI Tutor** — step-by-step explanations in English & Bangla, subject/track aware, with regenerate / explain-simply / save / practice actions.
+- **Bilingual AI Tutor** — a modern, full-height chat experience: aurora-glow empty state, gradient branding, quick-start suggestion cards, an animated gradient composer, and step-by-step explanations in English & Bangla. Subject/track aware, with regenerate / explain-simply / save / practice actions.
 - **AI Doubt Solver + OCR** — type a question or upload a photo; OCR extracts the text and the AI solves it step by step.
 - **Concept Card Library** — structured lessons with explanation, example, common mistakes and practice.
 - **SSC Track** — full Bangladesh National Curriculum (Grade 9–10) across Science, Business & Humanities groups; board-style mocks, custom exam builder, previous-year questions, weak-topic detection & adaptive plans.
@@ -131,9 +131,20 @@ Each integration point has a clearly marked `// Real ... integration goes here` 
 
 ---
 
+## 🎨 Design system
+
+A CSS-first Tailwind v4 theme (`app/globals.css`) drives the whole UI through semantic tokens, so colours, radii and shadows stay consistent across every page:
+
+- **Palette** — Primary `#7034EA` (violet) · Tertiary `#AA3FFF` · Secondary `#09FF9B` (mint) · Accent `#FDFD35` · CTA `#FF5714`, plus semantic `ink` / `muted` / `line` / `surface` roles.
+- **Radii** — `md` inputs, `lg` chips & tiles, `xl` toggles & panels, `2xl` large surfaces.
+- **Motion** — reusable keyframes for `fadeUp`, `blink`, `float`, `marquee` and an always-on Primary→Tertiary `gradient-border` utility.
+
+Shared primitives live in `components/ui/` and dashboard building blocks in `components/dashboard/cards.tsx`.
+
+---
+
 ## 🧭 Future tracks (schema-ready)
 
 HSC · University Admission · BCS · SAT · GRE · GMAT · Junior School — add a `TrackType`/subjects entry and the UI scales automatically.
 
 Made with ❤️ for students in Bangladesh 🇧🇩
-# AI-Tutor
