@@ -62,81 +62,80 @@ export function DoubtSolver() {
   return (
     <div className="grid gap-6 lg:grid-cols-2">
       {/* Input side */}
-      <div className="space-y-4">
-        <div className="inline-flex rounded-xl border border-line bg-surface p-1">
-          <TabBtn active={mode === "text"} onClick={() => setMode("text")}>
-            ✏️ Type question
-          </TabBtn>
-          <TabBtn active={mode === "image"} onClick={() => setMode("image")}>
-            📷 Upload photo
-          </TabBtn>
-        </div>
-
-        {mode === "image" && (
-          <Card>
-            <CardBody>
-              <label className="flex cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-line bg-brand-50/40 px-6 py-10 text-center transition-colors hover:border-brand-400">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-100 text-brand-600">
-                  <Upload className="h-6 w-6" />
-                </div>
-                <span className="text-sm font-semibold text-ink">Upload a question photo</span>
-                <span className="text-xs text-muted">PNG, JPG up to 10MB — handwriting supported</span>
-                <input
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                  onChange={(e) => {
-                    const f = e.target.files?.[0];
-                    if (f) {
-                      setFileName(f.name);
-                      runOcr(f.name);
-                    }
-                  }}
-                />
-              </label>
-
-              {fileName && (
-                <div className="mt-3 flex items-center gap-2 rounded-lg border border-line bg-surface px-3 py-2 text-sm text-ink">
-                  <ImageIcon className="h-4 w-4 text-muted" />
-                  <span className="truncate">{fileName}</span>
-                </div>
-              )}
-
-              {/* OCR preview */}
-              {(ocrLoading || ocr) && (
-                <div className="mt-4 rounded-xl border border-line bg-brand-50/40 p-3.5">
-                  <div className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-brand-600">
-                    <ScanText className="h-4 w-4" /> Extracted text
-                  </div>
-                  {ocrLoading ? (
-                    <div className="space-y-2">
-                      <div className="skeleton h-3 w-full" />
-                      <div className="skeleton h-3 w-4/5" />
-                    </div>
-                  ) : (
-                    <>
-                      <p className="text-sm text-ink">{ocr?.text}</p>
-                      <p className="mt-2 text-[11px] text-muted">
-                        {ocr?.provider} · {Math.round((ocr?.confidence ?? 0) * 100)}% confidence
-                        {ocr?.mocked && " · mock"}
-                      </p>
-                    </>
-                  )}
-                </div>
-              )}
-            </CardBody>
-          </Card>
-        )}
-
+      <div>
         <Card>
           <CardBody>
-            <label className="label">Your question</label>
+            <h3 className="text-base font-semibold text-ink">Your question</h3>
+
+            <div className="mt-3 inline-flex rounded-xl border border-line bg-surface p-1">
+              <TabBtn active={mode === "text"} onClick={() => setMode("text")}>
+                ✏️ Type question
+              </TabBtn>
+              <TabBtn active={mode === "image"} onClick={() => setMode("image")}>
+                📷 Upload photo
+              </TabBtn>
+            </div>
+
+            {mode === "image" && (
+              <div className="mt-4">
+                <label className="flex cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-line bg-brand-50/40 px-6 py-10 text-center transition-colors hover:border-brand-400">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-100 text-brand-600">
+                    <Upload className="h-6 w-6" />
+                  </div>
+                  <span className="text-sm font-semibold text-ink">Upload a question photo</span>
+                  <span className="text-xs text-muted">PNG, JPG up to 10MB — handwriting supported</span>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={(e) => {
+                      const f = e.target.files?.[0];
+                      if (f) {
+                        setFileName(f.name);
+                        runOcr(f.name);
+                      }
+                    }}
+                  />
+                </label>
+
+                {fileName && (
+                  <div className="mt-3 flex items-center gap-2 rounded-lg border border-line bg-surface px-3 py-2 text-sm text-ink">
+                    <ImageIcon className="h-4 w-4 text-muted" />
+                    <span className="truncate">{fileName}</span>
+                  </div>
+                )}
+
+                {/* OCR preview */}
+                {(ocrLoading || ocr) && (
+                  <div className="mt-4 rounded-xl border border-line bg-brand-50/40 p-3.5">
+                    <div className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-brand-600">
+                      <ScanText className="h-4 w-4" /> Extracted text
+                    </div>
+                    {ocrLoading ? (
+                      <div className="space-y-2">
+                        <div className="skeleton h-3 w-full" />
+                        <div className="skeleton h-3 w-4/5" />
+                      </div>
+                    ) : (
+                      <>
+                        <p className="text-sm text-ink">{ocr?.text}</p>
+                        <p className="mt-2 text-[11px] text-muted">
+                          {ocr?.provider} · {Math.round((ocr?.confidence ?? 0) * 100)}% confidence
+                          {ocr?.mocked && " · mock"}
+                        </p>
+                      </>
+                    )}
+                  </div>
+                )}
+              </div>
+            )}
+
             <textarea
               value={question}
               onChange={(e) => setQuestion(e.target.value)}
               rows={5}
               placeholder={lang === "bn" ? "আপনার প্রশ্ন এখানে লিখুন বা ছবি থেকে আসা টেক্সট সম্পাদনা করুন…" : "Type your question here, or edit the text from your photo…"}
-              className={cn("input resize-none", lang === "bn" && "font-bangla")}
+              className={cn("input mt-4 resize-none", lang === "bn" && "font-bangla")}
             />
             <button onClick={solve} disabled={solving || !question.trim()} className="btn-primary mt-3 w-full">
               {solving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
@@ -151,7 +150,7 @@ export function DoubtSolver() {
         <Card className="min-h-[300px]">
           <CardBody>
             <div className="mb-3 flex items-center justify-between">
-              <h3 className="font-semibold text-ink">AI Solution</h3>
+              <h3 className="text-base font-semibold text-ink">AI Solution</h3>
               {solution && (
                 <button onClick={() => toast("Doubt saved to your library")} className="btn-secondary !px-3 !py-1.5 text-xs">
                   <Bookmark className="h-3.5 w-3.5" /> Save

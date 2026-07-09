@@ -202,7 +202,7 @@ export default function TakeExamPage({
                       setAnswers((a) => ({ ...a, [q.id]: opt }))
                     }
                     className={cn(
-                      "flex w-full items-center gap-3 rounded-xl border px-4 py-3 text-left text-sm transition-colors",
+                      "flex w-full items-center gap-3 rounded-md border px-4 py-3 text-left text-sm transition-colors",
                       selected
                         ? "border-brand-400 bg-brand-50 text-ink"
                         : "border-line bg-surface text-ink hover:border-brand-300",
@@ -280,7 +280,7 @@ export default function TakeExamPage({
               type="button"
               onClick={() => setCurrent(i)}
               className={cn(
-                "relative h-9 w-9 rounded-lg border text-xs font-semibold transition-colors",
+                "relative h-9 w-9 rounded-md border text-xs font-semibold transition-colors",
                 i === current
                   ? "border-brand-500 bg-brand-500 text-white"
                   : isAnswered

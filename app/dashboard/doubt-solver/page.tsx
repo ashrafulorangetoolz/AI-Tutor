@@ -1,6 +1,5 @@
 import { PageHeader } from "@/components/dashboard/cards";
 import { DoubtSolver, SavedDoubtCard } from "@/components/ai/DoubtSolver";
-import { SectionHeading } from "@/components/ui/primitives";
 
 export const metadata = { title: "Doubt Solver" };
 
@@ -33,7 +32,7 @@ export default function DoubtSolverPage() {
       <DoubtSolver />
 
       <div className="mt-8">
-        <SectionHeading title="Saved doubts" />
+        <h2 className="text-2xl font-bold text-ink">Saved doubts</h2>
         <div className="mt-5 grid gap-4 sm:grid-cols-2">
           {SAVED_DOUBTS.map((d, i) => (
             <SavedDoubtCard

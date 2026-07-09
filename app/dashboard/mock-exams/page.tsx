@@ -1,5 +1,5 @@
 import { PageHeader, MockExamCard, ResultSummaryCard } from "@/components/dashboard/cards";
-import { Card, CardBody, SectionHeading, LinkButton } from "@/components/ui/primitives";
+import { Card, CardBody, LinkButton } from "@/components/ui/primitives";
 import { MOCK_EXAMS, MOCK_SCORES } from "@/lib/mock/data";
 
 export const metadata = { title: "Mock Exams" };
@@ -28,7 +28,7 @@ export default function MockExamsPage() {
       />
 
       <section>
-        <SectionHeading title="SSC Mock Exams" />
+        <h2 className="text-2xl font-bold text-ink">SSC Mock Exams</h2>
         <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {SSC_EXAMS.map((e) => (
             <MockExamCard
@@ -47,7 +47,7 @@ export default function MockExamsPage() {
       </section>
 
       <section className="mt-10">
-        <SectionHeading title="IELTS Mock Tests" />
+        <h2 className="text-2xl font-bold text-ink">IELTS Mock Tests</h2>
         <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {IELTS_EXAMS.map((e) => (
             <MockExamCard
@@ -66,7 +66,7 @@ export default function MockExamsPage() {
       </section>
 
       <section className="mt-10">
-        <SectionHeading title="Previous results" />
+        <h2 className="text-2xl font-bold text-ink">Previous results</h2>
         <Card className="mt-5">
           <CardBody className="space-y-3">
             {RESULTS.map((r, i) => (
@@ -84,7 +84,7 @@ export default function MockExamsPage() {
       </section>
 
       <section className="mt-10">
-        <SectionHeading title="Custom exam builder" />
+        <h2 className="text-2xl font-bold text-ink">Custom exam builder</h2>
         <Card className="mt-5">
           <CardBody className="space-y-6">
             <div>
