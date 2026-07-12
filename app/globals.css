@@ -243,10 +243,10 @@
 
   /* Cards */
   .card {
-    @apply rounded-lg border border-line bg-surface shadow-card;
+    @apply rounded-md sm:rounded-lg border border-line bg-surface shadow-card;
   }
   .card-pad {
-    @apply p-5 sm:p-6;
+    @apply p-3 sm:p-6;
   }
 
   /* Buttons */
@@ -329,12 +329,7 @@
   /* Animated Primary→Tertiary gradient text — sweeps back and forth. */
   .text-gradient-flow {
     display: inline-block;
-    background: linear-gradient(
-      90deg,
-      #7034ea 0%,
-      #aa3fff 50%,
-      #7034ea 100%
-    );
+    background: linear-gradient(90deg, #7034ea 0%, #aa3fff 50%, #7034ea 100%);
     background-size: 200% auto;
     -webkit-background-clip: text;
     background-clip: text;

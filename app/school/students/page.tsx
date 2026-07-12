@@ -223,7 +223,9 @@ function BulkEnrollDrawer({
             <p className="mt-2 text-sm font-medium text-ink">
               Drag &amp; drop a CSV file here
             </p>
-            <p className="mt-1 text-xs text-muted">or click to browse — max 5MB</p>
+            <p className="mt-1 text-xs text-muted">
+              or click to browse — max 5MB
+            </p>
             <input type="file" accept=".csv" className="hidden" />
           </label>
         </div>

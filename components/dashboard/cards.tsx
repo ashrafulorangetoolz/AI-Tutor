@@ -25,11 +25,11 @@ export function StatCard({
   }[tone];
   return (
     <Card>
-      <CardBody className="flex items-center gap-4">
+      <CardBody className="flex items-center gap-2 sm:gap-4">
         {icon && (
           <div
             className={cn(
-              "flex h-16 w-16 items-center justify-center rounded-md text-3xl",
+              "flex h-10 w-10 sm:h-16 sm:w-16 items-center justify-center rounded sm:rounded-md text-xl sm:text-3xl ",
               bg,
             )}
           >
@@ -37,8 +37,10 @@ export function StatCard({
           </div>
         )}
         <div className="min-w-0">
-          <div className="truncate text-2xl font-bold text-ink">{value}</div>
-          <div className="truncate text-sm text-muted">{label}</div>
+          <div className="truncate text-xl sm:text-3xl font-bold text-ink">
+            {value}
+          </div>
+          <div className="truncate text-xs  sm:text-sm text-muted">{label}</div>
         </div>
         {delta && (
           <span className="ml-auto text-xs font-semibold text-brand-500">

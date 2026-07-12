@@ -33,7 +33,7 @@ export default function DashboardOverviewPage() {
         subtitle="Here's your learning snapshot"
       />
 
-      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-5 grid-cols-2 lg:grid-cols-4">
         <StatCard
           label="Study streak"
           value="7 days"

@@ -1,6 +1,14 @@
-import { PageHeader, StatCard, WeakTopicCard } from "@/components/dashboard/cards";
+import {
+  PageHeader,
+  StatCard,
+  WeakTopicCard,
+} from "@/components/dashboard/cards";
 import { Card, CardBody, Badge } from "@/components/ui/primitives";
-import { STUDY_PLAN_TASKS, STUDY_TIME_WEEK, WEAK_TOPICS } from "@/lib/mock/data";
+import {
+  STUDY_PLAN_TASKS,
+  STUDY_TIME_WEEK,
+  WEAK_TOPICS,
+} from "@/lib/mock/data";
 import { formatMinutes } from "@/lib/utils/format";
 
 export const metadata = { title: "Study Plan" };
@@ -25,7 +33,12 @@ export default function StudyPlanPage() {
           icon={<span>✅</span>}
           tone="brand"
         />
-        <StatCard label="Weekly goal" value="7h" icon={<span>🎯</span>} tone="purple" />
+        <StatCard
+          label="Weekly goal"
+          value="7h"
+          icon={<span>🎯</span>}
+          tone="purple"
+        />
         <StatCard
           label="This week"
           value={formatMinutes(weekMinutes)}
@@ -74,8 +87,12 @@ export default function StudyPlanPage() {
                               {task.title}
                             </span>
                             <Badge tone="gray">{task.subject}</Badge>
-                            <span className="text-xs text-muted">{task.estMinutes}m</span>
-                            {task.priority === "HARD" && <Badge tone="amber">Priority</Badge>}
+                            <span className="text-xs text-muted">
+                              {task.estMinutes}m
+                            </span>
+                            {task.priority === "HARD" && (
+                              <Badge tone="amber">Priority</Badge>
+                            )}
                           </div>
                         ))}
                       </div>
