@@ -1,4 +1,8 @@
-import { PageHeader, SubjectCard, ConceptCardPreview } from "@/components/dashboard/cards";
+import {
+  PageHeader,
+  SubjectCard,
+  ConceptCardPreview,
+} from "@/components/dashboard/cards";
 import { CONCEPT_CARDS } from "@/lib/mock/data";
 import { SSC_SUBJECTS } from "@/lib/constants";
 

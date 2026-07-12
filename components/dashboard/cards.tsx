@@ -162,7 +162,7 @@ export function ActivityFeed({
       {items.map((it, i) => (
         <li
           key={i}
-          className="flex items-start gap-3 rounded-md px-2 py-2.5 hover:bg-brand-50"
+          className="flex  gap-3 rounded-md px-2 py-2.5 hover:bg-brand-50"
         >
           <span className="mt-0.5 text-xl">{it.icon}</span>
           <div className="min-w-0 flex-1">
@@ -199,13 +199,15 @@ export function SubjectCard({
       className="group flex items-center gap-4 rounded-lg border border-line bg-surface p-5 shadow-card transition-all hover:-translate-y-0.5 hover:shadow-lg sm:p-6"
     >
       <div
-        className="flex h-16 w-16 shrink-0 items-center justify-center rounded-md text-3xl"
+        className="flex h-10 w-10 sm:h-16 sm:w-16  items-center justify-center rounded sm:rounded-md text-xl sm:text-3xl"
         style={{ background: `${color}1A` }}
       >
         {icon}
       </div>
       <div className="min-w-0 flex-1">
-        <div className="truncate text-lg font-bold text-ink">{name}</div>
+        <div className="truncate text-lg sm:text-lg font-bold text-ink">
+          {name}
+        </div>
         {nameBn && (
           <div className="truncate font-bangla text-sm text-muted">
             {nameBn}

@@ -146,13 +146,13 @@ export default function DashboardOverviewPage() {
         <Card>
           <CardBody>
             <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-              <h2 className="min-w-0 text-xl font-semibold text-ink">
+              <h2 className=" text-xl font-semibold text-ink">
                 Current study plan
               </h2>
               <LinkButton
                 href="/dashboard/study-plan"
                 variant="secondary"
-                className="shrink-0 self-start !px-3 !py-1.5 text-xs sm:self-auto"
+                className="  text-xs sm:self-auto"
               >
                 View full plan
               </LinkButton>
