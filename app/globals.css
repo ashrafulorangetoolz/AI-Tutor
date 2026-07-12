@@ -338,6 +338,59 @@
     animation: var(--animate-gradient-shift);
   }
 
+  /* Static multi-hue brand gradient text — sky → primary → tertiary → CTA. */
+  .text-gradient-brand {
+    display: inline-block;
+    background: linear-gradient(
+      90deg,
+      #2e90fa 0%,
+      #7034ea 38%,
+      #aa3fff 62%,
+      #ff5714 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  /* Sticky-stacking feature cards — each card pins and the next slides over it.
+     Sticky only applies when motion is allowed; otherwise cards stack normally. */
+  .feature-stack-card {
+    will-change: transform;
+    transform-origin: 50% 0%;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .feature-stack-card {
+      position: sticky;
+      top: var(--stack-top, 6rem);
+    }
+  }
+
+  /* Pill with an animated gradient border (eyebrow chips). */
+  .pill-gradient-border {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 9999px;
+    background: var(--color-surface);
+  }
+  .pill-gradient-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1.5px;
+    background: linear-gradient(90deg, #2e90fa, #7034ea, #aa3fff, #ff5714);
+    background-size: 200% auto;
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: var(--animate-gradient-shift);
+  }
+
   /* Skeleton loader */
   .skeleton {
     @apply relative overflow-hidden rounded-lg bg-black/5;
@@ -370,3 +423,4 @@
   background: #d7d5cb;
   border-radius: 8px;
 }
+

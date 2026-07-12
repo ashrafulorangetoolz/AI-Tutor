@@ -78,22 +78,41 @@ export function ProgressBar({
 export function SectionHeading({
   eyebrow,
   title,
+  accent,
   subtitle,
   center,
+  pill,
 }: {
   eyebrow?: string;
   title: string;
+  /** Optional second heading line rendered in a brand gradient. */
+  accent?: string;
   subtitle?: string;
   center?: boolean;
+  /** Render the eyebrow as a gradient-border pill chip. */
+  pill?: boolean;
 }) {
   return (
     <div className={cn("max-w-3xl", center && "mx-auto text-center")}>
-      {eyebrow && (
-        <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-brand-500">
-          {eyebrow}
-        </p>
-      )}
-      <h2 className="text-4xl font-bold text-ink sm:text-6xl">{title}</h2>
+      {eyebrow &&
+        (pill ? (
+          <span className="pill-gradient-border mb-4 px-5 py-1.5 text-sm font-semibold text-ink">
+            {eyebrow}
+          </span>
+        ) : (
+          <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-brand-500">
+            {eyebrow}
+          </p>
+        ))}
+      <h2 className="text-4xl font-bold leading-tight text-ink sm:text-6xl">
+        {title}
+        {accent && (
+          <>
+            <br />
+            <span className="text-gradient-brand">{accent}</span>
+          </>
+        )}
+      </h2>
       {subtitle && <p className="mt-3 text-base text-muted">{subtitle}</p>}
     </div>
   );

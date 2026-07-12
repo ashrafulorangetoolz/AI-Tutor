@@ -1,5 +1,5 @@
 import { Check } from "lucide-react";
-import { SectionHeading, Card, CardBody, Badge, LinkButton } from "@/components/ui/primitives";
+import { Card, CardBody, Badge, LinkButton } from "@/components/ui/primitives";
 import { CTASection, SectionWrap } from "@/components/public/sections";
 import { PricingPlans } from "@/components/public/PricingPlans";
 import { FAQAccordion } from "@/components/public/FAQAccordion";
@@ -72,10 +72,7 @@ export default function PricingPage() {
       </SectionWrap>
 
       <SectionWrap>
-        <SectionHeading center eyebrow="FAQ" title="Questions, answered" />
-        <div className="mt-10">
-          <FAQAccordion />
-        </div>
+        <FAQAccordion />
       </SectionWrap>
 
       <SectionWrap>

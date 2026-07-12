@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { Check, ArrowRight, Star, Clock, BookOpen, BarChart3 } from "lucide-react";
 import { Card, CardBody, Badge } from "@/components/ui/primitives";
 import { TestimonialShowcase } from "./TestimonialShowcase";
+import { ScrollReveal, Parallax } from "./Reveal";
 import type { PlanDef } from "@/types";
 import { cn } from "@/lib/utils/cn";
 
@@ -35,6 +36,8 @@ export function FeatureGrid({
 // ---- TrackCard ----
 export function TrackCard({
   emoji,
+  icon,
+  visual,
   title,
   subtitle,
   bullets,
@@ -42,7 +45,9 @@ export function TrackCard({
   cta,
   accent = "brand",
 }: {
-  emoji: string;
+  emoji?: string;
+  icon?: ReactNode;
+  visual?: ReactNode;
   title: string;
   subtitle: string;
   bullets: string[];
@@ -51,11 +56,25 @@ export function TrackCard({
   accent?: "brand" | "blue";
 }) {
   const ring = accent === "blue" ? "from-sky-100" : "from-brand-100";
+  const iconColor = accent === "blue" ? "text-sky-600" : "text-brand-600";
   return (
     <Card className="overflow-hidden">
       <div className={cn("bg-linear-to-b to-surface p-6", ring)}>
-        <div className="text-4xl">{emoji}</div>
-        <h3 className="mt-3 text-2xl font-bold text-ink">{title}</h3>
+        {visual ? (
+          <div className="mb-4">{visual}</div>
+        ) : icon ? (
+          <span
+            className={cn(
+              "inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-surface shadow-card ring-1 ring-line",
+              iconColor,
+            )}
+          >
+            {icon}
+          </span>
+        ) : (
+          <div className="text-4xl">{emoji}</div>
+        )}
+        <h3 className={cn("text-2xl font-bold text-ink", !visual && "mt-3")}>{title}</h3>
         <p className="mt-1 text-sm text-muted">{subtitle}</p>
       </div>
       <CardBody>
@@ -199,47 +218,131 @@ export function StatStrip({
 }
 
 // ---- FeatureHighlight: alternating two-column "why choose us" block ----
+const HIGHLIGHT_TONES = {
+  brand: {
+    card: "border-brand-100 bg-brand-50/60",
+    panel: "bg-gradient-to-br from-brand-100 via-brand-50 to-surface",
+    pill: "text-brand-600",
+    check: "bg-brand-100 text-brand-600",
+  },
+  mint: {
+    card: "border-secondary-200 bg-secondary-50/70",
+    panel: "bg-gradient-to-br from-secondary-100 via-secondary-50 to-surface",
+    pill: "text-secondary-700",
+    check: "bg-secondary-100 text-secondary-700",
+  },
+} as const;
+
+const AVATAR_TINTS = ["#7034ea", "#ff5714", "#2e90fa", "#09c07a"];
+
 export function FeatureHighlight({
   eyebrow,
+  icon,
   title,
+  accent,
   description,
   points,
   ctaHref,
   ctaLabel,
   visual,
   reverse,
+  tone = "brand",
+  rating = "4.9/5.0",
+  ratedBy = "6,650 students",
 }: {
   eyebrow: string;
+  icon?: ReactNode;
   title: string;
+  /** Optional trailing words rendered in the brand gradient. */
+  accent?: string;
   description: string;
   points: string[];
   ctaHref: string;
   ctaLabel: string;
   visual: ReactNode;
   reverse?: boolean;
+  tone?: keyof typeof HIGHLIGHT_TONES;
+  rating?: string;
+  ratedBy?: string;
 }) {
+  const t = HIGHLIGHT_TONES[tone];
   return (
-    <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-14">
-      <div className={cn(reverse && "lg:order-2")}>
-        <p className="text-sm font-semibold uppercase tracking-wider text-brand-500">{eyebrow}</p>
-        <h3 className="mt-2 text-3xl font-bold text-ink sm:text-4xl">{title}</h3>
+    <ScrollReveal
+      className={cn(
+        "grid items-center gap-8 rounded-[2rem] border p-4 sm:p-6 lg:grid-cols-2 lg:gap-12 lg:p-8",
+        t.card,
+      )}
+    >
+      {/* Visual panel */}
+      <div
+        className={cn(
+          "flex items-center justify-center overflow-hidden rounded-3xl p-5 sm:p-8",
+          t.panel,
+          reverse && "lg:order-2",
+        )}
+      >
+        <Parallax amount={70} className="w-full">
+          {visual}
+        </Parallax>
+      </div>
+
+      {/* Copy */}
+      <div className={cn(reverse && "lg:order-1")}>
+        <span className="inline-flex items-center gap-2 rounded-full bg-surface px-4 py-1.5 text-sm font-semibold text-ink shadow-card ring-1 ring-line">
+          {icon && <span className={t.pill}>{icon}</span>}
+          {eyebrow}
+        </span>
+        <h3 className="mt-4 text-3xl font-bold leading-tight text-ink sm:text-4xl">
+          {title}
+          {accent && <span className="text-gradient-brand"> {accent}</span>}
+        </h3>
         <p className="mt-3 text-base text-muted">{description}</p>
-        <ul className="mt-5 space-y-2.5">
+
+        <ul className="mt-5 grid gap-x-6 gap-y-3 sm:grid-cols-2">
           {points.map((p) => (
             <li key={p} className="flex items-start gap-2.5 text-sm text-ink">
-              <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-100 text-brand-600">
+              <span
+                className={cn(
+                  "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full",
+                  t.check,
+                )}
+              >
                 <Check className="h-3 w-3" />
               </span>
               {p}
             </li>
           ))}
         </ul>
-        <Link href={ctaHref} className="btn-primary mt-6">
-          {ctaLabel} <ArrowRight className="h-4 w-4" />
-        </Link>
+
+        <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-4">
+          <Link href={ctaHref} className="btn-primary">
+            {ctaLabel} <ArrowRight className="h-4 w-4" />
+          </Link>
+          <div className="flex items-center gap-3">
+            <div className="flex -space-x-2.5">
+              {AVATAR_TINTS.map((c, i) => (
+                <span
+                  key={i}
+                  className="h-9 w-9 rounded-full ring-2 ring-surface"
+                  style={{ background: `linear-gradient(135deg, ${c}, ${c}bb)` }}
+                />
+              ))}
+            </div>
+            <div className="text-sm">
+              <div className="flex items-center gap-1.5">
+                <span className="flex text-warning">
+                  {[0, 1, 2, 3, 4].map((s) => (
+                    <Star key={s} className="h-3.5 w-3.5 fill-current" />
+                  ))}
+                </span>
+                <span className="font-semibold text-ink">{rating}</span>
+              </div>
+              <p className="text-xs text-muted">Rated by {ratedBy}</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div className={cn(reverse && "lg:order-1")}>{visual}</div>
-    </div>
+    </ScrollReveal>
   );
 }
 

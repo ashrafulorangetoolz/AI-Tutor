@@ -1,8 +1,18 @@
+import {
+  Bot,
+  ScanText,
+  Languages,
+  ClipboardCheck,
+  Target,
+  PenLine,
+  LineChart,
+} from "lucide-react";
+import Image from "next/image";
 import { Hero } from "@/components/public/Hero";
 import { FAQAccordion } from "@/components/public/FAQAccordion";
 import { TutorVisual, DoubtVisual } from "@/components/public/HighlightVisuals";
+import { FeatureStack } from "@/components/public/FeatureStack";
 import {
-  FeatureGrid,
   FeatureHighlight,
   StatStrip,
   ProgramCard,
@@ -22,13 +32,65 @@ const STATS = [
   { value: "4.9★", label: "Average rating" },
 ];
 
+const ICON_CLS = "h-9 w-9 sm:h-11 sm:w-11";
+const shot = (src: string, alt: string) => (
+  <Image
+    src={src}
+    alt={alt}
+    width={760}
+    height={820}
+    className="h-auto w-full rounded-2xl border border-line shadow-card"
+  />
+);
 const FEATURES = [
-  { icon: "🤖", title: "Bilingual AI Tutor", description: "Step-by-step explanations in English and Bangla for every SSC subject and IELTS skill." },
-  { icon: "📸", title: "Photo Doubt Solver", description: "Snap a question — OCR reads it and the AI explains the full solution instantly." },
-  { icon: "📝", title: "Board-style Mock Exams", description: "Full SSC board models and 4-skill IELTS mocks with AI explanations and scoring." },
-  { icon: "🎯", title: "Adaptive Study Plans", description: "Personalized weekly roadmaps that focus on your weak topics automatically." },
-  { icon: "✍️", title: "IELTS Writing & Speaking Scorer", description: "Instant band estimates against official descriptors with targeted feedback." },
-  { icon: "📊", title: "Progress & Parent Reports", description: "Track mastery, streaks and band progress — with weekly reports for parents." },
+  {
+    icon: <Languages className={ICON_CLS} strokeWidth={1.75} />,
+    visual: shot("/feature-ai-tutor.png", "Bilingual AI Tutor chat interface"),
+    title: "Bilingual AI Tutor",
+    description: "Step-by-step explanations in English and Bangla for every SSC subject and IELTS skill.",
+    ctaHref: "/signup",
+    ctaLabel: "Try the AI tutor",
+  },
+  {
+    icon: <ScanText className={ICON_CLS} strokeWidth={1.75} />,
+    visual: shot("/feature-doubt-solver.png", "Photo Doubt Solver interface"),
+    title: "Photo Doubt Solver",
+    description: "Snap a question — OCR reads it and the AI explains the full solution instantly.",
+    ctaHref: "/signup",
+    ctaLabel: "Solve a doubt",
+  },
+  {
+    icon: <ClipboardCheck className={ICON_CLS} strokeWidth={1.75} />,
+    visual: shot("/feature-mock-exams.png", "Board-style Mock Exams interface"),
+    title: "Board-style Mock Exams",
+    description: "Full SSC board models and 4-skill IELTS mocks with AI explanations and scoring.",
+    ctaHref: "/signup",
+    ctaLabel: "Take a mock exam",
+  },
+  {
+    icon: <Target className={ICON_CLS} strokeWidth={1.75} />,
+    visual: shot("/feature-study-plan.png", "Adaptive Study Plans interface"),
+    title: "Adaptive Study Plans",
+    description: "Personalized weekly roadmaps that focus on your weak topics automatically.",
+    ctaHref: "/signup",
+    ctaLabel: "Build my study plan",
+  },
+  {
+    icon: <PenLine className={ICON_CLS} strokeWidth={1.75} />,
+    visual: shot("/feature-ielts-scorer.png", "IELTS Writing & Speaking Scorer interface"),
+    title: "IELTS Writing & Speaking Scorer",
+    description: "Instant band estimates against official descriptors with targeted feedback.",
+    ctaHref: "/signup",
+    ctaLabel: "Score my IELTS",
+  },
+  {
+    icon: <LineChart className={ICON_CLS} strokeWidth={1.75} />,
+    visual: shot("/feature-progress.png", "Progress & Analytics dashboard"),
+    title: "Progress & Parent Reports",
+    description: "Track mastery, streaks and band progress — with weekly reports for parents.",
+    ctaHref: "/signup",
+    ctaLabel: "See my progress",
+  },
 ];
 
 const PROGRAMS = [
@@ -53,36 +115,50 @@ export default function HomePage() {
       <SectionWrap>
         <SectionHeading
           center
+          pill
           eyebrow="Why AI Tutor"
-          title="Learn smarter, in the language you think in"
+          title="Learn smarter,"
+          accent="in the language you think in"
           subtitle="Two flagship tools that make studying for SSC and IELTS faster and less stressful."
         />
         <div className="mt-12 space-y-16">
           <FeatureHighlight
+            tone="brand"
+            icon={<Bot className="h-4 w-4" />}
             eyebrow="Bilingual AI Tutor"
-            title="A tutor that explains — not just answers"
+            title="A tutor that explains —"
+            accent="not just answers"
             description="Ask anything about your subjects and get patient, step-by-step teaching in English or বাংলা, with examples and practice questions."
             points={[
-              "Step-by-step explanations, never just the final answer",
-              "Switch between English and Bangla with one tap",
-              "Save answers, regenerate, or ask it to explain more simply",
+              "Step-by-step explanations, never just answers",
+              "Switch between English and Bangla instantly",
+              "Regenerate or explain more simply",
+              "Save answers to revisit before exams",
             ]}
             ctaHref="/signup"
             ctaLabel="Try the AI tutor"
+            rating="4.9/5.0"
+            ratedBy="6,650 students"
             visual={<TutorVisual />}
           />
           <FeatureHighlight
             reverse
+            tone="mint"
+            icon={<ScanText className="h-4 w-4" />}
             eyebrow="Photo Doubt Solver + OCR"
-            title="Stuck on a question? Just snap a photo"
+            title="Stuck on a question?"
+            accent="Just snap a photo"
             description="Upload a photo of any question — printed or handwritten. OCR reads it and the AI walks you through the full solution."
             points={[
-              "Works with printed and handwritten questions",
-              "OCR extracts the text, you can edit before solving",
-              "Save solved doubts to revisit before exams",
+              "Works with printed & handwritten questions",
+              "OCR extracts text — edit before solving",
+              "Full step-by-step worked solutions",
+              "Save solved doubts for revision",
             ]}
             ctaHref="/signup"
             ctaLabel="Solve a doubt"
+            rating="4.9/5.0"
+            ratedBy="6,650 students"
             visual={<DoubtVisual />}
           />
         </div>
@@ -103,24 +179,40 @@ export default function HomePage() {
         </div>
       </SectionWrap>
 
-      {/* 5. Benefits grid */}
+      {/* 5. Benefits — sticky-stacking feature cards */}
       <SectionWrap>
         <SectionHeading
           center
+          pill
           eyebrow="Everything included"
-          title="Steady progress, endless potential"
+          title="Steady progress,"
+          accent="endless potential"
         />
-        <div className="mt-10">
-          <FeatureGrid features={FEATURES} />
+        <div className="mt-12">
+          <FeatureStack features={FEATURES} />
         </div>
       </SectionWrap>
 
       {/* 6. For families & schools (replaces instructors row) */}
       <SectionWrap>
-        <SectionHeading center eyebrow="For families & schools" title="Everyone stays in the loop" />
+        <SectionHeading
+          center
+          pill
+          eyebrow="For families & schools"
+          title="Everyone stays"
+          accent="in the loop"
+        />
         <div className="mt-10 grid gap-6 lg:grid-cols-2">
           <TrackCard
-            emoji="👨‍👩‍👧"
+            visual={
+              <Image
+                src="/parent-dashboard.png"
+                alt="Parent Dashboard preview"
+                width={1440}
+                height={780}
+                className="h-auto w-full rounded-2xl border border-line shadow-card"
+              />
+            }
             title="Parent Dashboard"
             subtitle="Read-only monitoring"
             href="/signup"
@@ -133,7 +225,15 @@ export default function HomePage() {
             ]}
           />
           <TrackCard
-            emoji="🏫"
+            visual={
+              <Image
+                src="/school-dashboard.png"
+                alt="School Dashboard preview"
+                width={1240}
+                height={668}
+                className="h-auto w-full rounded-2xl border border-line shadow-card"
+              />
+            }
             title="School Dashboard"
             subtitle="B2B license for institutions"
             href="/schools"
@@ -179,10 +279,7 @@ export default function HomePage() {
 
       {/* 10. FAQ */}
       <SectionWrap>
-        <SectionHeading center eyebrow="FAQ" title="Questions, answered" />
-        <div className="mt-10">
-          <FAQAccordion />
-        </div>
+        <FAQAccordion />
       </SectionWrap>
 
       {/* 11. Final CTA */}
