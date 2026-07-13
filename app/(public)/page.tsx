@@ -17,11 +17,12 @@ import {
   StatStrip,
   ProgramCard,
   TrackCard,
-  PricingCard,
   TestimonialSection,
   CTASection,
   SectionWrap,
 } from "@/components/public/sections";
+import { PricingPlans } from "@/components/public/PricingPlans";
+import { ProductDemo } from "@/components/public/ProductDemo";
 import { SectionHeading } from "@/components/ui/primitives";
 import { PLANS } from "@/lib/constants/plans";
 
@@ -226,12 +227,33 @@ export default function HomePage() {
         </div>
       </SectionWrap>
 
-      {/* 4. Programs grid (course-style) */}
+      <SectionWrap>
+        {/* 4. Interactive product demo + project overview (full-width band) */}
+        <section className=" border-y border-line bg-linear-to-b from-brand-50/50 via-surface to-secondary-50/30 py-16 sm:py-20">
+          <div className="mx-auto px-4 sm:px-6 lg:px-10">
+            <SectionHeading
+              center
+              pill
+              eyebrow="See it in action"
+              title="A full demo,"
+              accent="every tool in one place"
+              subtitle="Watch the complete walkthrough — the AI Tutor, Doubt Solver, Mock Exams and Progress, all in one place."
+            />
+            <div className="mt-12">
+              <ProductDemo />
+            </div>
+          </div>
+        </section>
+      </SectionWrap>
+
+      {/* 5. Programs grid (course-style) */}
       <SectionWrap>
         <SectionHeading
           center
+          pill
           eyebrow="Programs"
-          title="Pick your track and start today"
+          title="Pick your track,"
+          accent="start today"
           subtitle="Structured programs mapped to the Bangladesh curriculum and the IELTS band descriptors."
         />
         <div className="mt-10 grid gap-6 md:grid-cols-2">
@@ -329,8 +351,10 @@ export default function HomePage() {
       <SectionWrap>
         <SectionHeading
           center
+          pill
           eyebrow="Loved by students"
-          title="Real results, in two languages"
+          title="Real results,"
+          accent="in two languages"
         />
         <div className="mt-10">
           <TestimonialSection />
@@ -345,10 +369,8 @@ export default function HomePage() {
           title="Plans for every learner"
           subtitle="Start free, upgrade any time. Schools get custom pricing."
         />
-        <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {PLANS.filter((p) => !p.b2b).map((p) => (
-            <PricingCard key={p.id} plan={p} />
-          ))}
+        <div className="mt-12">
+          <PricingPlans plans={PLANS.filter((p) => !p.b2b)} />
         </div>
       </SectionWrap>
 

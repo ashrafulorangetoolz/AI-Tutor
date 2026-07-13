@@ -1,36 +1,56 @@
-"use client";
-
-import { useState } from "react";
-import { Play } from "lucide-react";
+import { Star, Quote, Play } from "lucide-react";
 import { TESTIMONIALS } from "@/lib/constants/site";
-import { cn } from "@/lib/utils/cn";
+import { ScrollReveal } from "./Reveal";
 
 type Testimonial = (typeof TESTIMONIALS)[number];
 
-/* Shared horizontal-scroll row: hidden scrollbar, snap, edge padding. */
-const ROW =
-  "flex snap-x snap-mandatory gap-5 overflow-x-auto pb-3 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden";
-
 export function TestimonialShowcase() {
   return (
-    <div className="space-y-5">
-      {/* Video testimonial cards — infinite auto-scroll marquee */}
-      <div className="group overflow-hidden">
-        <div className="flex w-max animate-marquee group-hover:[animation-play-state:paused]">
-          {[0, 1].map((half) => (
-            <div key={half} className="flex shrink-0 gap-5 pr-5" aria-hidden={half === 1}>
-              {TESTIMONIALS.map((t) => (
-                <VideoCard key={`${half}-${t.name}`} t={t} />
-              ))}
-            </div>
+    <div className="space-y-6">
+      {/* Video testimonials — marquee scrolling left → right */}
+      <ScrollReveal>
+        <Marquee reverse>
+          {TESTIMONIALS.map((t) => (
+            <VideoCard key={t.name} t={t} />
           ))}
-        </div>
-      </div>
+        </Marquee>
+      </ScrollReveal>
 
-      {/* Written review cards */}
-      <div className={ROW}>
-        {TESTIMONIALS.map((t) => (
-          <ReviewCard key={t.name} t={t} />
+      {/* Written reviews — marquee scrolling right → left */}
+      <ScrollReveal>
+        <Marquee>
+          {TESTIMONIALS.map((t) => (
+            <ReviewCard key={t.name} t={t} />
+          ))}
+        </Marquee>
+      </ScrollReveal>
+    </div>
+  );
+}
+
+/* Seamless infinite marquee: the track holds two copies of the children and
+   translates -50%. `reverse` flips the travel direction (left → right). */
+function Marquee({
+  children,
+  reverse,
+}: {
+  children: React.ReactNode;
+  reverse?: boolean;
+}) {
+  return (
+    <div className="group [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)] overflow-hidden">
+      <div
+        className="flex w-max animate-marquee group-hover:[animation-play-state:paused]"
+        style={reverse ? { animationDirection: "reverse" } : undefined}
+      >
+        {[0, 1].map((half) => (
+          <div
+            key={half}
+            className="flex shrink-0 gap-6 pr-6"
+            aria-hidden={half === 1}
+          >
+            {children}
+          </div>
         ))}
       </div>
     </div>
@@ -39,7 +59,7 @@ export function TestimonialShowcase() {
 
 function VideoCard({ t }: { t: Testimonial }) {
   return (
-    <article className="w-72 shrink-0 snap-start overflow-hidden rounded-xl border border-line bg-surface shadow-card sm:w-80">
+    <article className="w-72 shrink-0 overflow-hidden rounded-3xl border border-line bg-surface shadow-card sm:w-80">
       {/* Thumbnail (gradient placeholder — no video assets in repo) */}
       <div
         className="relative flex h-52 items-center justify-center"
@@ -59,8 +79,10 @@ function VideoCard({ t }: { t: Testimonial }) {
       {/* Footer */}
       <div className="flex items-center gap-3 p-4">
         <span
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-sm font-semibold text-white"
-          style={{ background: t.avatarColor }}
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-sm font-semibold text-white ring-2 ring-surface"
+          style={{
+            background: `linear-gradient(135deg, ${t.avatarColor}, ${t.avatarColor}bb)`,
+          }}
         >
           {t.name[0]}
         </span>
@@ -74,33 +96,42 @@ function VideoCard({ t }: { t: Testimonial }) {
 }
 
 function ReviewCard({ t }: { t: Testimonial }) {
-  const [expanded, setExpanded] = useState(false);
-
   return (
-    <article
-      className="flex w-80 shrink-0 snap-start flex-col rounded-xl border border-line p-6 shadow-card"
-      style={{ background: `linear-gradient(160deg, ${t.avatarColor}14 0%, #ffffff 70%)` }}
-    >
-      <p
-        className={cn(
-          "text-sm leading-relaxed text-ink",
-          !expanded && "line-clamp-4",
-        )}
-      >
+    <article className="group/card relative flex w-[22rem] shrink-0 flex-col overflow-hidden rounded-3xl border border-line bg-surface p-7 shadow-card">
+      {/* soft corner glow in the testimonial's accent colour */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full opacity-20 blur-2xl"
+        style={{ background: t.avatarColor }}
+      />
+
+      {/* decorative quote glyph */}
+      <Quote
+        aria-hidden
+        className="h-9 w-9 shrink-0 rotate-180 fill-current"
+        style={{ color: `${t.avatarColor}33` }}
+        strokeWidth={0}
+      />
+
+      {/* stars */}
+      <div className="mt-3 flex text-warning">
+        {[0, 1, 2, 3, 4].map((s) => (
+          <Star key={s} className="h-4 w-4 fill-current" strokeWidth={0} />
+        ))}
+      </div>
+
+      {/* quote */}
+      <p className="mt-4 text-base leading-relaxed text-ink">
         &ldquo;{t.quote}&rdquo;
       </p>
-      <button
-        type="button"
-        onClick={() => setExpanded((v) => !v)}
-        className="mt-2 self-start text-sm font-semibold text-brand-600 hover:underline"
-      >
-        {expanded ? "Show less" : "Read more"}
-      </button>
 
-      <div className="mt-auto flex items-center gap-3 pt-5">
+      {/* author */}
+      <div className="mt-auto flex items-center gap-3 pt-6">
         <span
-          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm font-semibold text-white"
-          style={{ background: t.avatarColor }}
+          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-sm font-semibold text-white ring-2 ring-surface"
+          style={{
+            background: `linear-gradient(135deg, ${t.avatarColor}, ${t.avatarColor}bb)`,
+          }}
         >
           {t.name[0]}
         </span>

@@ -50,7 +50,7 @@ export function FAQAccordion() {
               <button
                 onClick={() => setOpen(isOpen ? null : i)}
                 aria-expanded={isOpen}
-                className="flex w-full items-center justify-between gap-4 px-5 py-5 text-left sm:px-6"
+                className="flex w-full items-center  justify-between gap-4 px-5 py-5 text-left sm:px-6"
               >
                 <span
                   className={cn(
@@ -79,7 +79,9 @@ export function FAQAccordion() {
               <div
                 className={cn(
                   "grid overflow-hidden px-5 transition-all duration-300 ease-out sm:px-6",
-                  isOpen ? "grid-rows-[1fr] pb-5 opacity-100" : "grid-rows-[0fr] opacity-0",
+                  isOpen
+                    ? "grid-rows-[1fr] pb-5 opacity-100"
+                    : "grid-rows-[0fr] opacity-0",
                 )}
               >
                 <p className="min-h-0 max-w-xl text-sm leading-relaxed text-muted">

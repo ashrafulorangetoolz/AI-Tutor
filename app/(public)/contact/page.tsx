@@ -23,9 +23,9 @@ export default function ContactPage() {
           <div className="mt-8 space-y-4">
             <a
               href={`mailto:${SITE.email}`}
-              className="flex items-center gap-4 rounded-2xl border border-line bg-surface px-5 py-4 transition-colors hover:bg-brand-50"
+              className="flex items-center gap-4 rounded-lg border border-line bg-surface px-5 py-4 transition-colors hover:bg-brand-50"
             >
-              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-100 text-brand-500">
+              <span className="flex h-11 w-11 items-center justify-center rounded-md bg-brand-100 text-brand-500">
                 <Mail className="h-5 w-5" />
               </span>
               <span>
@@ -40,9 +40,9 @@ export default function ContactPage() {
 
             <a
               href={`tel:${SITE.phone.replace(/\s/g, "")}`}
-              className="flex items-center gap-4 rounded-2xl border border-line bg-surface px-5 py-4 transition-colors hover:bg-brand-50"
+              className="flex items-center gap-4 rounded-lg border border-line bg-surface px-5 py-4 transition-colors hover:bg-brand-50"
             >
-              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-100 text-brand-500">
+              <span className="flex h-11 w-11 items-center justify-center rounded-md bg-brand-100 text-brand-500">
                 <Phone className="h-5 w-5" />
               </span>
               <span>
@@ -56,7 +56,7 @@ export default function ContactPage() {
             </a>
           </div>
 
-          <div className="mt-6 rounded-2xl border border-line bg-brand-50 p-5">
+          <div className="mt-6 rounded-lg border border-line bg-brand-50 p-5">
             <div className="flex items-center gap-2 text-ink">
               <Building2 className="h-5 w-5 text-brand-500" />
               <span className="text-sm font-semibold">

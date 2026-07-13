@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Card, CardBody, Badge } from "@/components/ui/primitives";
 import { TestimonialShowcase } from "./TestimonialShowcase";
 import { ScrollReveal, Parallax } from "./Reveal";
+import { CountUp } from "./CountUp";
 import type { PlanDef } from "@/types";
 import { cn } from "@/lib/utils/cn";
 
@@ -255,22 +256,49 @@ export function SectionWrap({
 }
 
 // ---- StatStrip: big-number highlights (learnedge "50+" band) ----
+const STAT_TINTS = ["#7034ea", "#2e90fa", "#09c07a", "#ff5714"];
+
 export function StatStrip({
   stats,
 }: {
   stats: { value: string; label: string }[];
 }) {
   return (
-    <div className="grid grid-cols-2 gap-4 rounded-3xl border border-line bg-surface p-6 shadow-card sm:grid-cols-4 sm:p-8">
-      {stats.map((s) => (
-        <div key={s.label} className="text-center">
-          <div className="font-display text-3xl font-extrabold text-brand-500 sm:text-4xl">
-            {s.value}
-          </div>
-          <div className="mt-1 text-sm text-muted">{s.label}</div>
+    <ScrollReveal>
+      <div className="relative isolate overflow-hidden rounded-[2rem] border border-line bg-gradient-to-br from-brand-50/60 via-surface to-secondary-50/40 p-6 shadow-card sm:p-9">
+        {/* soft glow orbs */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -left-16 -top-20 h-48 w-48 rounded-full bg-brand-200/30 blur-3xl"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -bottom-24 -right-16 h-56 w-56 rounded-full bg-secondary-200/30 blur-3xl"
+        />
+
+        <div className="relative grid grid-cols-2 gap-y-8 sm:grid-cols-4 sm:divide-x sm:divide-line">
+          {stats.map((s, i) => {
+            const tint = STAT_TINTS[i % STAT_TINTS.length];
+            return (
+              <div
+                key={s.label}
+                className="group flex flex-col items-center px-2 text-center"
+              >
+                <div
+                  className="font-display text-4xl font-extrabold tracking-tight transition-transform duration-300 group-hover:scale-110 sm:text-5xl"
+                  style={{ color: tint }}
+                >
+                  <CountUp value={s.value} />
+                </div>
+                <div className="mt-2.5 text-sm font-medium text-muted">
+                  {s.label}
+                </div>
+              </div>
+            );
+          })}
         </div>
-      ))}
-    </div>
+      </div>
+    </ScrollReveal>
   );
 }
 
@@ -431,8 +459,9 @@ export function ProgramCard({
   href: string;
   ctaLabel?: string;
 }) {
+  const accent = color ?? "#7034ea";
   return (
-    <Card className="group flex h-full flex-col p-3 transition-all hover:-translate-y-1 hover:shadow-card sm:p-4">
+    <Card className="group flex h-full flex-col p-4 transition-all hover:-translate-y-1 hover:shadow-brand sm:p-5">
       {/* top image */}
       <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl bg-brand-50">
         {image ? (
@@ -446,17 +475,23 @@ export function ProgramCard({
         ) : (
           <div
             className="flex h-full w-full items-center justify-center text-6xl"
-            style={{ background: `${color ?? "#7034ea"}1A` }}
+            style={{ background: `${accent}1A` }}
           >
             <span>{emoji}</span>
           </div>
         )}
       </div>
 
-      <div className="flex flex-1 flex-col px-1 pt-4">
+      <div className="flex flex-1 flex-col px-2 pt-5 sm:px-3">
         {/* meta row */}
         <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-b border-line pb-4 text-sm text-muted">
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+            <span
+              className="inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold"
+              style={{ background: `${accent}1A`, color: accent }}
+            >
+              {level}
+            </span>
             <span className="inline-flex items-center gap-1.5">
               <Clock className="h-4 w-4" /> {duration}
             </span>
@@ -464,12 +499,9 @@ export function ProgramCard({
               <FolderClosed className="h-4 w-4" /> {lessons}
             </span>
           </div>
-          <div className="flex items-center gap-3">
-            <span className="text-base font-bold text-ink sm:text-lg">{priceLabel}</span>
-            <span className="inline-flex items-center gap-1 text-sm font-semibold text-ink">
-              {rating} <Star className="h-3.5 w-3.5 fill-current text-warning" strokeWidth={0} />
-            </span>
-          </div>
+          <span className="inline-flex items-center gap-1 text-sm font-semibold text-ink">
+            {rating} <Star className="h-3.5 w-3.5 fill-current text-warning" strokeWidth={0} />
+          </span>
         </div>
 
         {/* title + description */}
@@ -478,14 +510,19 @@ export function ProgramCard({
 
         <div className="mt-4 flex-1" />
 
-        {/* CTA */}
-        <Link
-          href={href}
-          className="group/cta mt-2 inline-flex items-center gap-2 self-start rounded-full bg-brand-500 px-6 py-3 text-sm font-semibold text-white shadow-brand transition-all hover:-translate-y-0.5 hover:bg-brand-600"
-        >
-          {ctaLabel}
-          <ArrowRight className="h-4 w-4 transition-transform group-hover/cta:translate-x-1" strokeWidth={2.25} />
-        </Link>
+        {/* footer: price + CTA */}
+        <div className="mt-4 flex items-center justify-between gap-3 border-t border-line pt-4">
+          <div className="leading-tight">
+            <span className="text-xl font-extrabold text-ink">{priceLabel}</span>
+          </div>
+          <Link
+            href={href}
+            className="group/cta inline-flex items-center gap-2 rounded-full bg-brand-500 px-5 py-2.5 text-sm font-semibold text-white shadow-brand transition-all hover:-translate-y-0.5 hover:bg-brand-600"
+          >
+            {ctaLabel}
+            <ArrowRight className="h-4 w-4 transition-transform group-hover/cta:translate-x-1" strokeWidth={2.25} />
+          </Link>
+        </div>
       </div>
     </Card>
   );
