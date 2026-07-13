@@ -7,8 +7,6 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
       <PublicNavbar />
       <main className="flex-1">{children}</main>
       <PublicFooter />
-      {/* Clearance so the fixed mobile bottom nav doesn't cover footer content */}
-      <div aria-hidden className="h-24 md:hidden" />
     </div>
   );
 }
