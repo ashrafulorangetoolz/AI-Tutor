@@ -1,6 +1,7 @@
 ﻿import Link from "next/link";
 import type { ReactNode } from "react";
-import { Check, ArrowRight, Star, Clock, BookOpen, BarChart3 } from "lucide-react";
+import { Check, ArrowRight, Star, Clock, BookOpen, BarChart3, FolderClosed } from "lucide-react";
+import Image from "next/image";
 import { Card, CardBody, Badge } from "@/components/ui/primitives";
 import { TestimonialShowcase } from "./TestimonialShowcase";
 import { ScrollReveal, Parallax } from "./Reveal";
@@ -154,6 +155,8 @@ export function CTASection({
   primaryLabel = "Get started free",
   secondaryHref,
   secondaryLabel,
+  badge = "Free to start",
+  trust = ["No credit card", "Cancel anytime", "4.9★ average rating"],
 }: {
   title: string;
   subtitle: string;
@@ -161,22 +164,76 @@ export function CTASection({
   primaryLabel?: string;
   secondaryHref?: string;
   secondaryLabel?: string;
+  badge?: string;
+  trust?: string[];
 }) {
   return (
-    <div className="overflow-hidden rounded-3xl bg-brand-500 px-6 py-12 text-center sm:px-12">
-      <h2 className="mx-auto max-w-2xl text-3xl font-bold text-white sm:text-4xl">{title}</h2>
-      <p className="mx-auto mt-3 max-w-xl text-brand-100">{subtitle}</p>
-      <div className="mt-7 flex flex-wrap justify-center gap-3">
-        <Link href={primaryHref} className="btn bg-white text-brand-600 hover:bg-brand-50">
-          {primaryLabel}
-        </Link>
-        {secondaryHref && (
-          <Link href={secondaryHref} className="btn border border-white/40 text-white hover:bg-white/10">
-            {secondaryLabel}
-          </Link>
-        )}
+    <ScrollReveal>
+      <div className="relative isolate overflow-hidden rounded-[2rem] bg-gradient-to-br from-brand-600 via-brand-500 to-brand-700 px-6 py-14 text-center shadow-brand sm:px-12 sm:py-16">
+        {/* soft glow orbs */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-brand-400/40 blur-3xl"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -bottom-32 -right-16 h-80 w-80 rounded-full bg-fuchsia-500/30 blur-3xl"
+        />
+        {/* dotted grid overlay */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-[0.15] [background-image:radial-gradient(circle,white_1px,transparent_1px)] [background-size:22px_22px] [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]"
+        />
+        {/* top sheen */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/60 to-transparent"
+        />
+
+        <div className="relative">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-white/25 bg-white/10 px-3.5 py-1.5 text-xs font-semibold text-white backdrop-blur">
+            <Star className="h-3.5 w-3.5 fill-current" strokeWidth={0} />
+            {badge}
+          </span>
+
+          <h2 className="mx-auto mt-5 max-w-2xl text-balance text-3xl font-bold tracking-tight text-white sm:text-[2.6rem] sm:leading-[1.1]">
+            {title}
+          </h2>
+          <p className="mx-auto mt-4 max-w-xl text-pretty text-base text-brand-100/90 sm:text-lg">
+            {subtitle}
+          </p>
+
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <Link
+              href={primaryHref}
+              className="group btn bg-white text-brand-600 shadow-lg shadow-brand-900/25 transition-all hover:-translate-y-0.5 hover:bg-brand-50 hover:shadow-xl"
+            >
+              {primaryLabel}
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Link>
+            {secondaryHref && (
+              <Link
+                href={secondaryHref}
+                className="btn border border-white/30 bg-white/5 text-white backdrop-blur transition-all hover:-translate-y-0.5 hover:border-white/60 hover:bg-white/15"
+              >
+                {secondaryLabel}
+              </Link>
+            )}
+          </div>
+
+          {trust.length > 0 && (
+            <ul className="mt-8 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-brand-100/80">
+              {trust.map((t) => (
+                <li key={t} className="inline-flex items-center gap-1.5">
+                  <Check className="h-4 w-4 text-white" strokeWidth={2.5} />
+                  {t}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       </div>
-    </div>
+    </ScrollReveal>
   );
 }
 
@@ -346,8 +403,9 @@ export function FeatureHighlight({
   );
 }
 
-// ---- ProgramCard: course-style card with meta chips (learnedge course grid) ----
+// ---- ProgramCard: course-style card with top image (learnedge course grid) ----
 export function ProgramCard({
+  image,
   emoji,
   color,
   title,
@@ -358,9 +416,11 @@ export function ProgramCard({
   rating,
   priceLabel,
   href,
+  ctaLabel = "View Courses",
 }: {
-  emoji: string;
-  color: string;
+  image?: string;
+  emoji?: string;
+  color?: string;
   title: string;
   description: string;
   level: string;
@@ -369,43 +429,64 @@ export function ProgramCard({
   rating: string;
   priceLabel: string;
   href: string;
+  ctaLabel?: string;
 }) {
   return (
-    <Card className="flex h-full flex-col overflow-hidden">
-      <div
-        className="flex h-28 items-center justify-center text-5xl"
-        style={{ background: `${color}1A` }}
-      >
-        <span>{emoji}</span>
+    <Card className="group flex h-full flex-col p-3 transition-all hover:-translate-y-1 hover:shadow-card sm:p-4">
+      {/* top image */}
+      <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl bg-brand-50">
+        {image ? (
+          <Image
+            src={image}
+            alt={title}
+            fill
+            sizes="(max-width: 1024px) 90vw, 560px"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        ) : (
+          <div
+            className="flex h-full w-full items-center justify-center text-6xl"
+            style={{ background: `${color ?? "#7034ea"}1A` }}
+          >
+            <span>{emoji}</span>
+          </div>
+        )}
       </div>
-      <CardBody className="flex flex-1 flex-col">
-        <div className="mb-2 flex items-center justify-between">
-          <Badge tone="green">{level}</Badge>
-          <span className="inline-flex items-center gap-1 text-xs font-semibold text-ink">
-            <Star className="h-3.5 w-3.5 fill-current text-warning" /> {rating}
-          </span>
+
+      <div className="flex flex-1 flex-col px-1 pt-4">
+        {/* meta row */}
+        <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-b border-line pb-4 text-sm text-muted">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5">
+            <span className="inline-flex items-center gap-1.5">
+              <Clock className="h-4 w-4" /> {duration}
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <FolderClosed className="h-4 w-4" /> {lessons}
+            </span>
+          </div>
+          <div className="flex items-center gap-3">
+            <span className="text-base font-bold text-ink sm:text-lg">{priceLabel}</span>
+            <span className="inline-flex items-center gap-1 text-sm font-semibold text-ink">
+              {rating} <Star className="h-3.5 w-3.5 fill-current text-warning" strokeWidth={0} />
+            </span>
+          </div>
         </div>
-        <h3 className="text-lg font-semibold text-ink">{title}</h3>
-        <p className="mt-1 line-clamp-2 text-sm text-muted">{description}</p>
-        <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1.5 text-xs text-muted">
-          <span className="inline-flex items-center gap-1">
-            <BookOpen className="h-3.5 w-3.5" /> {lessons}
-          </span>
-          <span className="inline-flex items-center gap-1">
-            <Clock className="h-3.5 w-3.5" /> {duration}
-          </span>
-          <span className="inline-flex items-center gap-1">
-            <BarChart3 className="h-3.5 w-3.5" /> {level}
-          </span>
-        </div>
+
+        {/* title + description */}
+        <h3 className="mt-4 text-xl font-bold text-ink sm:text-2xl">{title}</h3>
+        <p className="mt-2 line-clamp-2 text-sm text-muted sm:text-base">{description}</p>
+
         <div className="mt-4 flex-1" />
-        <div className="flex items-center justify-between border-t border-line pt-4">
-          <span className="text-sm font-bold text-ink">{priceLabel}</span>
-          <Link href={href} className="btn-secondary !px-4 !py-2 text-xs">
-            Explore <ArrowRight className="h-3.5 w-3.5" />
-          </Link>
-        </div>
-      </CardBody>
+
+        {/* CTA */}
+        <Link
+          href={href}
+          className="group/cta mt-2 inline-flex items-center gap-2 self-start rounded-full bg-brand-500 px-6 py-3 text-sm font-semibold text-white shadow-brand transition-all hover:-translate-y-0.5 hover:bg-brand-600"
+        >
+          {ctaLabel}
+          <ArrowRight className="h-4 w-4 transition-transform group-hover/cta:translate-x-1" strokeWidth={2.25} />
+        </Link>
+      </div>
     </Card>
   );
 }

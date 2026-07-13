@@ -106,6 +106,7 @@ const FEATURES = [
 
 const PROGRAMS = [
   {
+    image: "/feature-mock-exams.png",
     emoji: "🧪",
     color: "#0FA06E",
     title: "SSC Science",
@@ -119,6 +120,7 @@ const PROGRAMS = [
     href: "/ssc",
   },
   {
+    image: "/feature-progress.png",
     emoji: "📊",
     color: "#F5A524",
     title: "SSC Business",
@@ -132,6 +134,7 @@ const PROGRAMS = [
     href: "/ssc",
   },
   {
+    image: "/feature-ielts-scorer.png",
     emoji: "🌍",
     color: "#2E90FA",
     title: "IELTS Academic",
@@ -144,6 +147,7 @@ const PROGRAMS = [
     href: "/ielts",
   },
   {
+    image: "/feature-ai-tutor.png",
     emoji: "🎓",
     color: "#7D69EF",
     title: "SSC + IELTS Bundle",
@@ -230,7 +234,7 @@ export default function HomePage() {
           title="Pick your track and start today"
           subtitle="Structured programs mapped to the Bangladesh curriculum and the IELTS band descriptors."
         />
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-10 grid gap-6 md:grid-cols-2">
           {PROGRAMS.map((p) => (
             <ProgramCard key={p.title} {...p} />
           ))}
