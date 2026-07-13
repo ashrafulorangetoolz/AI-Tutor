@@ -39,6 +39,8 @@ const shot = (src: string, alt: string) => (
     alt={alt}
     width={760}
     height={820}
+    quality={100}
+    sizes="(max-width: 1024px) 90vw, 460px"
     className="h-auto w-full rounded-2xl border border-line shadow-card"
   />
 );
@@ -47,7 +49,8 @@ const FEATURES = [
     icon: <Languages className={ICON_CLS} strokeWidth={1.75} />,
     visual: shot("/feature-ai-tutor.png", "Bilingual AI Tutor chat interface"),
     title: "Bilingual AI Tutor",
-    description: "Step-by-step explanations in English and Bangla for every SSC subject and IELTS skill.",
+    description:
+      "Step-by-step explanations in English and Bangla for every SSC subject and IELTS skill.",
     ctaHref: "/signup",
     ctaLabel: "Try the AI tutor",
   },
@@ -55,7 +58,8 @@ const FEATURES = [
     icon: <ScanText className={ICON_CLS} strokeWidth={1.75} />,
     visual: shot("/feature-doubt-solver.png", "Photo Doubt Solver interface"),
     title: "Photo Doubt Solver",
-    description: "Snap a question — OCR reads it and the AI explains the full solution instantly.",
+    description:
+      "Snap a question — OCR reads it and the AI explains the full solution instantly.",
     ctaHref: "/signup",
     ctaLabel: "Solve a doubt",
   },
@@ -63,7 +67,8 @@ const FEATURES = [
     icon: <ClipboardCheck className={ICON_CLS} strokeWidth={1.75} />,
     visual: shot("/feature-mock-exams.png", "Board-style Mock Exams interface"),
     title: "Board-style Mock Exams",
-    description: "Full SSC board models and 4-skill IELTS mocks with AI explanations and scoring.",
+    description:
+      "Full SSC board models and 4-skill IELTS mocks with AI explanations and scoring.",
     ctaHref: "/signup",
     ctaLabel: "Take a mock exam",
   },
@@ -71,15 +76,20 @@ const FEATURES = [
     icon: <Target className={ICON_CLS} strokeWidth={1.75} />,
     visual: shot("/feature-study-plan.png", "Adaptive Study Plans interface"),
     title: "Adaptive Study Plans",
-    description: "Personalized weekly roadmaps that focus on your weak topics automatically.",
+    description:
+      "Personalized weekly roadmaps that focus on your weak topics automatically.",
     ctaHref: "/signup",
     ctaLabel: "Build my study plan",
   },
   {
     icon: <PenLine className={ICON_CLS} strokeWidth={1.75} />,
-    visual: shot("/feature-ielts-scorer.png", "IELTS Writing & Speaking Scorer interface"),
+    visual: shot(
+      "/feature-ielts-scorer.png",
+      "IELTS Writing & Speaking Scorer interface",
+    ),
     title: "IELTS Writing & Speaking Scorer",
-    description: "Instant band estimates against official descriptors with targeted feedback.",
+    description:
+      "Instant band estimates against official descriptors with targeted feedback.",
     ctaHref: "/signup",
     ctaLabel: "Score my IELTS",
   },
@@ -87,17 +97,65 @@ const FEATURES = [
     icon: <LineChart className={ICON_CLS} strokeWidth={1.75} />,
     visual: shot("/feature-progress.png", "Progress & Analytics dashboard"),
     title: "Progress & Parent Reports",
-    description: "Track mastery, streaks and band progress — with weekly reports for parents.",
+    description:
+      "Track mastery, streaks and band progress — with weekly reports for parents.",
     ctaHref: "/signup",
     ctaLabel: "See my progress",
   },
 ];
 
 const PROGRAMS = [
-  { emoji: "🧪", color: "#0FA06E", title: "SSC Science", description: "Physics, Chemistry, Biology & Higher Math with board-style mocks.", level: "Class 9–10", lessons: "8 subjects", duration: "Board mocks", rating: "4.9", priceLabel: "৳499/mo", href: "/ssc" },
-  { emoji: "📊", color: "#F5A524", title: "SSC Business", description: "Accounting, Finance & Banking and Entrepreneurship, exam-ready.", level: "Class 9–10", lessons: "7 subjects", duration: "Prev. years", rating: "4.8", priceLabel: "৳499/mo", href: "/ssc" },
-  { emoji: "🌍", color: "#2E90FA", title: "IELTS Academic", description: "Reading, Listening, Writing & Speaking with AI band scoring.", level: "All levels", lessons: "4 skills", duration: "AI scoring", rating: "4.9", priceLabel: "৳799/mo", href: "/ielts" },
-  { emoji: "🎓", color: "#7D69EF", title: "SSC + IELTS Bundle", description: "Everything in both tracks — the best value for serious students.", level: "Both tracks", lessons: "All modules", duration: "Best value", rating: "5.0", priceLabel: "৳1099/mo", href: "/pricing" },
+  {
+    emoji: "🧪",
+    color: "#0FA06E",
+    title: "SSC Science",
+    description:
+      "Physics, Chemistry, Biology & Higher Math with board-style mocks.",
+    level: "Class 9–10",
+    lessons: "8 subjects",
+    duration: "Board mocks",
+    rating: "4.9",
+    priceLabel: "৳499/mo",
+    href: "/ssc",
+  },
+  {
+    emoji: "📊",
+    color: "#F5A524",
+    title: "SSC Business",
+    description:
+      "Accounting, Finance & Banking and Entrepreneurship, exam-ready.",
+    level: "Class 9–10",
+    lessons: "7 subjects",
+    duration: "Prev. years",
+    rating: "4.8",
+    priceLabel: "৳499/mo",
+    href: "/ssc",
+  },
+  {
+    emoji: "🌍",
+    color: "#2E90FA",
+    title: "IELTS Academic",
+    description: "Reading, Listening, Writing & Speaking with AI band scoring.",
+    level: "All levels",
+    lessons: "4 skills",
+    duration: "AI scoring",
+    rating: "4.9",
+    priceLabel: "৳799/mo",
+    href: "/ielts",
+  },
+  {
+    emoji: "🎓",
+    color: "#7D69EF",
+    title: "SSC + IELTS Bundle",
+    description:
+      "Everything in both tracks — the best value for serious students.",
+    level: "Both tracks",
+    lessons: "All modules",
+    duration: "Best value",
+    rating: "5.0",
+    priceLabel: "৳1099/mo",
+    href: "/pricing",
+  },
 ];
 
 export default function HomePage() {
@@ -208,8 +266,10 @@ export default function HomePage() {
               <Image
                 src="/parent-dashboard.png"
                 alt="Parent Dashboard preview"
-                width={1440}
-                height={780}
+                width={2560}
+                height={1640}
+                quality={100}
+                sizes="(max-width: 1024px) 90vw, 560px"
                 className="h-auto w-full rounded-2xl border border-line shadow-card"
               />
             }
@@ -229,8 +289,10 @@ export default function HomePage() {
               <Image
                 src="/school-dashboard.png"
                 alt="School Dashboard preview"
-                width={1240}
-                height={668}
+                width={2560}
+                height={1640}
+                quality={100}
+                sizes="(max-width: 1024px) 90vw, 560px"
                 className="h-auto w-full rounded-2xl border border-line shadow-card"
               />
             }
@@ -261,7 +323,11 @@ export default function HomePage() {
 
       {/* 8. Testimonials */}
       <SectionWrap>
-        <SectionHeading center eyebrow="Loved by students" title="Real results, in two languages" />
+        <SectionHeading
+          center
+          eyebrow="Loved by students"
+          title="Real results, in two languages"
+        />
         <div className="mt-10">
           <TestimonialSection />
         </div>
@@ -269,7 +335,12 @@ export default function HomePage() {
 
       {/* 9. Pricing */}
       <SectionWrap id="pricing">
-        <SectionHeading center eyebrow="Pricing" title="Plans for every learner" subtitle="Start free, upgrade any time. Schools get custom pricing." />
+        <SectionHeading
+          center
+          eyebrow="Pricing"
+          title="Plans for every learner"
+          subtitle="Start free, upgrade any time. Schools get custom pricing."
+        />
         <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {PLANS.filter((p) => !p.b2b).map((p) => (
             <PricingCard key={p.id} plan={p} />
