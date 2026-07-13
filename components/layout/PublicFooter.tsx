@@ -32,7 +32,7 @@ const COLUMNS = [
 export function PublicFooter() {
   return (
     <footer className="border-t border-line bg-surface">
-      <div className="section grid gap-10 py-12 md:grid-cols-[1.5fr_repeat(3,1fr)]">
+      <div className="section grid grid-cols-2 gap-10 py-12 md:grid-cols-4 ">
         <div className="max-w-xs">
           <Logo />
           <p className="mt-4 text-sm text-muted">{SITE.tagline}</p>
@@ -44,7 +44,10 @@ export function PublicFooter() {
             <ul className="space-y-2">
               {col.links.map((l) => (
                 <li key={l.label}>
-                  <Link href={l.href} className="text-sm text-muted hover:text-brand-500">
+                  <Link
+                    href={l.href}
+                    className="text-sm text-muted hover:text-brand-500"
+                  >
                     {l.label}
                   </Link>
                 </li>
@@ -55,7 +58,10 @@ export function PublicFooter() {
       </div>
       <div className="border-t border-line">
         <div className="section flex flex-col items-center justify-between gap-2 py-5 text-xs text-muted sm:flex-row">
-          <p>© {2025} {SITE.name}. Built for students in Bangladesh 🇧🇩</p>
+          <p>
+            © {new Date().getFullYear()} {SITE.name}. Built for students in
+            Bangladesh 🇧🇩
+          </p>
           <p>Made with AI · English + বাংলা</p>
         </div>
       </div>
