@@ -238,6 +238,52 @@ export function CTASection({
   );
 }
 
+// ---- SectionBand: full-bleed modern background band ----
+// Layered: base gradient wash + masked dotted grid + soft corner glow orbs.
+// Use to give a section a rich, contemporary backdrop while content stays
+// inside the standard `.section` container.
+export function SectionBand({
+  children,
+  className,
+  id,
+}: {
+  children: ReactNode;
+  className?: string;
+  id?: string;
+}) {
+  return (
+    <section
+      id={id}
+      className={cn(
+        "relative isolate overflow-hidden border-y border-line py-16 sm:py-20",
+        className,
+      )}
+    >
+      {/* base gradient wash */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-10 bg-linear-to-b from-brand-50/60 via-surface to-secondary-50/40"
+      />
+      {/* masked dotted grid */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.35] [background-image:radial-gradient(circle,var(--color-line)_1px,transparent_1px)] [background-size:22px_22px] [mask-image:radial-gradient(ellipse_at_center,black,transparent_72%)]"
+      />
+      {/* soft glow orbs */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -left-24 -top-16 -z-10 h-72 w-72 rounded-full bg-brand-200/25 blur-3xl"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -bottom-20 -right-24 -z-10 h-80 w-80 rounded-full bg-secondary-200/25 blur-3xl"
+      />
+
+      <div className="section">{children}</div>
+    </section>
+  );
+}
+
 // ---- SectionWrap: consistent vertical rhythm ----
 export function SectionWrap({
   children,

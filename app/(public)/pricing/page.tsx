@@ -157,9 +157,7 @@ export default function PricingPage() {
         </p>
       </SectionWrap>
 
-      <SectionWrap>
-        <FAQAccordion />
-      </SectionWrap>
+      <FAQAccordion />
 
       <SectionWrap>
         <CTASection

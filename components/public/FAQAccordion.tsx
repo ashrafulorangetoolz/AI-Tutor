@@ -10,7 +10,8 @@ export function FAQAccordion() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <div className="grid gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-14">
+    <section className="border-y border-line bg-linear-to-b from-brand-50/50 via-surface to-secondary-50/30 py-16 sm:py-20">
+    <div className="section grid gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-14">
       {/* Left — intro */}
       <div className="lg:sticky lg:top-28 lg:self-start">
         <span className="inline-flex items-center gap-2 rounded-full bg-brand-50 px-4 py-1.5 text-sm font-semibold text-brand-500">
@@ -93,5 +94,6 @@ export function FAQAccordion() {
         })}
       </div>
     </div>
+    </section>
   );
 }

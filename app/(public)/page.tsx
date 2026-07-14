@@ -181,7 +181,7 @@ export default function HomePage() {
           pill
           eyebrow="Why AI Tutor"
           title="Learn smarter,"
-          accent="in the language you think in"
+          accent="in the language you think"
           subtitle="Two flagship tools that make studying for SSC and IELTS faster and less stressful."
         />
         <div className="mt-12 space-y-16">
@@ -375,9 +375,7 @@ export default function HomePage() {
       </SectionWrap>
 
       {/* 10. FAQ */}
-      <SectionWrap>
-        <FAQAccordion />
-      </SectionWrap>
+      <FAQAccordion />
 
       {/* 11. Final CTA */}
       <SectionWrap>

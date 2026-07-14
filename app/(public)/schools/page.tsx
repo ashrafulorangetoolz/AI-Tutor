@@ -9,12 +9,11 @@ import {
   Building2,
   Upload,
   GraduationCap,
-  Sparkles,
   TrendingUp,
 } from "lucide-react";
 import Link from "next/link";
 import { SectionHeading, Badge } from "@/components/ui/primitives";
-import { StatStrip, CTASection, SectionWrap } from "@/components/public/sections";
+import { StatStrip, CTASection, SectionWrap, SectionBand } from "@/components/public/sections";
 import { ScrollReveal } from "@/components/public/Reveal";
 import { FUTURE_TRACKS } from "@/lib/constants/site";
 import { GradientBackdrop } from "@/components/ui/GradientBackdrop";
@@ -100,6 +99,22 @@ const CLASS_ROWS = [
   { name: "Class 10 — Business B", score: 74, tone: "bg-info" },
   { name: "Class 9 — Science A", score: 68, tone: "bg-warning" },
   { name: "IELTS Batch 3", score: 71, tone: "bg-secondary-500" },
+];
+
+// Roadmap status shown per upcoming track, keyed by its rollout phase.
+const PHASE_META: Record<string, { label: string; dot: string }> = {
+  "Phase 2": { label: "In development", dot: "#7034ea" },
+  "Phase 2–3": { label: "In planning", dot: "#2e90fa" },
+  "Phase 3": { label: "On the roadmap", dot: "#f5a524" },
+};
+
+const TRACK_ICONS = [
+  GraduationCap,
+  Building2,
+  TrendingUp,
+  LineChart,
+  BarChart3,
+  Users,
 ];
 
 export default function SchoolsPage() {
@@ -243,58 +258,82 @@ export default function SchoolsPage() {
       </SectionWrap>
 
       {/* Bulk enrollment steps */}
-      <SectionWrap>
+      <SectionBand>
+          <SectionHeading
+            center
+            pill
+            eyebrow="Bulk enrollment"
+            title="Get every student"
+            accent="online in minutes"
+            subtitle="Three steps from a spreadsheet to a classroom that's ready to learn."
+          />
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+            {ENROLL_STEPS.map((step, i) => (
+              <ScrollReveal key={step.title} delay={i * 0.08}>
+                <div className="relative h-full rounded-3xl border border-line bg-surface p-7 shadow-card">
+                  <span className="absolute right-6 top-6 font-display text-5xl font-extrabold text-brand-100">
+                    {i + 1}
+                  </span>
+                  <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-100 text-brand-600">
+                    <step.icon className="h-6 w-6" strokeWidth={1.9} />
+                  </span>
+                  <h4 className="mt-5 text-xl font-semibold text-ink">
+                    {step.title}
+                  </h4>
+                  <p className="mt-2 text-sm leading-relaxed text-muted">
+                    {step.description}
+                  </p>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+      </SectionBand>
+
+      {/* Future tracks — roadmap */}
+      <SectionBand>
         <SectionHeading
           center
           pill
-          eyebrow="Bulk enrollment"
-          title="Get every student"
-          accent="online in minutes"
-          subtitle="Three steps from a spreadsheet to a classroom that's ready to learn."
+          eyebrow="Product roadmap"
+          title="More tracks"
+          accent="on the way"
+          subtitle="We're expanding beyond SSC and IELTS. Here's what's landing next for your students."
         />
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
-          {ENROLL_STEPS.map((step, i) => (
-            <ScrollReveal key={step.title} delay={i * 0.08}>
-              <div className="relative h-full rounded-3xl border border-line bg-surface p-7 shadow-card">
-                <span className="absolute right-6 top-6 font-display text-5xl font-extrabold text-brand-100">
-                  {i + 1}
-                </span>
-                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-100 text-brand-600">
-                  <step.icon className="h-6 w-6" strokeWidth={1.9} />
-                </span>
-                <h4 className="mt-5 text-xl font-semibold text-ink">
-                  {step.title}
-                </h4>
-                <p className="mt-2 text-sm leading-relaxed text-muted">
-                  {step.description}
-                </p>
-              </div>
-            </ScrollReveal>
-          ))}
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {FUTURE_TRACKS.map((t, i) => {
+            const meta = PHASE_META[t.phase] ?? {
+              label: "On the roadmap",
+              dot: "#5da0b3",
+            };
+            const Icon = TRACK_ICONS[i % TRACK_ICONS.length];
+            return (
+              <ScrollReveal key={t.name} delay={(i % 3) * 0.05}>
+                <div className="group relative flex h-full flex-col rounded-2xl border border-line bg-surface p-5 shadow-card transition-all hover:-translate-y-1 hover:border-brand-200 hover:shadow-brand">
+                  <div className="flex items-start justify-between gap-3">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-50 text-brand-600 transition-transform group-hover:scale-110">
+                      <Icon className="h-5 w-5" strokeWidth={1.9} />
+                    </span>
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-canvas px-2.5 py-1 text-xs font-semibold text-muted ring-1 ring-line">
+                      <span
+                        className="h-1.5 w-1.5 rounded-full"
+                        style={{ background: meta.dot }}
+                      />
+                      {t.phase}
+                    </span>
+                  </div>
+                  <h4 className="mt-4 text-lg font-semibold text-ink">
+                    {t.name}
+                  </h4>
+                  <p className="mt-1 text-sm text-muted">{meta.label}</p>
+                </div>
+              </ScrollReveal>
+            );
+          })}
         </div>
-      </SectionWrap>
-
-      {/* Future tracks */}
-      <SectionWrap className="!pt-4">
-        <ScrollReveal>
-          <div className="rounded-3xl border border-line bg-gradient-to-br from-secondary-50/60 to-surface p-8 text-center">
-            <span className="inline-flex items-center gap-2 text-sm font-semibold text-ink">
-              <Sparkles className="h-4 w-4 text-secondary-600" />
-              More tracks on the way
-            </span>
-            <div className="mt-5 flex flex-wrap justify-center gap-2.5">
-              {FUTURE_TRACKS.map((t) => (
-                <Badge key={t.name} tone="amber">
-                  Coming soon: {t.name}
-                </Badge>
-              ))}
-            </div>
-          </div>
-        </ScrollReveal>
-      </SectionWrap>
+      </SectionBand>
 
       {/* CTA */}
-      <SectionWrap>
+      <SectionBand>
         <CTASection
           badge="B2B license"
           title="Bring AI tutoring to your school"
@@ -305,7 +344,7 @@ export default function SchoolsPage() {
           secondaryLabel="Talk to sales"
           trust={["Bulk enrollment", "Dedicated support", "Custom pricing"]}
         />
-      </SectionWrap>
+      </SectionBand>
     </>
   );
 }

@@ -130,9 +130,11 @@ export default function SscPage() {
       </section>
 
       {/* Stats band */}
-      <SectionWrap className="!py-8">
-        <StatStrip stats={HERO_STATS} />
-      </SectionWrap>
+      <section className="border-y border-line bg-linear-to-b from-brand-50/50 via-surface to-secondary-50/30 py-8">
+        <div className="section">
+          <StatStrip stats={HERO_STATS} />
+        </div>
+      </section>
 
       {/* Curriculum */}
       <SectionWrap>
@@ -181,36 +183,38 @@ export default function SscPage() {
       </SectionWrap>
 
       {/* Features */}
-      <SectionWrap>
-        <SectionHeading
-          center
-          pill
-          eyebrow="What you get"
-          title="Tools built for"
-          accent="the board exam"
-          subtitle="Everything you need to move from memorising to mastering — in one place."
-        />
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {SSC_FEATURES.map((f, i) => (
-            <ScrollReveal key={f.title} delay={(i % 3) * 0.05}>
-              <div className="group h-full rounded-3xl border border-line bg-surface p-6 shadow-card transition-all hover:-translate-y-1 hover:shadow-brand">
-                <span
-                  className="flex h-12 w-12 items-center justify-center rounded-2xl transition-transform group-hover:scale-110"
-                  style={{ background: `${f.color}1A`, color: f.color }}
-                >
-                  <f.icon className="h-6 w-6" strokeWidth={1.9} />
-                </span>
-                <h3 className="mt-5 text-xl font-semibold text-ink">
-                  {f.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted">
-                  {f.description}
-                </p>
-              </div>
-            </ScrollReveal>
-          ))}
+      <section className="border-y border-line bg-linear-to-b from-brand-50/50 via-surface to-secondary-50/30 py-16 sm:py-20">
+        <div className="section">
+          <SectionHeading
+            center
+            pill
+            eyebrow="What you get"
+            title="Tools built for"
+            accent="the board exam"
+            subtitle="Everything you need to move from memorising to mastering — in one place."
+          />
+          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {SSC_FEATURES.map((f, i) => (
+              <ScrollReveal key={f.title} delay={(i % 3) * 0.05}>
+                <div className="group h-full rounded-3xl border border-line bg-surface p-6 shadow-card transition-all hover:-translate-y-1 hover:shadow-brand">
+                  <span
+                    className="flex h-12 w-12 items-center justify-center rounded-2xl transition-transform group-hover:scale-110"
+                    style={{ background: `${f.color}1A`, color: f.color }}
+                  >
+                    <f.icon className="h-6 w-6" strokeWidth={1.9} />
+                  </span>
+                  <h3 className="mt-5 text-xl font-semibold text-ink">
+                    {f.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted">
+                    {f.description}
+                  </p>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
-      </SectionWrap>
+      </section>
 
       {/* CTA */}
       <SectionWrap>
