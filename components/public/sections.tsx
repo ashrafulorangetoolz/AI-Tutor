@@ -364,7 +364,32 @@ const HIGHLIGHT_TONES = {
   },
 } as const;
 
-const AVATAR_TINTS = ["#7034ea", "#ff5714", "#2e90fa", "#09c07a"];
+const AVATAR_POOL = [
+  "/images/avatar/Avatar.jpg",
+  "/images/avatar/Avatar-1.jpg",
+  "/images/avatar/Avatar-2.jpg",
+  "/images/avatar/Avatar-3.jpg",
+  "/images/avatar/Avatar-4.jpg",
+  "/images/avatar/Avatar-5.jpg",
+  "/images/avatar/Avatar-6.jpg",
+  "/images/avatar/Avatar-7.jpg",
+  "/images/avatar/Avatar-8.jpg",
+  "/images/avatar/Avatar-9.jpg",
+  "/images/avatar/Avatar-10.jpg",
+  "/images/avatar/Avatar-11.jpg",
+  "/images/avatar/Avatar-12.jpg",
+  "/images/avatar/Avatar-13.jpg",
+  "/images/avatar/Avatar-14.jpg",
+];
+
+/** Deterministically pick `count` avatars starting from `seed`, spread across the pool. */
+function pickAvatars(seed: number, count = 4) {
+  const step = Math.floor(AVATAR_POOL.length / count);
+  return Array.from(
+    { length: count },
+    (_, i) => AVATAR_POOL[(seed + i * step) % AVATAR_POOL.length],
+  );
+}
 
 export function FeatureHighlight({
   eyebrow,
@@ -380,6 +405,7 @@ export function FeatureHighlight({
   tone = "brand",
   rating = "4.9/5.0",
   ratedBy = "6,650 students",
+  avatarSeed = 0,
 }: {
   eyebrow: string;
   icon?: ReactNode;
@@ -395,8 +421,11 @@ export function FeatureHighlight({
   tone?: keyof typeof HIGHLIGHT_TONES;
   rating?: string;
   ratedBy?: string;
+  /** Offset into the avatar pool so each block shows different faces. */
+  avatarSeed?: number;
 }) {
   const t = HIGHLIGHT_TONES[tone];
+  const avatars = pickAvatars(avatarSeed);
   return (
     <ScrollReveal
       className={cn(
@@ -451,12 +480,21 @@ export function FeatureHighlight({
           </Link>
           <div className="flex items-center gap-3">
             <div className="flex -space-x-2.5">
-              {AVATAR_TINTS.map((c, i) => (
-                <span
-                  key={i}
-                  className="h-9 w-9 rounded-full ring-2 ring-surface"
-                  style={{ background: `linear-gradient(135deg, ${c}, ${c}bb)` }}
-                />
+              {avatars.map((src, i) => (
+                <span key={i} className="relative inline-block h-9 w-9">
+                  <Image
+                    src={src}
+                    alt={`Student ${i + 1}`}
+                    width={36}
+                    height={36}
+                    className="h-9 w-9 rounded-full object-cover ring-2 ring-surface"
+                  />
+                  {i === avatars.length - 1 && (
+                    <span className="absolute inset-0 flex items-center justify-center rounded-full bg-ink/55 text-xs font-bold text-white ring-2 ring-surface">
+                      +
+                    </span>
+                  )}
+                </span>
               ))}
             </div>
             <div className="text-sm">

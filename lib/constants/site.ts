@@ -44,6 +44,7 @@ export const TESTIMONIALS = [
     quote:
       "The Bangla explanations made Physics finally click. I went from 60% to 88% in my school mock exams.",
     avatarColor: "#0FA06E",
+    video: "/videos/1.mp4",
   },
   {
     name: "Tanvir Ahmed",
@@ -51,6 +52,7 @@ export const TESTIMONIALS = [
     quote:
       "The AI writing scorer felt like having a real examiner. My Task 2 jumped from 6.0 to 7.5 in six weeks.",
     avatarColor: "#2E90FA",
+    video: "/videos/2.mp4",
   },
   {
     name: "Shahana Begum",
@@ -58,6 +60,31 @@ export const TESTIMONIALS = [
     quote:
       "I finally know exactly where my son is struggling. The weekly report lands every Friday like clockwork.",
     avatarColor: "#F5A524",
+    video: "/videos/3.mp4",
+  },
+  {
+    name: "Rafiul Islam",
+    role: "SSC 2025 · Commerce",
+    quote:
+      "Snapping a photo of a hard Accounting sum and getting the full steps back saved me before every exam.",
+    avatarColor: "#7034EA",
+    video: "/videos/4.mp4",
+  },
+  {
+    name: "Maimuna Akter",
+    role: "IELTS · Band 8.0",
+    quote:
+      "Speaking practice in Bangla-then-English built my confidence. I hit Band 8 on my first real attempt.",
+    avatarColor: "#FF5714",
+    video: "/videos/5.mp4",
+  },
+  {
+    name: "Sabbir Hossain",
+    role: "SSC 2024 · Science",
+    quote:
+      "Whenever I got stuck late at night, the tutor explained it patiently until it clicked. No more guessing.",
+    avatarColor: "#09C07A",
+    video: "/videos/6.mp4",
   },
 ];
 

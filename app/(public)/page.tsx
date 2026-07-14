@@ -202,6 +202,7 @@ export default function HomePage() {
             ctaLabel="Try the AI tutor"
             rating="4.9/5.0"
             ratedBy="6,650 students"
+            avatarSeed={2}
             visual={<TutorVisual />}
           />
           <FeatureHighlight
@@ -220,30 +221,12 @@ export default function HomePage() {
             ]}
             ctaHref="/signup"
             ctaLabel="Solve a doubt"
-            rating="4.9/5.0"
-            ratedBy="6,650 students"
+            rating="4.8/5.0"
+            ratedBy="4,120 students"
+            avatarSeed={9}
             visual={<DoubtVisual />}
           />
         </div>
-      </SectionWrap>
-
-      <SectionWrap>
-        {/* 4. Interactive product demo + project overview (full-width band) */}
-        <section className=" border-y border-line bg-linear-to-b from-brand-50/50 via-surface to-secondary-50/30 py-16 sm:py-20">
-          <div className="mx-auto px-4 sm:px-6 lg:px-10">
-            <SectionHeading
-              center
-              pill
-              eyebrow="See it in action"
-              title="A full demo,"
-              accent="every tool in one place"
-              subtitle="Watch the complete walkthrough — the AI Tutor, Doubt Solver, Mock Exams and Progress, all in one place."
-            />
-            <div className="mt-12">
-              <ProductDemo />
-            </div>
-          </div>
-        </section>
       </SectionWrap>
 
       {/* 5. Programs grid (course-style) */}

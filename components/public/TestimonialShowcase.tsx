@@ -1,27 +1,57 @@
+"use client";
+
+import { useRef, useState } from "react";
 import { Star, Quote, Play } from "lucide-react";
 import { TESTIMONIALS } from "@/lib/constants/site";
 import { ScrollReveal } from "./Reveal";
 
 type Testimonial = (typeof TESTIMONIALS)[number];
 
+/** Reorder by a fixed index list — keeps SSR/CSR output identical (no hydration mismatch). */
+function reorder(order: number[]) {
+  return order.map((i) => TESTIMONIALS[i % TESTIMONIALS.length]);
+}
+
+type Item = { t: Testimonial; kind: "video" | "review" };
+
+/** Build a mixed row: alternate video and review cards from a fixed ordering. */
+function mixedRow(order: number[], startWithVideo: boolean): Item[] {
+  return reorder(order).map((t, i) => ({
+    t,
+    kind: (i % 2 === 0) === startWithVideo ? "video" : "review",
+  }));
+}
+
+// Two rows, each a blend of video + review cards, in different orders so they never line up.
+const ROW_A = mixedRow([2, 4, 0, 5, 1, 3], true);
+const ROW_B = mixedRow([1, 3, 5, 0, 4, 2], false);
+
 export function TestimonialShowcase() {
   return (
     <div className="space-y-6">
-      {/* Video testimonials — marquee scrolling left → right */}
+      {/* Row 1 — mixed video + review, scrolling left → right */}
       <ScrollReveal>
         <Marquee reverse>
-          {TESTIMONIALS.map((t) => (
-            <VideoCard key={t.name} t={t} />
-          ))}
+          {ROW_A.map((it) =>
+            it.kind === "video" ? (
+              <VideoCard key={it.t.name} t={it.t} />
+            ) : (
+              <ReviewCard key={it.t.name} t={it.t} />
+            ),
+          )}
         </Marquee>
       </ScrollReveal>
 
-      {/* Written reviews — marquee scrolling right → left */}
+      {/* Row 2 — mixed video + review, scrolling right → left */}
       <ScrollReveal>
         <Marquee>
-          {TESTIMONIALS.map((t) => (
-            <ReviewCard key={t.name} t={t} />
-          ))}
+          {ROW_B.map((it) =>
+            it.kind === "video" ? (
+              <VideoCard key={it.t.name} t={it.t} />
+            ) : (
+              <ReviewCard key={it.t.name} t={it.t} />
+            ),
+          )}
         </Marquee>
       </ScrollReveal>
     </div>
@@ -58,22 +88,45 @@ function Marquee({
 }
 
 function VideoCard({ t }: { t: Testimonial }) {
+  const [playing, setPlaying] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const play = () => {
+    setPlaying(true);
+    videoRef.current?.play();
+  };
+
   return (
     <article className="w-72 shrink-0 overflow-hidden rounded-3xl border border-line bg-surface shadow-card sm:w-80">
-      {/* Thumbnail (gradient placeholder — no video assets in repo) */}
+      {/* Video */}
       <div
-        className="relative flex h-52 items-center justify-center"
+        className="relative flex h-52 items-center justify-center overflow-hidden"
         style={{
           background: `linear-gradient(150deg, ${t.avatarColor} 0%, #0f1020 120%)`,
         }}
       >
-        <button
-          type="button"
-          aria-label={`Play ${t.name}'s testimonial`}
-          className="flex h-14 w-14 items-center justify-center rounded-full bg-white/90 text-ink shadow-pop backdrop-blur transition-transform hover:scale-105"
-        >
-          <Play className="ml-0.5 h-6 w-6 fill-current" />
-        </button>
+        {t.video && (
+          <video
+            ref={videoRef}
+            /* #t=0.1 makes the browser paint the first frame as a poster */
+            src={`${t.video}#t=0.1`}
+            className="absolute inset-0 h-full w-full object-cover"
+            controls={playing}
+            playsInline
+            preload="metadata"
+            onEnded={() => setPlaying(false)}
+          />
+        )}
+        {!playing && (
+          <button
+            type="button"
+            onClick={play}
+            aria-label={`Play ${t.name}'s testimonial`}
+            className="relative z-10 flex h-20 w-20 items-center justify-center rounded-full bg-white/25 text-white ring-1 ring-white/40 backdrop-blur-md transition-transform hover:scale-105"
+          >
+            <Play className="ml-1 h-8 w-8 fill-current" strokeWidth={0} />
+          </button>
+        )}
       </div>
 
       {/* Footer */}

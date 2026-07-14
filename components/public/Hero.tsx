@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Star, ArrowUpRight } from "lucide-react";
-import { Fragment, type ReactNode } from "react";
+import { Fragment, useEffect, useRef, type ReactNode } from "react";
 import { useI18n } from "@/lib/i18n";
 import { cn } from "@/lib/utils/cn";
 import { HeroShowcase } from "./HeroShowcase";
@@ -57,6 +57,17 @@ function highlight(
 
 export function Hero() {
   const { t, lang } = useI18n();
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Guarantee autoplay: React doesn't always reflect `muted` to the DOM, so
+  // browsers may block playback. Force muted + play() once mounted.
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = true;
+    const play = video.play();
+    if (play) play.catch(() => {});
+  }, []);
 
   return (
     <section className="relative -mt-[88px] overflow-hidden pt-[88px]">
@@ -120,6 +131,43 @@ export function Hero() {
               <ArrowUpRight className="h-5 w-5" />
             </span>
           </Link>
+        </div>
+
+        {/* Full product walkthrough — framed in a browser window */}
+        <div className="relative mx-auto mt-16 w-full  lg:mt-20">
+          {/* soft brand glow behind the window */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -inset-6 -z-10 rounded-[2.5rem] bg-brand-200/30 opacity-70 blur-3xl"
+          />
+          <div className="overflow-hidden rounded-xl border border-line bg-surface ">
+            {/* window chrome */}
+            <div className="flex items-center gap-2 border-b border-line bg-canvas/60 px-4 py-3">
+              <span className="h-3 w-3 rounded-full bg-coral-400" />
+              <span className="h-3 w-3 rounded-full bg-accent-400" />
+              <span className="h-3 w-3 rounded-full bg-secondary-400" />
+              <div className="ml-3 flex-1">
+                <div className="mx-auto flex w-full max-w-xs items-center gap-2 rounded-full border border-line bg-surface px-3 py-1.5 text-xs text-muted">
+                  <span className="h-2 w-2 rounded-full bg-brand-500" />
+                  aitutor.app/overview
+                </div>
+              </div>
+            </div>
+
+            {/* the walkthrough video (autoplays, loops, muted) */}
+            <video
+              ref={videoRef}
+              className="block h-auto w-full bg-canvas"
+              src="/demo-overview.mp4"
+              poster="/demo-overview-poster.jpg"
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="auto"
+              aria-label="Full AI Tutor product walkthrough"
+            />
+          </div>
         </div>
 
         {/* Bento showcase */}
