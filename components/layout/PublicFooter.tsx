@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { SVGProps } from "react";
-import { Mail, Phone, ArrowUpRight } from "lucide-react";
+import { Mail, ArrowUpRight } from "lucide-react";
 import { Logo } from "./Logo";
 import { SITE } from "@/lib/constants/site";
 
@@ -102,15 +102,6 @@ export function PublicFooter() {
                 <Mail className="h-4 w-4" />
               </span>
               {SITE.email}
-            </a>
-            <a
-              href={`tel:${SITE.phone.replace(/\s/g, "")}`}
-              className="group inline-flex items-center gap-2.5 text-sm text-muted transition-colors hover:text-brand-600"
-            >
-              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-50 text-brand-600 transition-colors group-hover:bg-brand-100">
-                <Phone className="h-4 w-4" />
-              </span>
-              {SITE.phone}
             </a>
           </div>
 
