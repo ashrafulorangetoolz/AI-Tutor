@@ -122,7 +122,7 @@ function VideoCard({ t }: { t: Testimonial }) {
             type="button"
             onClick={play}
             aria-label={`Play ${t.name}'s testimonial`}
-            className="relative z-10 flex h-20 w-20 items-center justify-center rounded-full bg-white/25 text-white ring-1 ring-white/40 backdrop-blur-md transition-transform hover:scale-105"
+            className="relative z-10 flex h-15 w-15 items-center justify-center rounded-full bg-white/25 text-white ring-1 ring-white/40 backdrop-blur-md transition-transform hover:scale-105"
           >
             <Play className="ml-1 h-8 w-8 fill-current" strokeWidth={0} />
           </button>
