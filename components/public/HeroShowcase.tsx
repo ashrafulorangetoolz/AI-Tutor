@@ -43,7 +43,9 @@ export function HeroShowcase() {
           <Languages className="h-5 w-5" strokeWidth={1.75} />
         </span>
         <div>
-          <p className="font-display text-xl font-semibold text-ink">EN · বাংলা</p>
+          <p className="font-display text-xl font-semibold text-ink">
+            EN · বাংলা
+          </p>
           <p className="mt-0.5 text-sm text-ink/60">Learn in both languages</p>
         </div>
       </div>
@@ -54,7 +56,9 @@ export function HeroShowcase() {
           <Camera className="h-5 w-5" strokeWidth={1.75} />
         </span>
         <div>
-          <p className="font-display text-xl font-semibold text-ink">Snap a doubt</p>
+          <p className="font-display text-xl font-semibold text-ink">
+            Snap a doubt
+          </p>
           <p className="mt-0.5 text-sm text-ink/60">Photo doubt-solving</p>
         </div>
       </div>
@@ -77,8 +81,12 @@ export function HeroShowcase() {
         </div>
         <div className="mt-6 flex items-end justify-between gap-4">
           <div>
-            <p className="font-display text-4xl font-semibold leading-none text-ink">12,000+</p>
-            <p className="mt-1.5 text-sm text-ink/60">Students learning already</p>
+            <p className="font-display text-4xl font-semibold leading-none text-ink">
+              12,000+
+            </p>
+            <p className="mt-1.5 text-sm text-ink/60">
+              Students learning already
+            </p>
           </div>
           <Link
             href="/signup"
@@ -91,8 +99,24 @@ export function HeroShowcase() {
       </div>
 
       {/* Interface mock (center, tall) */}
-      <div className="col-span-2 flex flex-col rounded-3xl border border-line bg-surface p-5 shadow-pop lg:col-span-1 lg:col-start-3 lg:row-span-2 lg:row-start-1">
-        <div className="grid grid-cols-4 gap-1.5 rounded-2xl bg-canvas p-2">
+      <div className="relative col-span-2 flex flex-col overflow-hidden rounded-3xl border border-line bg-surface p-5 shadow-pop lg:col-span-1 lg:col-start-3 lg:row-span-2 lg:row-start-1">
+        {/* Looping video background */}
+        <video
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          aria-hidden
+        >
+          <source src="/videos/4.mp4" type="video/mp4" />
+        </video>
+
+        {/* Readability overlay */}
+        <div className="pointer-events-none absolute inset-0 bg-surface/80" />
+
+        <div className="relative grid grid-cols-4 gap-1.5 rounded-2xl bg-canvas p-2">
           {TOOLS.map(({ icon: Icon, label, active }) => (
             <div
               key={label}
@@ -102,7 +126,10 @@ export function HeroShowcase() {
               )}
             >
               <Icon
-                className={cn("h-5 w-5", active ? "text-brand-500" : "text-ink/60")}
+                className={cn(
+                  "h-5 w-5",
+                  active ? "text-brand-500" : "text-ink/60",
+                )}
                 strokeWidth={1.75}
               />
               <span
@@ -117,7 +144,7 @@ export function HeroShowcase() {
           ))}
         </div>
 
-        <div className="mt-5 flex flex-1 flex-col justify-center">
+        <div className="relative mt-5 flex flex-1 flex-col justify-center">
           <h3 className="font-display text-2xl font-semibold leading-tight text-ink">
             Ask. Understand. Ace it.
           </h3>
@@ -126,7 +153,7 @@ export function HeroShowcase() {
           </p>
         </div>
 
-        <div className="mt-5 flex items-center justify-between">
+        <div className="relative mt-5 flex items-center justify-between">
           <div className="flex items-center gap-1.5">
             {[0, 1, 2, 3].map((i) => (
               <span
@@ -169,10 +196,14 @@ export function HeroShowcase() {
           ))}
           <circle cx="50" cy="50" r="12" className="fill-secondary-100" />
         </svg>
-        <p className="relative font-display text-4xl font-semibold leading-none text-ink">50+</p>
+        <p className="relative font-display text-4xl font-semibold leading-none text-ink">
+          50+
+        </p>
         <div className="relative">
           <p className="text-sm text-ink/60">Subjects &amp; topics</p>
-          <p className="mt-1 font-display text-lg font-semibold text-ink">SSC &amp; IELTS ready</p>
+          <p className="mt-1 font-display text-lg font-semibold text-ink">
+            SSC &amp; IELTS ready
+          </p>
         </div>
       </div>
 
@@ -182,7 +213,9 @@ export function HeroShowcase() {
           <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-ink/10 text-ink">
             <GraduationCap className="h-5 w-5" strokeWidth={1.75} />
           </span>
-          <p className="font-display text-lg font-semibold text-ink">Learn step by step</p>
+          <p className="font-display text-lg font-semibold text-ink">
+            Learn step by step
+          </p>
         </div>
         <div className="mt-4 flex flex-wrap gap-2">
           {PILLS.map((pill) => (
