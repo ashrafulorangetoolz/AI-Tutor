@@ -92,19 +92,6 @@ export function PublicFooter() {
             {SITE.tagline}
           </p>
 
-          {/* Contact */}
-          <div className="mt-6 space-y-2.5">
-            <a
-              href={`mailto:${SITE.email}`}
-              className="group inline-flex items-center gap-2.5 text-sm text-muted transition-colors hover:text-brand-600"
-            >
-              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-50 text-brand-600 transition-colors group-hover:bg-brand-100">
-                <Mail className="h-4 w-4" />
-              </span>
-              {SITE.email}
-            </a>
-          </div>
-
           {/* Socials */}
           <div className="mt-6 flex gap-2.5">
             {SOCIALS.map((s) => (
