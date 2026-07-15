@@ -20,6 +20,7 @@ import {
   TestimonialSection,
   CTASection,
   SectionWrap,
+  SectionBand,
 } from "@/components/public/sections";
 import { PricingPlans } from "@/components/public/PricingPlans";
 import { ProductDemo } from "@/components/public/ProductDemo";
@@ -230,7 +231,7 @@ export default function HomePage() {
       </SectionWrap>
 
       {/* 5. Programs grid (course-style) */}
-      <SectionWrap>
+      <SectionBand>
         <SectionHeading
           center
           pill
@@ -244,7 +245,7 @@ export default function HomePage() {
             <ProgramCard key={p.title} {...p} />
           ))}
         </div>
-      </SectionWrap>
+      </SectionBand>
 
       {/* 5. Benefits — sticky-stacking feature cards */}
       <SectionWrap>
@@ -261,7 +262,7 @@ export default function HomePage() {
       </SectionWrap>
 
       {/* 6. For families & schools (replaces instructors row) */}
-      <SectionWrap>
+      <SectionBand>
         <SectionHeading
           center
           pill
@@ -318,10 +319,10 @@ export default function HomePage() {
             ]}
           />
         </div>
-      </SectionWrap>
+      </SectionBand>
 
       {/* 7. Mid-page CTA band */}
-      <SectionWrap className="!py-8">
+      <SectionWrap>
         <CTASection
           title="Start free — no card required"
           subtitle="Join thousands of Bangladeshi students preparing smarter for SSC and IELTS."

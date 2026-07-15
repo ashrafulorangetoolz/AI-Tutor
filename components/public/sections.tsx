@@ -1,6 +1,14 @@
 ﻿import Link from "next/link";
 import type { ReactNode } from "react";
-import { Check, ArrowRight, Star, Clock, BookOpen, BarChart3, FolderClosed } from "lucide-react";
+import {
+  Check,
+  ArrowRight,
+  Star,
+  Clock,
+  BookOpen,
+  BarChart3,
+  FolderClosed,
+} from "lucide-react";
 import Image from "next/image";
 import { Card, CardBody, Badge } from "@/components/ui/primitives";
 import { TestimonialShowcase } from "./TestimonialShowcase";
@@ -17,11 +25,18 @@ export function FeatureGrid({
   features: { icon: string; title: string; description: string }[];
   columns?: 2 | 3 | 4;
 }) {
-  const cols = { 2: "sm:grid-cols-2", 3: "sm:grid-cols-2 lg:grid-cols-3", 4: "sm:grid-cols-2 lg:grid-cols-4" }[columns];
+  const cols = {
+    2: "sm:grid-cols-2",
+    3: "sm:grid-cols-2 lg:grid-cols-3",
+    4: "sm:grid-cols-2 lg:grid-cols-4",
+  }[columns];
   return (
     <div className={cn("grid gap-5", cols)}>
       {features.map((f) => (
-        <Card key={f.title} className="transition-all hover:-translate-y-0.5 hover:shadow-card">
+        <Card
+          key={f.title}
+          className="transition-all hover:-translate-y-0.5 hover:shadow-card"
+        >
           <CardBody>
             <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-100 text-2xl">
               {f.icon}
@@ -76,7 +91,9 @@ export function TrackCard({
         ) : (
           <div className="text-4xl">{emoji}</div>
         )}
-        <h3 className={cn("text-2xl font-bold text-ink", !visual && "mt-3")}>{title}</h3>
+        <h3 className={cn("text-2xl font-bold text-ink", !visual && "mt-3")}>
+          {title}
+        </h3>
         <p className="mt-1 text-sm text-muted">{subtitle}</p>
       </div>
       <CardBody>
@@ -99,7 +116,12 @@ export function TrackCard({
 // ---- PricingCard ----
 export function PricingCard({ plan }: { plan: PlanDef }) {
   return (
-    <Card className={cn("relative flex h-full flex-col", plan.featured && "ring-2 ring-brand-500")}>
+    <Card
+      className={cn(
+        "relative flex h-full flex-col",
+        plan.featured && "ring-2 ring-brand-500",
+      )}
+    >
       {plan.featured && (
         <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-brand-500 px-3 py-1 text-xs font-semibold text-white">
           Most popular
@@ -118,7 +140,9 @@ export function PricingCard({ plan }: { plan: PlanDef }) {
             <span className="text-3xl font-extrabold text-ink">Free</span>
           ) : (
             <>
-              <span className="text-3xl font-extrabold text-ink">৳{plan.price}</span>
+              <span className="text-3xl font-extrabold text-ink">
+                ৳{plan.price}
+              </span>
               <span className="text-sm text-muted">/{plan.period}</span>
             </>
           )}
@@ -134,9 +158,16 @@ export function PricingCard({ plan }: { plan: PlanDef }) {
         <div className="mt-6 flex-1" />
         <Link
           href={plan.b2b ? "/contact" : "/signup"}
-          className={cn("w-full", plan.featured ? "btn-primary" : "btn-secondary")}
+          className={cn(
+            "w-full",
+            plan.featured ? "btn-primary" : "btn-secondary",
+          )}
         >
-          {plan.b2b ? "Contact sales" : plan.price === 0 ? "Start free" : "Choose plan"}
+          {plan.b2b
+            ? "Contact sales"
+            : plan.price === 0
+              ? "Start free"
+              : "Choose plan"}
         </Link>
       </CardBody>
     </Card>
@@ -173,14 +204,38 @@ export function CTASection({
   // Student avatars scattered around the edges (desktop only). Positions are
   // hand-placed to frame the centered content without overlapping it.
   const AVATARS = [
-    { src: "/images/avatar/Avatar-1.jpg", cls: "left-[4%] top-[12%] h-16 w-16 -rotate-6" },
-    { src: "/images/avatar/Avatar-2.jpg", cls: "left-[16%] top-[30%] h-14 w-14 rotate-3" },
-    { src: "/images/avatar/Avatar-3.jpg", cls: "left-[3%] top-[54%] h-20 w-20 rotate-6" },
-    { src: "/images/avatar/Avatar-4.jpg", cls: "left-[17%] bottom-[12%] h-14 w-14 -rotate-3" },
-    { src: "/images/avatar/Avatar-5.jpg", cls: "right-[4%] top-[14%] h-16 w-16 rotate-6" },
-    { src: "/images/avatar/Avatar-6.jpg", cls: "right-[16%] top-[32%] h-14 w-14 -rotate-3" },
-    { src: "/images/avatar/Avatar-7.jpg", cls: "right-[3%] top-[52%] h-20 w-20 -rotate-6" },
-    { src: "/images/avatar/Avatar-8.jpg", cls: "right-[17%] bottom-[13%] h-14 w-14 rotate-3" },
+    {
+      src: "/images/avatar/Avatar-1.jpg",
+      cls: "left-[4%] top-[12%] h-16 w-16 -rotate-6",
+    },
+    {
+      src: "/images/avatar/Avatar-2.jpg",
+      cls: "left-[16%] top-[30%] h-14 w-14 rotate-3",
+    },
+    {
+      src: "/images/avatar/Avatar-3.jpg",
+      cls: "left-[3%] top-[54%] h-20 w-20 rotate-6",
+    },
+    {
+      src: "/images/avatar/Avatar-4.jpg",
+      cls: "left-[17%] bottom-[12%] h-14 w-14 -rotate-3",
+    },
+    {
+      src: "/images/avatar/Avatar-5.jpg",
+      cls: "right-[4%] top-[14%] h-16 w-16 rotate-6",
+    },
+    {
+      src: "/images/avatar/Avatar-6.jpg",
+      cls: "right-[16%] top-[32%] h-14 w-14 -rotate-3",
+    },
+    {
+      src: "/images/avatar/Avatar-7.jpg",
+      cls: "right-[3%] top-[52%] h-20 w-20 -rotate-6",
+    },
+    {
+      src: "/images/avatar/Avatar-8.jpg",
+      cls: "right-[17%] bottom-[13%] h-14 w-14 rotate-3",
+    },
   ];
   return (
     <ScrollReveal>
@@ -217,7 +272,10 @@ export function CTASection({
 
         {/* scattered student avatars framing the content (desktop only) */}
         {avatars && (
-          <div aria-hidden className="pointer-events-none absolute inset-0 hidden lg:block">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 hidden lg:block"
+          >
             {AVATARS.map((a, i) => (
               <div
                 key={a.src}
@@ -640,27 +698,38 @@ export function ProgramCard({
             </span>
           </div>
           <span className="inline-flex items-center gap-1 text-sm font-semibold text-ink">
-            {rating} <Star className="h-3.5 w-3.5 fill-current text-warning" strokeWidth={0} />
+            {rating}{" "}
+            <Star
+              className="h-3.5 w-3.5 fill-current text-warning"
+              strokeWidth={0}
+            />
           </span>
         </div>
 
         {/* title + description */}
         <h3 className="mt-4 text-xl font-bold text-ink sm:text-2xl">{title}</h3>
-        <p className="mt-2 line-clamp-2 text-sm text-muted sm:text-base">{description}</p>
+        <p className="mt-2 line-clamp-2 text-sm text-muted sm:text-base">
+          {description}
+        </p>
 
         <div className="mt-4 flex-1" />
 
         {/* footer: price + CTA */}
         <div className="mt-4 flex items-center justify-between gap-3 border-t border-line pt-4">
           <div className="leading-tight">
-            <span className="text-xl font-extrabold text-ink">{priceLabel}</span>
+            <span className="text-xl font-extrabold text-ink">
+              {priceLabel}
+            </span>
           </div>
           <Link
             href={href}
             className="group/cta inline-flex items-center gap-2 rounded-full bg-brand-500 px-5 py-2.5 text-sm font-semibold text-white shadow-brand transition-all hover:-translate-y-0.5 hover:bg-brand-600"
           >
             {ctaLabel}
-            <ArrowRight className="h-4 w-4 transition-transform group-hover/cta:translate-x-1" strokeWidth={2.25} />
+            <ArrowRight
+              className="h-4 w-4 transition-transform group-hover/cta:translate-x-1"
+              strokeWidth={2.25}
+            />
           </Link>
         </div>
       </div>
