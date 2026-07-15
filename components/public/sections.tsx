@@ -158,6 +158,7 @@ export function CTASection({
   secondaryLabel,
   badge = "Free to start",
   trust = ["No credit card", "Cancel anytime", "4.9★ average rating"],
+  avatars = true,
 }: {
   title: string;
   subtitle: string;
@@ -167,55 +168,110 @@ export function CTASection({
   secondaryLabel?: string;
   badge?: string;
   trust?: string[];
+  avatars?: boolean;
 }) {
+  // Student avatars scattered around the edges (desktop only). Positions are
+  // hand-placed to frame the centered content without overlapping it.
+  const AVATARS = [
+    { src: "/images/avatar/Avatar-1.jpg", cls: "left-[4%] top-[12%] h-16 w-16 -rotate-6" },
+    { src: "/images/avatar/Avatar-2.jpg", cls: "left-[16%] top-[30%] h-14 w-14 rotate-3" },
+    { src: "/images/avatar/Avatar-3.jpg", cls: "left-[3%] top-[54%] h-20 w-20 rotate-6" },
+    { src: "/images/avatar/Avatar-4.jpg", cls: "left-[17%] bottom-[12%] h-14 w-14 -rotate-3" },
+    { src: "/images/avatar/Avatar-5.jpg", cls: "right-[4%] top-[14%] h-16 w-16 rotate-6" },
+    { src: "/images/avatar/Avatar-6.jpg", cls: "right-[16%] top-[32%] h-14 w-14 -rotate-3" },
+    { src: "/images/avatar/Avatar-7.jpg", cls: "right-[3%] top-[52%] h-20 w-20 -rotate-6" },
+    { src: "/images/avatar/Avatar-8.jpg", cls: "right-[17%] bottom-[13%] h-14 w-14 rotate-3" },
+  ];
   return (
     <ScrollReveal>
-      <div className="relative isolate overflow-hidden rounded-[2rem] bg-gradient-to-br from-brand-600 via-brand-500 to-brand-700 px-6 py-14 text-center shadow-brand sm:px-12 sm:py-16">
-        {/* soft glow orbs */}
+      <div className="group/cta relative isolate overflow-hidden rounded-[2.25rem] bg-brand-700 px-6 py-16 text-center shadow-brand ring-1 ring-white/10 sm:px-12 sm:py-20">
+        {/* animated aurora mesh */}
         <div
           aria-hidden
-          className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-brand-400/40 blur-3xl"
+          className="pointer-events-none absolute inset-0 -z-10 bg-[conic-gradient(from_180deg_at_50%_50%,#5b26c4_0deg,#7034ea_90deg,#aa3fff_180deg,#7034ea_270deg,#5b26c4_360deg)] opacity-80 [background-size:200%_200%] animate-gradient-shift"
+        />
+        {/* floating glow orbs */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-brand-400/50 blur-3xl animate-float"
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute -bottom-32 -right-16 h-80 w-80 rounded-full bg-fuchsia-500/30 blur-3xl"
+          className="pointer-events-none absolute -bottom-32 -right-16 h-80 w-80 rounded-full bg-fuchsia-500/40 blur-3xl animate-float [animation-delay:-3s]"
         />
         {/* dotted grid overlay */}
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 opacity-[0.15] [background-image:radial-gradient(circle,white_1px,transparent_1px)] [background-size:22px_22px] [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]"
         />
+        {/* spotlight that follows nothing — subtle radial highlight */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_50%_at_50%_0%,rgba(255,255,255,0.25),transparent_70%)]"
+        />
         {/* top sheen */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/60 to-transparent"
+          className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/70 to-transparent"
         />
 
+        {/* scattered student avatars framing the content (desktop only) */}
+        {avatars && (
+          <div aria-hidden className="pointer-events-none absolute inset-0 hidden lg:block">
+            {AVATARS.map((a, i) => (
+              <div
+                key={a.src}
+                style={{ animationDelay: `${-i * 0.7}s` }}
+                className={cn(
+                  "absolute overflow-hidden rounded-lg bg-white shadow-xl shadow-brand-900/30 ring-1 ring-white/40 animate-float",
+                  a.cls,
+                )}
+              >
+                <Image
+                  src={a.src}
+                  alt=""
+                  width={80}
+                  height={80}
+                  className="h-full w-full object-cover"
+                />
+              </div>
+            ))}
+          </div>
+        )}
+
         <div className="relative">
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-white/25 bg-white/10 px-3.5 py-1.5 text-xs font-semibold text-white backdrop-blur">
-            <Star className="h-3.5 w-3.5 fill-current" strokeWidth={0} />
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-white/25 bg-white/10 px-3.5 py-1.5 text-xs font-semibold text-white shadow-sm backdrop-blur-md">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-white" />
+            </span>
             {badge}
           </span>
 
-          <h2 className="mx-auto mt-5 max-w-2xl text-balance text-3xl font-bold tracking-tight text-white sm:text-[2.6rem] sm:leading-[1.1]">
+          <h2 className="mx-auto mt-6 max-w-2xl text-balance text-4xl font-bold tracking-tight text-white sm:text-[3rem] sm:leading-[1.05]">
             {title}
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-pretty text-base text-brand-100/90 sm:text-lg">
             {subtitle}
           </p>
 
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
+          <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
             <Link
               href={primaryHref}
-              className="group btn bg-white text-brand-600 shadow-lg shadow-brand-900/25 transition-all hover:-translate-y-0.5 hover:bg-brand-50 hover:shadow-xl"
+              className="group/btn relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-brand-700 shadow-lg shadow-brand-900/30 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-brand-900/40"
             >
-              {primaryLabel}
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              {/* sheen sweep on hover */}
+              <span
+                aria-hidden
+                className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-brand-100/70 to-transparent transition-transform duration-700 group-hover/btn:translate-x-full"
+              />
+              <span className="relative">{primaryLabel}</span>
+              <ArrowRight className="relative h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
             </Link>
             {secondaryHref && (
               <Link
                 href={secondaryHref}
-                className="btn border border-white/30 bg-white/5 text-white backdrop-blur transition-all hover:-translate-y-0.5 hover:border-white/60 hover:bg-white/15"
+                className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/5 px-7 py-3.5 text-sm font-semibold text-white backdrop-blur-md transition-all hover:-translate-y-0.5 hover:border-white/60 hover:bg-white/15"
               >
                 {secondaryLabel}
               </Link>
